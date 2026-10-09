@@ -110,12 +110,9 @@
 }
 
 @theme inline {
-  /* Polices injectées par next/font (layout.tsx).
-     TODO ticket : remplacer Fraunces par Inter et JetBrains par IBM Plex Mono.
-     En attendant, --font-display retombe sur la pile sans empattement pour
-     retirer le serif du registre abandonné. */
   --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-ibm-mono), ui-monospace, monospace;
 }
 
 :root {
@@ -238,8 +235,6 @@
 body {
   background: var(--color-parchment);
   color: var(--color-ink);
-  /* --font-display lives in `@theme inline` → not emitted as a variable; target the next/font source */
-  font-family: var(--font-fraunces), Georgia, "Times New Roman", serif;
   font-size: var(--text-body);
   line-height: var(--leading-body);
   font-optical-sizing: auto;
@@ -379,7 +374,7 @@ body {
   gap: 0.5rem;
   border: 1px solid transparent;
   padding: 0.625rem 1.25rem;
-  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
@@ -456,7 +451,7 @@ btn-quiet:hover {
 
 /* — Labels (§4.5: mono, uppercase, wide tracking) — */
 .tag {
-  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--text-xs);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
@@ -897,7 +892,6 @@ btn-quiet:hover {
   text-decoration-color: var(--color-accent-deep);
 }
 
-/* ── Quote — charte §9.5: sunken well, 2px accent rule, Fraunces italic ─── */
 :where(.prose) blockquote {
   margin: 0;
   background: var(--color-parchment-sunken);

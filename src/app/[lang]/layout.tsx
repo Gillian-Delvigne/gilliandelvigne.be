@@ -2,7 +2,7 @@ import type { Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { lang } from "next/root-params";
 import { LOCALES } from "@/content";
-import { Fraunces, JetBrains_Mono } from "next/font/google";
+import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
 import MapBackground from "@/components/layout/MapBackground";
 import CompassNav from "@/components/layout/CompassNav";
@@ -13,16 +13,17 @@ import { SvgDefs } from "@/components/layout/SvgDefs";
 
 export const viewport: Viewport = { viewportFit: "cover" };
 
-const fraunces = Fraunces({
-    variable: "--font-fraunces",
+const inter = Inter({
+    variable: "--font-inter",
     subsets: ["latin"],
     style: ["normal", "italic"],
     display: "swap",
-    axes: ["SOFT", "WONK", "opsz"],
+    axes: ["opsz"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
-    variable: "--font-jetbrains-mono",
+const ibmPlexMono = IBM_Plex_Mono({
+    weight: [ "400", "500", "600"],
+    variable: "--font-ibm-mono",
     subsets: ["latin"],
 });
 
@@ -39,10 +40,10 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
     return (
         <html
             lang={language}
-            className={`${fraunces.variable} ${jetbrainsMono.variable} min-h-screen antialiased scrollbar-gutter-stable`}
+            className={`${inter.variable} ${ibmPlexMono.variable} min-h-screen antialiased scrollbar-gutter-stable`}
         >
             <body className="flex flex-col min-h-screen">
-				<SvgDefs/>
+                <SvgDefs />
                 <MapBackground />
                 <NextIntlClientProvider>
                     <CompassNav stations={stations} />
