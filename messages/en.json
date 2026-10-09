@@ -5,28 +5,23 @@
 	},
 	"Nav": {
 		"home": {
-			"name": "Home",
-			"tag": "Home",
+			"label": "Home",
 			"dek": "A learning engineer turned full-stack developer. Two crafts, one requirement: applications the people using them can understand."
 		},
 		"about": {
-			"name": "About",
-			"tag": "About",
+			"label": "About",
 			"dek": "Ten years in learning technology, then development. Both halves serve the same thing."
 		},
 		"portfolio": {
-			"name": "Projects",
-			"tag": "Projects",
+			"label": "Projects",
 			"dek": "Eleven projects, sorted by the nature of their difficulty rather than by technology."
 		},
 		"blog": {
-			"name": "Blog",
-			"tag": "Blog",
+			"label": "Blog",
 			"dek": "What I had to understand in order to move on, written cleanly enough to serve again."
 		},
 		"contact": {
-			"name": "Contact",
-			"tag": "Contact",
+			"label": "Contact",
 			"dek": "An offer, a question, or simply the wish to talk it over."
 		}
 	},

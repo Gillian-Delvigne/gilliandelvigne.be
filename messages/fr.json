@@ -5,28 +5,23 @@
 	},
 	"Nav": {
 		"home": {
-			"name": "Accueil",
-			"tag": "Accueil",
+			"label": "Accueil",
 			"dek": "Ingénieur pédagogique devenu développeur full-stack. Deux métiers, une exigence : des applications comprises par ceux qui s'en servent."
 		},
 		"about": {
-			"name": "À propos",
-			"tag": "À propos",
+			"label": "À propos",
 			"dek": "Dix ans de techno-pédagogie, puis le développement. Les deux moitiés servent la même chose."
 		},
 		"portfolio": {
-			"name": "Projets",
-			"tag": "Projets",
+			"label": "Projets",
 			"dek": "Onze projets, rangés par nature de difficulté plutôt que par technologie."
 		},
 		"blog": {
-			"name": "Blog",
-			"tag": "Blog",
+			"label": "Blog",
 			"dek": "Ce que j'ai dû comprendre pour avancer, écrit assez proprement pour resservir."
 		},
 		"contact": {
-			"name": "Contact",
-			"tag": "Contact",
+			"label": "Contact",
 			"dek": "Une proposition, une question, ou simplement l'envie d'en discuter."
 		}
 	},

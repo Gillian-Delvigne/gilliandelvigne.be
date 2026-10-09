@@ -138,16 +138,12 @@ export function CompassSheet({ stations, dialogRef }: CompassSheetProps) {
                                                         : "text-ink"
                                                 }`}
                                             >
-                                                {station.eyebrow.name}
+                                                {station.eyebrow.label}
                                             </span>
                                             <span
                                                 aria-hidden="true"
                                                 className="bg-gilt absolute inset-x-0 bottom-1 h-px origin-center scale-x-0 transition-transform duration-(--dur-micro) ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
                                             />
-                                        </span>
-
-                                        <span className="text-ink-muted text-3xs tracking-label uppercase">
-                                            {station.eyebrow.tag}
                                         </span>
                                     </Link>
                                 </li>

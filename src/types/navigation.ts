@@ -19,7 +19,7 @@ export interface NavEntry {
 
 export interface Station {
     href: StaticPathname;
-    eyebrow: { numeral: Numeral; name: string; tag?: string };
+    eyebrow: { numeral: Numeral; label: string };
     dek: string;
 }
 

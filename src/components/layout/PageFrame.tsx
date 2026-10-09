@@ -9,7 +9,7 @@ export default async function PageFrame({
     dek,
     breadcrumb,
 }: PageFrameProps) {
-    const heading = eyebrow ? (title ?? eyebrow.name) : title;
+    const heading = eyebrow ? (title ?? eyebrow.label) : title;
 
     return (
         <div>

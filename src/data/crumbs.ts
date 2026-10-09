@@ -8,8 +8,8 @@ export default async function getCrumbs(
     const home = await getStation("home");
     const sec = await getStation(section);
     return [
-        { label: home.eyebrow.name, href: home.href },
-        { label: sec.eyebrow.name, href: sec.href },
+        { label: home.eyebrow.label, href: home.href },
+        { label: sec.eyebrow.label, href: sec.href },
         ...tail,
     ];
 }

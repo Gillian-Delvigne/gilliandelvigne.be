@@ -7,8 +7,7 @@ type PageFrameBase = {
 
 export interface EyebrowProps {
     numeral: Numeral;
-    name: string;
-    tag?: string;
+    label: string;
 }
 
 type AsStation = PageFrameBase & {

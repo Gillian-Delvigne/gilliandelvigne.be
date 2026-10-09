@@ -51,9 +51,7 @@ export function CompassTab({ stations, dialogRef }: CompassTabProps) {
             >
                 {current.eyebrow.numeral}
             </span>
-            <span aria-hidden="true">{current.eyebrow.name}</span>
-            <span aria-hidden="true"> · </span>
-            <span>{current.eyebrow.tag}</span>
+            <span>{current.eyebrow.label}</span>
             <span className="absolute right-5 text-accent-deep">
                 <Compass />
             </span>

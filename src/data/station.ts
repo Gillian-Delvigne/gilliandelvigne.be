@@ -11,8 +11,7 @@ export async function getStation(key: NavKeys) {
         href: stationInfo.href,
         eyebrow: {
             numeral: stationInfo.numeral,
-            name: t(`${key}.name`),
-            tag: t(`${key}.tag`),
+            label: t(`${key}.label`),
         },
         dek: t(`${key}.dek`),
     };
