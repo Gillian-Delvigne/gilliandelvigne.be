@@ -28,19 +28,19 @@
 	"Breadcrumb": {
 		"name": "Fil d'Ariane"
 	},
-	"Compass": {
+	"Route": {
 		"aria": "Parcours du site",
 		"aria-mobile": "navigation mobile du site",
 		"readout": "Parcours",
 		"nav-btn": "Ouvrir la navigation",
 		"close": "Fermer",
-		"fold": "replier le parcours"
+		"collapse": "replier le parcours"
 	},
 	"Footer": {
 		"colophon": "Next 16 · code public",
 		"tagline": "Écrit avec",
 		"location": "Grez-Doiceau",
-		"missive": "Me contacter"
+		"contact": "Me contacter"
 	},
 	"Contact": {
 		"form": {

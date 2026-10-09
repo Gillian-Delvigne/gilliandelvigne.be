@@ -14,7 +14,7 @@ interface CompassTabProps {
 
 export function CompassTab({ stations, dialogRef }: CompassTabProps) {
     const pathname = usePathname();
-    const t = useTranslations("Compass");
+    const t = useTranslations("Route");
     const current = stations.find((station) =>
         isCurrentPage(pathname, station.href),
     );

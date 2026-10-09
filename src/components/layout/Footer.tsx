@@ -45,7 +45,7 @@ export default async function Footer() {
                         </li>
                         <li>
                             <Link className={LIEN} href="/contact">
-                                {t("missive")}
+                                {t("contact")}
                             </Link>
                         </li>
                     </ul>

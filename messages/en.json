@@ -28,19 +28,19 @@
 	"Breadcrumb": {
 		"name": "Breadcrumb"
 	},
-	"Compass": {
+	"Route": {
 		"aria": "Site route",
 		"aria-mobile": "website mobile navigation",
 		"readout": "Route",
 		"nav-btn": "Open navigation",
 		"close": "Close",
-		"fold": "collapse the route"
+		"collapse": "collapse the route"
 	},
 	"Footer": {
 		"colophon": "Next 16 · public code",
 		"tagline": "Built with",
 		"location": "Grez-Doiceau",
-		"missive": "Get in touch"
+		"contact": "Get in touch"
 	},
 	"Contact": {
 		"form": {

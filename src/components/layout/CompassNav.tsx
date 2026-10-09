@@ -14,7 +14,7 @@ interface CompassNavProps {
 
 export default function CompassNav({ stations }: CompassNavProps) {
     const pathname = usePathname();
-    const t = useTranslations("Compass");
+    const t = useTranslations("Route");
     const count = stations.length;
     const currentIndex = stations.findIndex((station) =>
         isCurrentPage(pathname, station.href),

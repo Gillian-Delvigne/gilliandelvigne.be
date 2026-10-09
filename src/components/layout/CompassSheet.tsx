@@ -17,7 +17,7 @@ interface CompassSheetProps {
 
 export function CompassSheet({ stations, dialogRef }: CompassSheetProps) {
     const pathname = usePathname();
-    const t = useTranslations("Compass");
+    const t = useTranslations("Route");
     const count = stations.length;
     const currentIndex = stations.findIndex((station) =>
         isCurrentPage(pathname, station.href),
@@ -160,7 +160,7 @@ export function CompassSheet({ stations, dialogRef }: CompassSheetProps) {
                                    cursor-pointer uppercase underline underline-offset-4
                                    transition-colors duration-(--dur-micro)"
                     >
-                        {t("fold")}
+                        {t("collapse")}
                     </button>
                 </div>
             </div>
