@@ -1,41 +1,40 @@
 @import "tailwindcss";
 
 /* ============================================================
-   RELIEF — design tokens
-   Fond sombre · échelle à rôles assignés · notation hexagonale
-   Source : specs/scratch/systeme-visuel-decisions.md (2026-10-08)
-   Toute valeur est mesurée ; la provenance est en commentaire.
+   RELIEF: design tokens
+   Dark background · role-assigned scale · hexagonal notation
+   Every value is measured; its provenance is noted in a comment.
    ============================================================ */
 
 @theme static {
-  /* ---- Surfaces (mesurées sur Waking Up, mode sombre) ---- */
-  --color-bg: #0c1527; /* fond de page */
-  --color-surface: #181e33; /* carte, panneau */
-  --color-raised: #242a3c; /* surface surélevée */
+  /* ---- Surfaces (measured on Waking Up, dark mode) ---- */
+  --color-bg: #0c1527; /* page background */
+  --color-surface: #181e33; /* card, panel */
+  --color-raised: #242a3c; /* raised surface */
 
-  /* ---- Texte (mesuré sur la page d'erreur de Next 16.3.4) ---- */
-  --color-ink: #ededed; /* texte principal */
-  --color-dim: #a0a0a0; /* texte secondaire */
+  /* ---- Text (measured on the Next 16.3.4 error page) ---- */
+  --color-ink: #ededed; /* primary text */
+  --color-dim: #a0a0a0; /* secondary text */
 
-  /* ---- Marque : une seule teinte, deux pas ---- */
-  --color-brand: #52a8ff; /* 210° · 7,29:1 AAA · texte, lien, tracé */
-  --color-brand-deep: #145cd0; /* 217° · 3,18:1 · surface pleine, état actif */
+  /* ---- Brand: a single hue, two steps ---- */
+  --color-brand: #52a8ff; /* 210° · 7.29:1 AAA · text, link, stroke */
+  --color-brand-deep: #145cd0; /* 217° · 3.18:1 · solid surface, active state */
 
-  /* ---- États : texte, remplissage vif, surface ---- */
+  /* ---- States: text, vivid fill, surface ---- */
   --color-ok: #50f0d8; /* 171° · 12,84:1 AAA */
   --color-warn: #fbbf24; /* 43°  · 10,92:1 AAA */
   --color-err: #ff7b72; /* 4°   · 7,23:1 AAA */
-  --color-mute: #a0a0a0; /* information, archivé, privé */
+  --color-mute: #a0a0a0; /* information, archived, private */
 
-  /* ---- Teinte chaude : UNIQUEMENT à l'intérieur d'une figure ---- */
-  --color-warm: #ff8a4c; /* 21° · complémentaire de la marque (171° d'écart) */
+  /* ---- Warm hue: ONLY inside a figure ---- */
+  --color-warm: #ff8a4c; /* 21° · complement of the brand hue (171° apart) */
 
   /* ============================================================
-     ALIAS TEMPORAIRES — anciens noms du Grand Tour.
-     Ils maintiennent le rendu pendant la migration des composants
-     (192 occurrences au 2026-10-09). À supprimer quand le dernier
-     composant aura migré ; tant qu'un alias subsiste, la migration
-     n'est pas finie.
+     TEMPORARY ALIASES: the previous theme's token names.
+     They keep components rendering while each one is migrated
+     (192 occurrences on 2026-10-09). Remove them once the last
+     component has migrated; as long as one alias remains, the
+     migration is not finished.
      ============================================================ */
   --color-parchment: #0c1527; /* → bg */
   --color-parchment-raised: #181e33; /* → surface */
@@ -43,16 +42,16 @@
   --color-ink-panel: #242a3c; /* → raised */
   --color-ink-secondary: #c2c7cf;
   --color-ink-muted: #a0a0a0; /* → dim */
-  --color-rule: #2a3147; /* → bordure, équivalent opaque de rgba(255,255,255,.14) */
+  --color-rule: #2a3147; /* → border, opaque equivalent of rgba(255,255,255,.14) */
   --color-accent: #52a8ff; /* → brand */
   --color-accent-deep: #145cd0; /* → brand-deep */
-  --color-accent-on-dark: #52a8ff; /* le fond est sombre partout désormais */
+  --color-accent-on-dark: #52a8ff; /* the background is dark everywhere now */
   --color-verdigris: #50f0d8; /* → ok */
   --color-verdigris-bright: #50f0d8;
-  --color-gilt: #ededed; /* la dorure devient l'encre : la signature passe en blanc pur */
+  --color-gilt: #ededed; /* gilt becomes ink: the signature turns pure white */
   --color-gilt-leaf: #2a3147;
 
-  /* — Échelle typographique — géométrique, ratio 1,25, base 16px — */
+  /* Type scale: geometric, ratio 1.25, base 16px */
   --text-3xs: 0.52rem;
   --text-2xs: 0.64rem;
   --text-xs: 0.8rem;
@@ -66,32 +65,32 @@
   --text-4xl: 3.0518rem;
   --text-5xl: clamp(3.25rem, 1.6rem + 6.4vw, 5.9604rem);
 
-  /* — Interlignes — */
+  /* Line heights */
   --leading-display: 1.04;
   --leading-title: 1.15;
   --leading-body: 1.6;
   --leading-ui: 1.45;
 
-  /* — Approche — */
+  /* Tracking */
   --tracking-display: -0.025em;
   --tracking-title: -0.018em;
   --tracking-body: 0;
   --tracking-label: 0.09em;
   --tracking-label-lg: 0.16em;
 
-  /* — Rayons — */
+  /* Radii */
   --radius-sm: 4px;
   --radius-card: 10px;
   --radius-seal: 9999px;
 
-  /* — Courbes — */
+  /* Easing curves */
   --ease-out: cubic-bezier(0.2, 0, 0, 1);
   --ease-map: cubic-bezier(
     0.645,
     0.045,
     0.355,
     1
-  ); /* le tracé, relevé sur nextjs.org */
+  ); /* the stroke draw, measured on nextjs.org */
   --ease-land: cubic-bezier(0.34, 1.4, 0.64, 1);
 
   --animate-floating: floating 2.5s ease-in-out infinite;
@@ -118,18 +117,18 @@
 :root {
   color-scheme: dark light;
 
-  /* Lus par var(…) seulement, sans utilitaire Tailwind attaché. */
+  /* Read through var(…) only, no Tailwind utility attached. */
   --measure-prose: 66ch;
   --width-content: 75rem;
   --width-canvas: 85rem;
   --gutter: 1.5rem;
 
-  /* ---- Bordures en alpha : elles se posent sur n'importe quelle surface ---- */
+  /* ---- Alpha borders: they sit on any surface ---- */
   --line: rgb(255 255 255 / 0.14);
   --line-soft: rgb(255 255 255 / 0.07);
   --sunk: rgb(255 255 255 / 0.04);
 
-  /* ---- Pas « surface » et « bordure » des états, dérivés du vif ---- */
+  /* ---- State surface and border steps, derived from the vivid fill ---- */
   --brand-surface: rgb(82 168 255 / 0.14);
   --brand-border: rgb(82 168 255 / 0.3);
   --ok-surface: rgb(80 240 216 / 0.13);
@@ -142,26 +141,26 @@
   --mute-border: rgb(255 255 255 / 0.14);
   --warm-surface: rgb(255 138 76 / 0.16);
 
-  /* ---- Profondeur ---- */
+  /* ---- Depth ---- */
   --glow: rgb(
     255 255 255 / 0.085
-  ); /* une seule par écran, derrière la marque */
-  --lit: inset 0 1px 0 rgb(255 255 255 / 0.06); /* l'arête du haut s'éclaire */
-  --shadow: none; /* une ombre ne se lit pas sur du noir */
+  ); /* one per screen, behind the brand mark */
+  --lit: inset 0 1px 0 rgb(255 255 255 / 0.06); /* the top edge catches the light */
+  --shadow: none; /* a drop shadow does not read on black */
 
   /* ---- Trame de l'hexagone ---- */
   --web: rgb(255 255 255 / 0.07);
   --web-out: rgb(255 255 255 / 0.16);
   --zero: rgb(255 255 255 / 0.22);
-  --line-abs: rgb(255 255 255 / 0.32); /* lignes abstraites des vignettes */
+  --line-abs: rgb(255 255 255 / 0.32); /* abstract lines in thumbnails */
   --line-abs-dim: rgb(255 255 255 / 0.2);
 
-  /* ---- Durées ---- */
+  /* ---- Durations ---- */
   --dur-micro: 200ms;
   --dur-fold: 420ms;
   --dur-route: 520ms;
   --dur-land: 360ms;
-  --dur-ink: 1100ms; /* le tracé de l'hexagone */
+  --dur-ink: 1100ms; /* the hexagon stroke draw */
   --dur-bloom: 900ms;
 
   --gloss: 0.2;
@@ -169,13 +168,13 @@
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
-    /* Mode clair : la carte est PLUS CLAIRE que la page, aucun blanc pur.
-       Valeurs mesurées sur Waking Up, mode clair. */
+    /* Light mode: the card is LIGHTER than the page, no pure white anywhere.
+       Values measured on Waking Up, light mode. */
     --color-bg: #f0f0f0;
     --color-surface: #f6f6f6;
     --color-raised: #fafafa;
-    --color-ink: #0e1726; /* 15,8:1 ; pas le noir pur, trop dur */
-    --color-dim: #5b6472; /* 5,3:1 ; leur #969ca2 tombe à 2,43:1 */
+    --color-ink: #0e1726; /* 15.8:1; not pure black, too harsh */
+    --color-dim: #5b6472; /* 5.3:1; their #969ca2 drops to 2.43:1 */
     --color-brand: #145cd0;
     --color-brand-deep: #52a8ff;
     --color-ok: #0b6e5e;
@@ -187,8 +186,8 @@
     --line: rgb(14 23 38 / 0.12);
     --line-soft: rgb(14 23 38 / 0.06);
     --sunk: rgb(14 23 38 / 0.03);
-    --glow: transparent; /* une lueur blanche n'existe pas sur fond clair */
-    --lit: inset 0 -1px 0 rgb(16 24 40 / 0.05); /* en clair, l'arête du BAS s'ombre */
+    --glow: transparent; /* a white glow does not exist on a light background */
+    --lit: inset 0 -1px 0 rgb(16 24 40 / 0.05); /* in light mode, the BOTTOM edge takes the shade */
     --shadow: 0 1px 1px rgb(16 24 40 / 0.03), 0 6px 16px rgb(16 24 40 / 0.04);
     --web: rgb(14 23 38 / 0.08);
     --web-out: rgb(14 23 38 / 0.18);
@@ -196,7 +195,7 @@
     --line-abs: rgb(14 23 38 / 0.28);
     --line-abs-dim: rgb(14 23 38 / 0.15);
 
-    /* alias temporaires, mode clair */
+    /* temporary aliases, light mode */
     --color-parchment: #f0f0f0;
     --color-parchment-raised: #f6f6f6;
     --color-parchment-sunken: #e8e8e8;
@@ -226,7 +225,7 @@
   }
 }
 
-/* — Base — */
+/* Base */
 body {
   background: var(--color-parchment);
   color: var(--color-ink);
@@ -432,7 +431,7 @@ btn-quiet:hover {
   border-bottom-color: var(--color-gilt-leaf);
 }
 
-/* — Labels (§4.5: mono, uppercase, wide tracking) — */
+/* Labels (§4.5: mono, uppercase, wide tracking) */
 .tag {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: var(--text-xs);
@@ -772,14 +771,14 @@ btn-quiet:hover {
 
 /* ── Placement ────────────────────────────────────────────────────────────
    Only the GRID placement uses the child combinator: a direct child is what a
-   track can hold. Everything typographic below must NOT use it — a <p> inside
+   track can hold. Everything typographic below must NOT use it: a <p> inside
    an <li> or a <blockquote> is not a direct child, and would be left unstyled. */
 :where(.prose) > * {
   grid-column: text;
 }
 
-/* Only images cross the margins. A code block is an INSET plate (charte §9.5
-   « plaque encastrée ») — it stays in the text column and scrolls inside. */
+/* Only images cross the margins. A code block is an INSET plate (charte §9.5).
+   It stays in the text column and scrolls inside. */
 :where(.prose) > figure:not([data-rehype-pretty-code-figure]) {
   grid-column: full;
 }
@@ -787,7 +786,7 @@ btn-quiet:hover {
 /* ── Rhythm ───────────────────────────────────────────────────────────────
    Tailwind preflight sets `margin: 0` on everything, and margins would not
    collapse between grid items anyway: the row gap is the ONLY separation.
-   One line (1.6em = --leading-body) is the floor — below that, paragraphs
+   One line (1.6em = --leading-body) is the floor; below that, paragraphs
    read as a single block. */
 :where(.prose) {
   row-gap: 1.6em;
@@ -803,16 +802,16 @@ btn-quiet:hover {
   font-size: var(--text-body);
   line-height: var(--leading-body);
   letter-spacing: var(--tracking-body);
-  font-variant-numeric: oldstyle-nums; /* §4.5 — digits inside a sentence */
+  font-variant-numeric: oldstyle-nums; /* §4.5: digits inside a sentence */
 }
 
-/* ── Headings — charte §4.2. No h1: the page title lives in PageFrame. ──── */
+/* ── Headings, charte §4.2. No h1: the page title lives in PageFrame. ──── */
 :where(.prose) h2 {
   font-weight: 500;
   font-size: var(--text-2xl);
   line-height: var(--leading-title);
   letter-spacing: var(--tracking-title);
-  text-wrap: balance; /* §4.5 — short titles */
+  text-wrap: balance; /* §4.5: short titles */
   -webkit-hyphens: none;
   hyphens: none;
   margin-top: 1.5em;
@@ -829,7 +828,7 @@ btn-quiet:hover {
   margin-top: 1em;
 }
 
-/* ── Emphasis — charte §4.2 ─────────────────────────────────────────────── */
+/* ── Emphasis, charte §4.2 ─────────────────────────────────────────────── */
 :where(.prose) em {
   font-style: italic;
   font-weight: 400;
@@ -839,7 +838,7 @@ btn-quiet:hover {
   font-weight: 600;
 }
 
-/* ── Links — charte §9.5 ─────────────────────────────────────────────────── */
+/* ── Links, charte §9.5 ─────────────────────────────────────────────────── */
 :where(.prose) a {
   color: var(--color-accent);
   text-decoration: underline;
@@ -889,7 +888,7 @@ btn-quiet:hover {
   margin: 0;
 }
 
-/* ── Inline code — charte §9.5: mono, sunken pill, accent-deep ──────────── */
+/* ── Inline code, charte §9.5: mono, sunken pill, accent-deep ──────────── */
 :where(.prose) :not(pre) > code {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 0.9em;
@@ -897,11 +896,12 @@ btn-quiet:hover {
   color: var(--color-accent-deep);
   border-radius: var(--radius-sm);
   padding: 0.1em 0.32em;
-  font-variant-ligatures: none; /* §4.5 — off in mono */
+  font-variant-ligatures: none; /* §4.5: off in mono */
+  -webkit-hyphens: none;
   hyphens: none;
 }
 
-/* ── Code plate — charte §9.5 ──────────────────────────────────────────── */
+/* ── Code plate, charte §9.5 ──────────────────────────────────────────── */
 :where(.prose) figure[data-rehype-pretty-code-figure] {
   border: 0;
   padding: 0;
@@ -919,7 +919,8 @@ btn-quiet:hover {
   font-size: var(--text-xs);
   text-transform: uppercase;
   letter-spacing: var(--tracking-label);
-  color: var(--color-gilt); /* §9.5 — 5,2:1 sur la plaque */
+  color: var(--color-gilt); /* §9.5: 5.2:1 on the plate */
+  -webkit-hyphens: none;
   hyphens: none;
 }
 
@@ -934,6 +935,7 @@ btn-quiet:hover {
   line-height: 1.6;
   font-variant-ligatures: none;
   font-variant-numeric: tabular-nums;
+  -webkit-hyphens: none;
   hyphens: none;
   /* scrollbar on the dark plate, not the parchment one */
   scrollbar-color: color-mix(in srgb, var(--color-parchment) 35%, transparent)
@@ -946,7 +948,7 @@ btn-quiet:hover {
   padding: 0 1.25em;
 }
 
-/* Line numbers — charte §9.5. rehype-pretty-code emits the data attributes;
+/* Line numbers, charte §9.5. rehype-pretty-code emits the data attributes;
    the counter is ours. */
 :where(.prose) figure[data-rehype-pretty-code-figure] code[data-line-numbers] {
   counter-reset: line;
@@ -970,7 +972,7 @@ btn-quiet:hover {
   --line-digits: 3;
 }
 
-/* Figures (images) — charte §9.5: 1px rule frame, mono small-caps caption */
+/* Figures (images), charte §9.5: 1px rule frame, mono small-caps caption */
 :where(.prose) > figure:not([data-rehype-pretty-code-figure]) {
   margin: 0;
   border: 1px solid var(--color-rule);
