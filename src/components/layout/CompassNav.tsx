@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import type { Station } from "@/types/navigation";
@@ -26,11 +25,6 @@ export default function CompassNav({ stations }: CompassNavProps) {
     const trailD = buildTrail(count, "x");
 
     const { sentinel, isSticky } = useIsSticky(32);
-
-    useEffect(() => {
-        document.documentElement.classList.toggle("lecture-mode", isSticky);
-        return () => document.documentElement.classList.remove("lecture-mode");
-    }, [isSticky]);
 
     return (
         <>

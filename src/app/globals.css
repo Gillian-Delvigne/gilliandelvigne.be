@@ -165,7 +165,6 @@
   --dur-bloom: 900ms;
 
   --gloss: 0.2;
-  --map-opacity: 0; /* le fond de carte est mort ; le token tombe avec son composant */
 }
 
 @media (prefers-color-scheme: light) {
@@ -213,10 +212,6 @@
     --color-gilt: #0e1726;
     --color-gilt-leaf: #e4e4e4;
   }
-}
-
-:root.lecture-mode {
-  --map-opacity: 0;
 }
 
 @media (min-width: 48rem) {
@@ -629,6 +624,7 @@ btn-quiet:hover {
   transition: opacity var(--dur-micro) var(--ease-out);
 }
 .flap-bottom {
+  -webkit-clip-path: polygon(0 100%, 100% 100%, 50% 0);
   clip-path: polygon(0 100%, 100% 100%, 50% 0);
 }
 [data-phase] .shade-bottom {
@@ -642,6 +638,7 @@ btn-quiet:hover {
   transition: opacity 1ms;
 }
 .flap-top {
+  -webkit-clip-path: polygon(0 0, 100% 0, 50% 100%);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center;
   transform: rotateX(90deg);
@@ -796,6 +793,7 @@ btn-quiet:hover {
   row-gap: 1.6em;
   color: var(--color-ink);
   text-wrap: pretty;
+  -webkit-hyphens: auto;
   hyphens: auto;
   font-variant-ligatures: common-ligatures;
 }
@@ -815,6 +813,7 @@ btn-quiet:hover {
   line-height: var(--leading-title);
   letter-spacing: var(--tracking-title);
   text-wrap: balance; /* §4.5 — short titles */
+  -webkit-hyphens: none;
   hyphens: none;
   margin-top: 1.5em;
 }
@@ -825,6 +824,7 @@ btn-quiet:hover {
   line-height: var(--leading-title);
   letter-spacing: var(--tracking-title);
   text-wrap: balance;
+  -webkit-hyphens: none;
   hyphens: none;
   margin-top: 1em;
 }
