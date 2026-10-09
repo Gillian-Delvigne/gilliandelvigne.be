@@ -7,7 +7,7 @@ import { NavEntry } from "@/types/navigation";
   * messages/{fr,en}.json and will be read by `generateMetadata` in T-033.
  */
 export const SITE = {
-    name: "Atlas",
+    name: "Gillian Delvigne",
     author: "Gillian Delvigne",
     email: "gillian.delvigne@gmail.com",
     github: "https://github.com/Gillian-Delvigne",
@@ -17,8 +17,8 @@ export const SITE = {
 
 export const NAV = [
     { key: "home", href: "/", numeral: "I" },
-    { key: "about", href: "/about", numeral: "II" },
-    { key: "portfolio", href: "/portfolio", numeral: "III" },
-    { key: "blog", href: "/blog", numeral: "IV" },
+    { key: "portfolio", href: "/portfolio", numeral: "II" },
+    { key: "blog", href: "/blog", numeral: "III" },
+    { key: "about", href: "/about", numeral: "IV" },
     { key: "contact", href: "/contact", numeral: "V" },
 ] as const satisfies readonly NavEntry[];
