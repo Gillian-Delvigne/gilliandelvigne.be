@@ -1,0 +1,42 @@
+---
+type: project
+title: Atlas
+dek: This site, written from scratch — an engraved travel journal, bilingual, no template.
+translationKey: atlas-portfolio
+date: 2026-09-01
+status: wip
+category: applicatif
+tags: [design system, i18n, accessibility]
+stack: [Next.js, React, TypeScript, Tailwind, Velite, next-intl]
+emblem: the cast gallery
+ref: PRJ-02
+order: 0
+featured: true
+links:
+  repo: https://github.com/Gillian-Delvigne/atlas-portfolio
+---
+
+## The need
+
+A developer portfolio that doesn't look like a template. No imported component
+library, no purchased theme: a visual language held by a written charter, and
+code that applies it.
+
+## What I did
+
+All of it, from a blank page. A system of colour, rhythm and motion tokens;
+hand-written primitives — a polymorphic button, an accessible field, a modal
+built on `<dialog>`; an SVG map background with its own grain and relief
+filters. Content lives in MDX, compiled at build time by Velite and read through
+a tested selector layer.
+
+The contact form runs on a Server Action, works **without JavaScript**, and folds
+itself into a sealed envelope once the dispatch is sent.
+
+Two languages, routed by segment, with `hreflang` and paired translations.
+
+## What I took from it
+
+Writing your own charter before coding changes the order of the questions. You no
+longer pick a colour: you check that a contrast ratio holds, and you know why the
+rule exists. Decisions get argued in a document, not in a code review.

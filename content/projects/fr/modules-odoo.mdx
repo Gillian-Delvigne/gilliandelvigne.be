@@ -1,0 +1,47 @@
+---
+type: project
+title: Modules métier Odoo
+dek: Helpdesk, délais d'intervention et intégration ventes sur une instance Community — ce que l'édition Enterprise facture à l'utilisateur.
+translationKey: odoo-modules
+date: 2026-08-01
+status: wip
+category: applicatif
+tags: [ERP, modules métier, héritage]
+stack: [Odoo 19, Python, PostgreSQL, XML, QWeb]
+emblem: la chancellerie
+ref: PRJ-03
+order: 1
+featured: true
+links:
+  repo: https://github.com/Gillian-Delvigne/odoo-integration-lab
+---
+
+## Le besoin
+
+Odoo Community couvre les ventes, les achats, le stock et la facturation. Mais
+l'Assistance, les Rendez-vous, les Abonnements et la Location relèvent de
+l'édition Enterprise, facturée par utilisateur. Pour une PME, l'écart entre le
+besoin et la licence est exactement là.
+
+## Ce que j'ai fait
+
+Une instance Odoo 19 auto-hébergée, installée depuis les sources, et les modules
+qui comblent cet écart.
+
+`lab_helpdesk` gère le cycle complet d'une demande de support : référence
+automatique, rattachement au client, affectation à une équipe, étapes
+configurables en kanban, règles de délai d'intervention par équipe et par
+priorité avec échéance calculée et alerte de dépassement. Les droits sont
+cloisonnés — un technicien ne voit que ses équipes, un client que ses propres
+tickets. Reporting croisé, export tableur, rapports PDF.
+
+L'extension des applications Ventes et CRM passe **exclusivement par les
+mécanismes d'héritage d'Odoo**. Aucun fichier du cœur applicatif n'est modifié,
+ce qui préserve le chemin de mise à jour vers les versions suivantes.
+
+## Ce que j'en retiens
+
+Dans un ERP, la contrainte intéressante n'est pas d'ajouter une fonctionnalité :
+c'est de l'ajouter sans se fermer la porte de la montée de version. Travailler
+par héritage plutôt que par modification est une discipline qui se paie au
+premier `git pull` de la version suivante.

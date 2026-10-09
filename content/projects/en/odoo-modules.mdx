@@ -1,0 +1,47 @@
+---
+type: project
+title: Odoo business modules
+dek: Helpdesk, service-level targets and sales integration on a Community instance — what the Enterprise edition charges per user.
+translationKey: odoo-modules
+date: 2026-08-01
+status: wip
+category: applicatif
+tags: [ERP, business modules, inheritance]
+stack: [Odoo 19, Python, PostgreSQL, XML, QWeb]
+emblem: the chancery
+ref: PRJ-03
+order: 1
+featured: true
+links:
+  repo: https://github.com/Gillian-Delvigne/odoo-integration-lab
+---
+
+## The need
+
+Odoo Community covers sales, purchasing, stock and invoicing. But Helpdesk,
+Appointments, Subscriptions and Rental belong to the Enterprise edition, billed
+per user. For a small business, the gap between what it needs and what it can
+license sits exactly there.
+
+## What I did
+
+A self-hosted Odoo 19 instance, installed from source, and the modules that close
+that gap.
+
+`lab_helpdesk` runs the full life of a support request: automatic reference,
+customer record, team assignment, configurable stages in a kanban view,
+service-level rules per team and per priority with a computed deadline and a
+breach alert. Access is partitioned — a technician only sees their own teams, a
+customer only their own tickets. Cross-reporting, spreadsheet export, PDF
+documents.
+
+The Sales and CRM extensions go **exclusively through Odoo's inheritance
+mechanisms**. No core file is modified, which keeps the upgrade path to future
+versions intact.
+
+## What I took from it
+
+In an ERP, the interesting constraint isn't adding a feature: it's adding one
+without closing the door on the next version. Working through inheritance rather
+than modification is a discipline you pay for at the first `git pull` of the
+following release.

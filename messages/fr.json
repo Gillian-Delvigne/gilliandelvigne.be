@@ -1,0 +1,145 @@
+{
+	"Meta": {
+		"title": "Gillian Delvigne · Développeur full-stack",
+		"description": "Ingénieur pédagogique devenu développeur full-stack en Belgique. React, TypeScript, Node, PostgreSQL. Des applications comprises par ceux qui s'en servent."
+	},
+	"Nav": {
+		"home": {
+			"name": "Accueil",
+			"tag": "Accueil",
+			"dek": "Ingénieur pédagogique devenu développeur full-stack. Deux métiers, une exigence : des applications comprises par ceux qui s'en servent."
+		},
+		"about": {
+			"name": "À propos",
+			"tag": "À propos",
+			"dek": "Dix ans de techno-pédagogie, puis le développement. Les deux moitiés servent la même chose."
+		},
+		"portfolio": {
+			"name": "Projets",
+			"tag": "Projets",
+			"dek": "Onze projets, rangés par nature de difficulté plutôt que par technologie."
+		},
+		"blog": {
+			"name": "Blog",
+			"tag": "Blog",
+			"dek": "Ce que j'ai dû comprendre pour avancer, écrit assez proprement pour resservir."
+		},
+		"contact": {
+			"name": "Contact",
+			"tag": "Contact",
+			"dek": "Une proposition, une question, ou simplement l'envie d'en discuter."
+		}
+	},
+	"Breadcrumb": {
+		"name": "Fil d'Ariane"
+	},
+	"Compass": {
+		"aria": "Parcours du site",
+		"aria-mobile": "navigation mobile du site",
+		"readout": "Parcours",
+		"nav-btn": "Ouvrir la navigation",
+		"close": "Fermer",
+		"fold": "replier le parcours"
+	},
+	"Footer": {
+		"colophon": "Next 16 · code public",
+		"tagline": "Écrit avec",
+		"location": "Grez-Doiceau",
+		"missive": "Me contacter"
+	},
+	"Contact": {
+		"form": {
+			"f-name": {
+				"label": "Nom"
+			},
+			"f-email": {
+				"label": "Email"
+			},
+			"f-message": {
+				"label": "Votre message"
+			},
+			"header-title": "Message",
+			"header-line": "gilliandelvigne.be",
+			"btn-action": "Envoyer",
+			"btn-action-pending": "Envoi…",
+			"errors": {
+				"name-required": "Il me manque votre nom.",
+				"name-too-long": "Ce nom est trop long : {max} caractères au maximum.",
+				"email-required": "Sans adresse, impossible de vous répondre.",
+				"email-invalid": "Cette adresse ne semble pas valide. Vérifiez le @ et le domaine.",
+				"message-required": "Écrivez-moi quelques mots.",
+				"message-too-long": "Ce message dépasse {max} caractères. Allez à l'essentiel, on en reparlera."
+			},
+			"sealing": "Envoi en cours…",
+			"success-msg": "Message envoyé. Je réponds sous deux jours ouvrables.",
+			"error-msg": "L'envoi a échoué, et ce n'est pas votre faute. Réessayez dans un instant."
+		}
+	},
+	"Empty": {
+		"projects": "Aucun projet pour l'instant.",
+		"posts": "Aucun article pour l'instant.",
+		"category": "Cette catégorie est vide."
+	},
+	"Projects": {
+		"identity": {
+			"stack": "Stack",
+			"date": "Date",
+			"link": "Lien",
+			"repository": "Dépôt"
+		},
+		"categories": {
+			"web": "Web",
+			"applicatif": "Applicatif",
+			"systeme": "Système",
+			"e-learning": "e-learning",
+			"serious-game": "Serious game"
+		}
+	},
+	"Difficulty": {
+		"title": "Profil de difficulté",
+		"intro": "Six axes, de 0 à 4. Chaque valeur est affichée à côté du fait qui la justifie.",
+		"evidence": "Ce qui le justifie",
+		"value": "Valeur",
+		"axes": {
+			"scope": "Étendue",
+			"coupling": "Couplage",
+			"stakes": "Enjeu",
+			"conformance": "Conformité",
+			"rules": "Densité de règles",
+			"disciplines": "Pluridisciplinarité"
+		},
+		"short": {
+			"scope": "ÉTE",
+			"coupling": "COU",
+			"stakes": "ENJ",
+			"conformance": "CNF",
+			"rules": "RÈG",
+			"disciplines": "PLU"
+		},
+		"definitions": {
+			"scope": "Combien de pièces hétérogènes, et combien de frontières à franchir.",
+			"coupling": "Combien de parties doivent s'accorder, les parties humaines comprises.",
+			"stakes": "Ce qui casse réellement en cas d'erreur.",
+			"conformance": "Existe-t-il une référence extérieure à satisfaire exactement : un cahier des charges, une norme, le comportement d'un autre programme.",
+			"rules": "Combien de cas, d'exceptions et d'imbrications.",
+			"disciplines": "Combien de métiers conduits dans le même projet : design, code, contenu, outillage."
+		},
+		"levels": {
+			"0": "Aucun",
+			"1": "Un seul, ou négligeable",
+			"2": "Quelques-uns, sans interaction entre eux",
+			"3": "Nombreux, avec des interactions",
+			"4": "Nombreux, imbriqués, et une erreur se propage"
+		},
+		"legend": "Lire ce profil",
+		"floor": "Le plancher de l'hexagone n'est pas zéro : un sommet au centre effacerait la forme. L'anneau en pointillés marque le zéro, et la valeur chiffrée est toujours affichée."
+	},
+	"Status": {
+		"live": "en production",
+		"partial": "partiellement en ligne",
+		"wip": "en cours",
+		"private": "privé",
+		"archived": "archivé",
+		"failed": "build cassé"
+	}
+}

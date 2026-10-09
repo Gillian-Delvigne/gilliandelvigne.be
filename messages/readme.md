@@ -1,0 +1,1 @@
+UI strings displayed in front

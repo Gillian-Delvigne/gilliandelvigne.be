@@ -1,0 +1,281 @@
+---
+type: post
+title: A comprehensive guide to pointers in C
+dek: An address is not a value, everything follows from that.
+translationKey: pointers-in-c
+date: 2025-03-06
+tags: [pointers, memory]
+---
+
+When I began learning C programming, I quickly ran into a core concept of the language that was among the hardest for me to grasp. As you’ve probably guessed from this article’s title, that concept is the pointer.
+
+This initial difficulty (one I’ve seen many beginner developers share) likely stems from the fact that pointers cut straight to how a computer works under the hood (they manipulate memory directly), which in turn makes software development more complex. The existence of pointers also places a burden on the developer to write code with greater rigor and reliability.
+
+My understanding of pointers took shape gradually: by using them in increasingly complex projects, and by distilling, in a more theoretical way, their purpose, value, and scope in computer programming.
+
+This article grew out of that synthesis, with the aim of helping beginners who, like me, feel the need to build their knowledge on a solid foundation.
+
+## What is a pointer?
+
+In concrete terms, the most basic definition you’ll find is this: a pointer is a variable that stores the memory address of another variable. It points to where that variable lives in memory.
+
+That definition sounds simple, but is it really meaningful to someone who only vaguely understands how a computer works internally? To truly get pointers, it helps to take a short detour into that inner workings so we can better see the role and organization of memory.
+
+## The von Neumann Architecture
+
+In 1945, John von Neumann laid the foundations of modern computing by describing an architecture inspired by Alan Turing’s work. This model, still relevant today, breaks a computer into four essential components:
+
+1. Arithmetic Logic Unit (ALU) – Handles arithmetic and logical operations. It works with registers and is part of the processor (CPU), which also includes the control unit.
+2. Control Unit (CU) – Orchestrates instruction execution: it fetches data from memory, sends values destined for computation to the ALU, and manages the instruction flow.
+3. Main Memory (RAM) – Temporarily stores program instructions and the data manipulated by the processor. Each location has a unique address.
+4. Input/Output (I/O) – The interface to the outside world: keyboard, mouse, display, hard drive, network, etc. These exchanges often pass through I/O controllers.
+
+
+
+## Memory structure (RAM)
+
+Naturally, the part we care about here is memory (RAM). As noted, a computer’s memory is organized as a sequence of cells (slots), each identified by a unique, sequential address. These cells can be accessed one by one or in adjacent blocks. Each slot has the capacity of one byte. A byte is itself composed of eight sub-slots called bits (binary digits); each bit can hold only a binary value (0 or 1). A bit is therefore the smallest unit of digital information, with 0 and 1 mirroring the underlying electronics (absence or presence of current in a transistor).
+
+### Why does a byte contain eight bits?
+
+A byte is made up of 8 bits because 8 is a convenient multiple for representing values in binary (a power of two: 2^3 = 8). With eight positions, you can produce 256 different combinations of 0s and 1s. Early on, that was enough to store 256 distinct values (0 to 255), i.e., the entire ASCII character set: letters of the Latin alphabet, digits, punctuation, and a few other symbols. Click [here](https://www.ascii-code.com/) for more on ASCII.
+
+Historically, a byte became the smallest addressable unit of memory. This means that every memory address in a computer refers to a full byte, not to an individual bit.
+
+### Numbering memory cells
+
+We’ve seen that memory slots are numbered sequentially (from 0 up to the size of RAM). They’re numbered in pure binary, but we typically display them in hexadecimal for readability:
+
+<div className="w-full md:w-1/2 rounded table overflow-y-auto">
+    {/* Header */}
+    <div className="flex bg-gray-50 border-b">
+        <div className="flex-1 p-4 font-semibold">Binary</div>
+        <div className="w-24 p-4 font-semibold text-center"></div>
+        <div className="flex-1 p-4 font-semibold">Hex</div>
+    </div>
+
+    {/* Body */}
+    <div>
+        <div className="flex">
+            <div className="flex-1 p-4">00000000</div>
+            <div className="w-24 py-4 text-center">→</div>
+            <div className="flex-1 p-4">0x1000</div>
+        </div>
+        <div className="flex">
+            <div className="flex-1 p-4">00000001</div>
+            <div className="w-24 py-4 text-center">→</div>
+            <div className="flex-1 p-4">0x1001</div>
+        </div>
+        <div className="flex">
+            <div className="flex-1 p-4">00000010</div>
+            <div className="w-24 py-4 text-center">→</div>
+            <div className="flex-1 p-4">0x1002</div>
+        </div>
+        <div className="flex">
+            <div className="flex-1 p-4">00000011</div>
+            <div className="w-24 py-4 text-center">→</div>
+            <div className="flex-1 p-4">0x1003</div>
+        </div>
+        <div className="flex">
+            <div className="flex-1 p-4"></div>
+            <div className="w-24 py-4 text-center">[...]</div>
+            <div className="flex-1 p-4"></div>
+        </div>
+        <div className="flex">
+            <div className="flex-1 p-4 text-xs sm:text-sm leading-7">0110110101100101101001110011</div>
+            <div className="w-24 py-4 text-center">→</div>
+            <div className="flex-1 p-4">0x6D65a73</div>
+        </div>
+    </div>
+
+</div>
+
+Below are three contiguous memory locations (bytes) identified by their hexadecimal addresses, each holding an ASCII value ('0', '1', '2). This would correspond to three values assigned to three variables declared in code. For us humans, these memory locations are accessed through the names given to the variables when they are declared—here, x, y, and z.
+
+```c showLineNumbers title="example.c"
+char x = '0';
+char y = '1';
+char z = '2';
+```
+
+By analogy, you can think of each byte as a set of 8 lights that turn on and off to represent a value. In the ASCII table, the _character_ '0' occupies position 48 (in decimal), which corresponds to 00110000 in binary. In C, _char_ is a one-byte integer type capable of holding this ASCII code.
+
+
+If characters are stored in a single byte, other data types require more space. In a single byte, for instance, you can only store numbers from 0 to 255. _Integers_, therefore, are typically stored in 4 bytes (32 bits) on most modern systems. For a full list of other C data types and their sizes on your platform, see the [documentation](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Data-Types).
+
+## How a pointer works?
+
+With all that in mind, let’s get back to our main topic. Technically speaking, a pointer is a variable like any other:
+
+- It occupies space in memory,
+- It has its own address (the address of the slot where it’s stored),
+- It stores a value — specifically, the address of another memory slot, rather than an application-level value you directly assigned as with a regular variable.
+
+As we said, the space a pointer occupies in memory depends on the system and its architecture, but it spans several bytes: 4 bytes on 32-bit systems and 8 bytes on 64-bit systems.
+
+Below, the diagram illustrates how a pointer works on a 32-bit, little-endian system. The address of the character 'a' (0x1000) is stored in the pointer _ptr_ across 4 bytes.
+
+
+
+## How to declare a pointer and access the pointed value?
+
+To work with pointers in C, remember three key ideas:
+
+1. Declare (and, if possible, initialize)
+
+    Declare a pointer with the type followed by an asterisk (\*) placed before the variable name. Good practice: always initialize a pointer. If you don’t yet have a valid address, use NULL.
+
+2. Obtain an address: the & (address-of) operator
+
+    Place & before a variable name to obtain its memory address.
+
+3. Access the pointed object: the \* (dereference) operator
+
+    The same asterisk used in the declaration is a unary indirection (dereference) operator. When you apply this operator to the pointer later, you can access the object it points to (that is, the value of the pointed variable) and modify it.
+
+### Complete example
+
+```c showLineNumbers title="main.c"
+#include <stdio.h>
+#include <unistd.h>
+
+int main(void)
+{
+  char *ptr = NULL; // initializes a pointer to the null pointer value
+  char c = 'a';
+  ptr = &c;        // stores the address of c in ptr
+
+  printf("my char is: %c\n", c);
+  // possible output -> my char is: a
+
+  printf("the address stored in the pointer is: %p\n", (void*)ptr);
+  // example output -> the address stored in the pointer is: 0x16ddbf2b8
+  // (the exact address will vary)
+
+  printf("the value pointed to by the pointer is: %c\n", *ptr);
+  // possible output -> the value pointed to by the pointer is: a
+
+  *ptr = 'b';      // writing through the pointer changes both *ptr and c
+
+  printf("the value pointed to by the pointer is: %c\n", *ptr);
+  // possible output -> b
+  printf("my char is: %c\n", c);
+  // possible output -> my char is: b
+
+  return 0;
+}
+```
+
+### Dereferencing and modifying a value
+
+Since a pointer can access the value of the variable it points to, it can, as already sketched above, modify it. Indeed, the unary address-of (&) and dereference (\*) operators have higher precedence than arithmetic operators.
+
+```c showLineNumbers title="example.c"
+int nb = 42;
+int *ptr = nb;
+
+*ptr + 1  // now nb is incremented by one : 43
+(*ptr)++  // again
+++*ptr    // and again
+```
+
+### Notes
+
+- NULL denotes a null pointer (remember to include stddef.h or stdio.h, etc., as appropriate).
+- Type compatibility matters: the pointer type must match the type of the pointed object. That way, you tell the compiler how to interpret the value stored at that address.
+- Never dereference an uninitialized or NULL pointer: this leads to undefined behavior.
+- When working with pointers, it’s sometimes necessary to add parentheses to avoid modifying the pointer itself due to operator precedence and associativity. Example: (\*ptr)++ -> dereference first, then decrement.
+
+## What are pointers useful for?
+
+So far we’ve described the fairly low-level behavior of a computer to illustrate how pointers work, and we’ve covered their syntax. However, we haven’t yet explained their purpose and the problems they solve. It’s high time we remedied that.
+
+### Pass-by-reference vs pass-by-value
+
+In C, all parameters are passed by value, but you can simulate pass-by-reference with pointers.
+
+#### 1. Pass-by-value
+
+When a function takes a parameter, it receives a copy of its value. Changes inside the function have no effect on the original, because variables are local to the function.
+
+```c showLineNumbers title="example.c"
+void func(int x) {
+    x = 100;  // only modifies the local copy
+}
+
+int main(void) {
+    int a = 5;
+    func(a);
+    // a is still 5!
+}
+```
+
+#### 2. “Pass-by-reference” (with a pointer)
+
+When you pass a pointer as a function parameter, you pass the address of the variable (still by value). The function receives a copy of the address, but that address provides access to the original value via dereferencing.
+
+```c showLineNumbers title="example.c"
+void func(int *x) {
+    *x = 100;  // modifies the value at address x
+}
+
+int main(void) {
+    int a = 5;
+    func(&a);  // pass the address of a
+    // a is now 100!
+}
+```
+When you pass an object (structure) by value in C, the compiler has to copy all of its bytes. With a pointer, you pass only an address (often 8 bytes on x86_64), which avoids the copy and allows direct access to the original data.
+Main performance reasons :
+
+- No copying of potentially large blocks (structs, embedded arrays, aligned fields).
+- Less pressure on memory bandwidth and the CPU cache (fewer bytes to move).
+- Lighter function calls (you pass an address instead of a large object).
+- In-place access: the function reads/writes directly to the original object.
+
+### Allow storing a value instead of returning it
+
+When a function needs to both produce a “primary result” and signal a status (success, error, end of stream, number of elements read, etc.), you store the result via an address (pointer) parameter. This leaves the return value available to encode the status or metadata.
+
+```c showLineNumbers title="example.c"
+#include <stdbool.h>
+#include <limits.h>
+
+// Returns true/false for status; writes the result via a pointer.
+bool compute_sum(int a, int b, int *out_sum) {
+    if (!out_sum) return false;      // misuse error
+    long tmp = (long)a + (long)b;    // e.g., possible overflow check
+    if (tmp < INT_MIN || tmp > INT_MAX) return false;
+    *out_sum = (int)tmp;             // result "stored" via the pointer
+    return true;                     // success status
+}
+```
+
+In this function, the return value carries the status; the expected result is written to the address provided as a parameter.
+
+A number of functions in the C standard library use this pattern, such as scanf, read, etc.
+
+### Pointer arithmetic
+
+Another advantage of pointers is their ability to perform arithmetic on memory addresses in order to iterate over data structures (such as arrays, for example) and access their values.
+Below, the two methods are equivalent.
+
+```c showLineNumbers title="main.c"
+int main() 
+{
+    
+	int a = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+	for (size_t i = 0; i < n; ++i) {
+		printf("%d ", a[i]);        // a[i] == *(a + i)
+	}
+
+	for (size_t i = 0; i < n; ++i) {
+		printf("%d ", *(a + i));    // equivalent to a[i]
+	}
+}
+
+```
+
+This arithmetic is why it is essential to maintain type consistency between the pointer and the value it points to. The pointer’s type determines the size of the “step” in the arithmetic and how the bytes are interpreted. A type mismatch can lead to incorrect reads and undefined behavior.
+It is also crucial to respect the bounds of the data structures being manipulated during this kind of operation in order to avoid overflows and segmentation faults.

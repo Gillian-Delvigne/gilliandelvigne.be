@@ -1,0 +1,50 @@
+---
+type: project
+title: Elausys
+dek: "A multi-tenant platform for a KNX integrator: one API, four sites, written from scratch."
+translationKey: elausys
+date: 2025-09-01
+status: partial
+category: applicatif
+tags: [full-stack, multi-tenant, self-hosting]
+stack: [Express, TypeScript, Supabase, PostgreSQL, Docker, React]
+emblem: the posting house
+ref: PRJ-04
+order: 2
+featured: true
+links:
+  live: https://elausys.be
+---
+
+## The need
+
+A KNX home-automation integrator ran four separate web presences with no shared
+foundation: the corporate site, the automation business, intrusion alarms and the
+shop. Each had its own content, catalogue and data, maintained separately.
+
+## What I did
+
+The whole platform, **from scratch, as the full-stack developer**.
+
+On the server, an Express API in TypeScript on top of a **self-hosted Supabase**
+instance deployed with Docker: authentication, catalogue, and the data shared
+across the four domains. Self-hosting was a deliberate choice — keeping the data
+with the client rather than with a vendor.
+
+On the client, four independent React applications in a monorepo. Each keeps its
+own dependencies and release cycle; only the data layer is shared.
+
+The work covered database modelling, the upgrade procedures for the Supabase
+instance, and the operations documentation.
+
+## What I took from it
+
+Multi-tenancy isn't primarily a database problem, it's a boundary problem:
+deciding what is shared and what must never be. Sharing too much is paid for in
+coupling, too little in duplication — and both bills arrive after delivery.
+
+Self-hosting Supabase also teaches you what a managed service hides: backups,
+migrations and version upgrades stop being a checkbox.
+
+Part of the system is public; the API, the admin and the three other
+sites are not.

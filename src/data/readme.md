@@ -1,0 +1,1 @@
+# site.ts — unique source (nav, coordinates, metadata)

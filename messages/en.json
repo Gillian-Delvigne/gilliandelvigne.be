@@ -1,0 +1,145 @@
+{
+	"Meta": {
+		"title": "Gillian Delvigne · Full-stack Developer",
+		"description": "A learning engineer turned full-stack developer in Belgium. React, TypeScript, Node, PostgreSQL. Applications built to be understood by the people who use them."
+	},
+	"Nav": {
+		"home": {
+			"name": "Home",
+			"tag": "Home",
+			"dek": "A learning engineer turned full-stack developer. Two crafts, one requirement: applications the people using them can understand."
+		},
+		"about": {
+			"name": "About",
+			"tag": "About",
+			"dek": "Ten years in learning technology, then development. Both halves serve the same thing."
+		},
+		"portfolio": {
+			"name": "Projects",
+			"tag": "Projects",
+			"dek": "Eleven projects, sorted by the nature of their difficulty rather than by technology."
+		},
+		"blog": {
+			"name": "Blog",
+			"tag": "Blog",
+			"dek": "What I had to understand in order to move on, written cleanly enough to serve again."
+		},
+		"contact": {
+			"name": "Contact",
+			"tag": "Contact",
+			"dek": "An offer, a question, or simply the wish to talk it over."
+		}
+	},
+	"Breadcrumb": {
+		"name": "Breadcrumb"
+	},
+	"Compass": {
+		"aria": "Site route",
+		"aria-mobile": "website mobile navigation",
+		"readout": "Route",
+		"nav-btn": "Open navigation",
+		"close": "Close",
+		"fold": "collapse the route"
+	},
+	"Footer": {
+		"colophon": "Next 16 · public code",
+		"tagline": "Built with",
+		"location": "Grez-Doiceau",
+		"missive": "Get in touch"
+	},
+	"Contact": {
+		"form": {
+			"f-name": {
+				"label": "Name"
+			},
+			"f-email": {
+				"label": "Email"
+			},
+			"f-message": {
+				"label": "Your message"
+			},
+			"header-title": "Message",
+			"header-line": "gilliandelvigne.be",
+			"btn-action": "Send",
+			"btn-action-pending": "Sending…",
+			"errors": {
+				"name-required": "I'm missing your name.",
+				"name-too-long": "That name is too long: {max} characters maximum.",
+				"email-required": "Without an address, I can't write back.",
+				"email-invalid": "That address doesn't look right. Check the @ and the domain.",
+				"message-required": "Write me a few words.",
+				"message-too-long": "This message is over {max} characters. Keep it short; I'll pick it up from there."
+			},
+			"sealing": "Sending…",
+			"success-msg": "Message sent. I reply within two working days.",
+			"error-msg": "Sending failed, and it's not your fault. Please try again in a moment."
+		}
+	},
+	"Empty": {
+		"projects": "No projects yet.",
+		"posts": "No posts yet.",
+		"category": "This category is empty."
+	},
+	"Projects": {
+		"identity": {
+			"stack": "Stack",
+			"date": "Date",
+			"link": "Link",
+			"repository": "Repository"
+		},
+		"categories": {
+			"web": "Web",
+			"applicatif": "Applications",
+			"systeme": "Systems",
+			"e-learning": "E-learning",
+			"serious-game": "Serious game"
+		}
+	},
+	"Difficulty": {
+		"title": "Difficulty profile",
+		"intro": "Six axes, from 0 to 4. Every value sits next to the fact that justifies it.",
+		"evidence": "What justifies it",
+		"value": "Value",
+		"axes": {
+			"scope": "Scope",
+			"coupling": "Coupling",
+			"stakes": "Stakes",
+			"conformance": "Conformance",
+			"rules": "Rule density",
+			"disciplines": "Disciplines"
+		},
+		"short": {
+			"scope": "SCO",
+			"coupling": "CPL",
+			"stakes": "STK",
+			"conformance": "CNF",
+			"rules": "RUL",
+			"disciplines": "DSC"
+		},
+		"definitions": {
+			"scope": "How many heterogeneous pieces, and how many boundaries to cross.",
+			"coupling": "How many parties have to agree, human parties included.",
+			"stakes": "What actually breaks when something goes wrong.",
+			"conformance": "Whether an outside reference has to be matched exactly: a specification, a standard, the behaviour of another program.",
+			"rules": "How many cases, exceptions and nested conditions.",
+			"disciplines": "How many trades are carried in the same project: design, code, content, tooling."
+		},
+		"levels": {
+			"0": "None",
+			"1": "One, or negligible",
+			"2": "A few, with no interaction between them",
+			"3": "Many, with interactions",
+			"4": "Many, nested, and an error propagates"
+		},
+		"legend": "How to read this profile",
+		"floor": "The floor of the hexagon is not zero: a vertex at the centre would erase the shape. The dotted ring marks zero, and the numeric value is always shown."
+	},
+	"Status": {
+		"live": "live",
+		"partial": "partly live",
+		"wip": "in progress",
+		"private": "private",
+		"archived": "archived",
+		"failed": "build failing"
+	}
+}

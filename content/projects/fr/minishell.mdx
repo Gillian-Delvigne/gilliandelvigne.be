@@ -1,0 +1,37 @@
+---
+type: project
+title: Minishell
+dek: Un shell UNIX réécrit en C, sans bibliothèque externe.
+translationKey: minishell
+date: 2024-03-01
+status: live
+category: systeme
+tags: ["42", bas niveau, parsing]
+stack: [C, Unix, Make]
+emblem: l'atelier de l'horloger
+ref: PRJ-06
+order: 4
+featured: false
+links:
+  repo: https://github.com/Gillian-Delvigne/minishell
+---
+
+## Le besoin
+
+Reconstruire les mécanismes d'un shell : analyse de la ligne de commande, tubes,
+redirections, variables d'environnement, gestion des processus et des signaux.
+Tout à la main, sans dépendance.
+
+## Ce que j'ai fait
+
+Un analyseur qui découpe, quote et développe la ligne saisie ; l'exécution des
+commandes internes et externes ; les tubes et redirections ; le contrôle des
+codes de retour et des signaux. Une attention particulière portée à la fidélité
+au comportement réel de `bash`, et à l'absence de fuite mémoire.
+
+## Ce que j'en retiens
+
+On croit connaître un shell jusqu'à devoir décider ce que fait exactement
+`echo "a"'b'c` — et découvrir que la réponse tient dans un automate d'états. Les
+projets bas niveau n'apprennent pas un langage, ils apprennent à lire une
+spécification jusqu'au bout.

@@ -1,0 +1,1 @@
+All generated content (categories, articles, projects)

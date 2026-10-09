@@ -1,0 +1,43 @@
+---
+type: project
+title: Atlas
+dek: Ce site, écrit de zéro — carnet de voyage gravé, bilingue, sans gabarit.
+translationKey: atlas-portfolio
+date: 2026-09-01
+status: wip
+category: applicatif
+tags: [design system, i18n, accessibilité]
+stack: [Next.js, React, TypeScript, Tailwind, Velite, next-intl]
+emblem: le cabinet des moulages
+ref: PRJ-02
+order: 0
+featured: true
+links:
+  repo: https://github.com/Gillian-Delvigne/atlas-portfolio
+---
+
+## Le besoin
+
+Un portfolio de développeur qui ne ressemble pas à un gabarit. Pas de bibliothèque
+de composants importée, pas de thème acheté : une langue visuelle tenue par un
+document de charte, et du code qui l'applique.
+
+## Ce que j'ai fait
+
+Tout, à partir d'une page blanche. Un système de jetons de couleur, de rythme et
+de mouvement ; des primitives écrites à la main — bouton polymorphe, champ
+accessible, modale sur `<dialog>` ; un fond de carte en SVG avec ses filtres de
+grain et de relief. Le contenu vit en MDX, compilé au build par Velite et lu à
+travers une couche de sélecteurs testée.
+
+Le formulaire de contact passe par une Server Action, fonctionne **sans
+JavaScript**, et se referme en enveloppe scellée quand la dépêche part.
+
+Deux langues, routées par segment, avec `hreflang` et traductions appariées.
+
+## Ce que j'en retiens
+
+Écrire sa propre charte avant de coder change l'ordre des questions. On ne
+choisit plus une couleur : on vérifie qu'un contraste tient, et on sait pourquoi
+la règle existe. Les décisions se discutent dans un document, pas dans une revue
+de code.

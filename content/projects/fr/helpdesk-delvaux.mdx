@@ -1,0 +1,40 @@
+---
+type: project
+title: Helpdesk Delvaux & Fils
+dek: Une application de tickets en Flask, bâtie sur une architecture en couches stricte.
+translationKey: helpdesk-flask
+date: 2026-06-01
+status: private
+category: applicatif
+tags: [architecture en couches, travail en équipe, JWT]
+stack: [Python, Flask, SQLAlchemy, PostgreSQL, Jinja, Docker]
+emblem: le bureau des doléances
+ref: PRJ-05
+order: 3
+featured: false
+links: {}
+---
+
+## Le besoin
+
+Une PME logistique de 200 personnes gérait son support informatique par e-mail et
+par un fichier Excel partagé : demandes perdues, aucune traçabilité, aucune
+statistique. Il fallait l'application qui remplace le fichier.
+
+## Ce que j'ai fait
+
+Projet d'équipe à quatre développeurs, sur cinq jours, à partir d'un squelette de
+framework maison inspiré de l'architecture d'Odoo.
+
+Quatorze tables modélisées sous SQLAlchemy, avec leurs relations 1-N, 1-1 et N-M.
+Pour chaque entité, **toute la pile** : modèle → formulaire → DTO → mapper →
+service → contrôleur → vue. Authentification JWT, hachage argon2, rôles en N-M.
+Trois profils cloisonnés — employé, technicien, responsable IT — avec le cycle de
+vie du ticket et sa réouverture.
+
+## Ce que j'en retiens
+
+Une architecture en couches coûte cher le premier jour et se rembourse le
+troisième, quand quatre personnes modifient le même domaine sans se marcher
+dessus. Le sens des dépendances n'est pas une règle d'école : c'est ce qui permet
+de travailler en parallèle.

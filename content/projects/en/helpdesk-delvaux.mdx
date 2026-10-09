@@ -1,0 +1,39 @@
+---
+type: project
+title: Delvaux & Fils helpdesk
+dek: A ticketing application in Flask, built on a strict layered architecture.
+translationKey: helpdesk-flask
+date: 2026-06-01
+status: private
+category: applicatif
+tags: [layered architecture, teamwork, JWT]
+stack: [Python, Flask, SQLAlchemy, PostgreSQL, Jinja, Docker]
+emblem: the complaints office
+ref: PRJ-05
+order: 3
+featured: false
+links: {}
+---
+
+## The need
+
+A 200-person logistics company ran its internal IT support over email and a
+shared Excel file: lost requests, no audit trail, no statistics. What was needed
+was the application that replaces the spreadsheet.
+
+## What I did
+
+A four-developer team project over five days, starting from an in-house framework
+skeleton modelled on Odoo's architecture.
+
+Fourteen tables modelled in SQLAlchemy, with their one-to-many, one-to-one and
+many-to-many relations. For every entity, **the whole stack**: model → form →
+DTO → mapper → service → controller → view. JWT authentication, argon2 hashing,
+many-to-many roles. Three partitioned profiles — employee, technician, IT manager
+— with the ticket life cycle and its reopening path.
+
+## What I took from it
+
+A layered architecture is expensive on day one and pays for itself on day three,
+when four people change the same domain without colliding. The direction of
+dependencies isn't a classroom rule: it's what makes parallel work possible.

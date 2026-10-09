@@ -1,0 +1,35 @@
+---
+type: project
+title: FdF — wireframe
+dek: A 3D wireframe renderer written in C, from projection maths to line drawing.
+translationKey: fdf
+date: 2024-01-01
+status: live
+category: systeme
+tags: ["42", geometry, rendering]
+stack: [C, MiniLibX, Make]
+emblem: the camera lucida
+ref: PRJ-07
+order: 5
+featured: false
+links:
+  repo: https://github.com/Gillian-Delvigne/Fdf
+---
+
+## The need
+
+Read a two-dimensional height map and draw it as a three-dimensional wireframe
+relief. No graphics engine: a library that opens a window and lights pixels,
+nothing more.
+
+## What I did
+
+Isometric projection, segment drawing through Bresenham's algorithm, the
+transformations — rotation, zoom, translation — and the keyboard and mouse event
+loop. All written from the mathematics, not from an API.
+
+## What I took from it
+
+Drawing a straight line is a problem solved in 1962, and rediscovering it
+yourself teaches more than a dozen tutorials. That's where geometry stops being a
+school subject and becomes a tool.

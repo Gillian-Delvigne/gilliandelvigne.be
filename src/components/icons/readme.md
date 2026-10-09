@@ -1,0 +1,1 @@
+Homemade SVG's, separated from data

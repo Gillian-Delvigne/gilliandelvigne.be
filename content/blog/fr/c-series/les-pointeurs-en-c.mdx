@@ -1,0 +1,18 @@
+---
+type: post
+title: Les pointeurs en C, sans mystère
+dek: Une adresse n'est pas une valeur — tout part de là.
+translationKey: pointers-in-c
+date: 2025-03-06
+tags: [pointeurs, mémoire]
+---
+
+## Une adresse, pas une valeur
+
+Un pointeur est une variable comme une autre. Ce qu'elle contient se trouve
+être l'adresse d'une autre case.
+
+```c
+int  n = 42;
+int *p = &n;
+```

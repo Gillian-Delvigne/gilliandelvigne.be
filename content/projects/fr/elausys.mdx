@@ -1,0 +1,53 @@
+---
+type: project
+title: Elausys
+dek: "Une plateforme multi-tenant pour un intégrateur KNX : une API, quatre sites, écrite de zéro."
+translationKey: elausys
+date: 2025-09-01
+status: partial
+category: applicatif
+tags: [full-stack, multi-tenant, auto-hébergement]
+stack: [Express, TypeScript, Supabase, PostgreSQL, Docker, React]
+emblem: la poste aux chevaux
+ref: PRJ-04
+order: 2
+featured: true
+links:
+  live: https://elausys.be
+---
+
+## Le besoin
+
+Un intégrateur en domotique KNX exploitait quatre présences en ligne sans socle
+commun : le site institutionnel, l'activité automation, l'alarme intrusion et la
+boutique. Chacune avait son contenu, son catalogue et ses données, maintenus
+séparément.
+
+## Ce que j'ai fait
+
+L'ensemble de la plateforme, **de zéro, en tant que développeur full-stack**.
+
+Côté serveur, une API Express en TypeScript au-dessus d'une instance **Supabase
+auto-hébergée**, déployée par Docker : authentification, catalogue, données
+partagées entre les quatre domaines. L'auto-hébergement était un choix — garder
+la donnée chez le client plutôt que chez un prestataire.
+
+Côté client, quatre applications React indépendantes dans un monorepo. Chacune
+garde ses dépendances et son cycle de déploiement ; seule la couche données est
+mutualisée.
+
+Le travail a couvert la modélisation de la base, les procédures de mise à jour de
+l'instance Supabase, et la documentation d'exploitation.
+
+## Ce que j'en retiens
+
+Le multi-tenant n'est pas d'abord un problème de base de données, c'est un
+problème de frontière : décider ce qui est commun et ce qui ne doit surtout pas
+l'être. Mutualiser trop se paie en couplage, pas assez en duplication — et les
+deux factures arrivent après la livraison.
+
+Auto-héberger Supabase apprend aussi ce qu'un service géré cache : les sauvegardes,
+les migrations et les montées de version cessent d'être une case à cocher.
+
+Une partie du dispositif est publique ; l'API, l'administration et les
+trois autres sites ne le sont pas.

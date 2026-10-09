@@ -1,0 +1,36 @@
+---
+type: project
+title: Minishell
+dek: A UNIX shell rewritten in C, with no external library.
+translationKey: minishell
+date: 2024-03-01
+status: live
+category: systeme
+tags: ["42", low level, parsing]
+stack: [C, Unix, Make]
+emblem: the clockmaker's bench
+ref: PRJ-06
+order: 4
+featured: false
+links:
+  repo: https://github.com/Gillian-Delvigne/minishell
+---
+
+## The need
+
+Rebuild the mechanics of a shell: command-line parsing, pipes, redirections,
+environment variables, process and signal handling. All by hand, with no
+dependency.
+
+## What I did
+
+A parser that splits, quotes and expands the typed line; execution of built-in
+and external commands; pipes and redirections; exit-code and signal handling.
+Particular attention went to matching `bash`'s real behaviour, and to leaving no
+memory leaks.
+
+## What I took from it
+
+You think you know a shell until you have to decide exactly what `echo "a"'b'c`
+does — and find the answer lives in a state machine. Low-level projects don't
+teach a language, they teach you to read a specification all the way through.

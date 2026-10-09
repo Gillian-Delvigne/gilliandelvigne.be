@@ -1,0 +1,35 @@
+---
+type: project
+title: FdF — fil de fer
+dek: Un moteur de rendu 3D filaire écrit en C, de la projection au tracé de ligne.
+translationKey: fdf
+date: 2024-01-01
+status: live
+category: systeme
+tags: ["42", géométrie, rendu]
+stack: [C, MiniLibX, Make]
+emblem: la chambre claire
+ref: PRJ-07
+order: 5
+featured: false
+links:
+  repo: https://github.com/Gillian-Delvigne/Fdf
+---
+
+## Le besoin
+
+Lire une carte de hauteurs en deux dimensions et l'afficher comme un relief
+filaire en trois dimensions. Sans moteur graphique : une bibliothèque qui ouvre
+une fenêtre et allume des pixels, rien de plus.
+
+## Ce que j'ai fait
+
+La projection isométrique, le tracé de segments par l'algorithme de Bresenham,
+les transformations — rotation, zoom, translation — et la boucle d'événements
+clavier et souris. Tout écrit à partir des mathématiques, pas d'une API.
+
+## Ce que j'en retiens
+
+Dessiner une ligne droite est un problème résolu depuis 1962, et le redécouvrir
+soi-même apprend davantage qu'une dizaine de tutoriels. C'est là que la géométrie
+cesse d'être une matière scolaire pour devenir un outil.
