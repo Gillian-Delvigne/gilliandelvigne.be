@@ -1,4 +1,5 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
+import { getProjects, isLocale } from "@/content";
 import { NAV } from "./site";
 import type { NavKeys, Station } from "@/types/navigation";
 
@@ -13,8 +14,19 @@ export async function getStation(key: NavKeys) {
             numeral: stationInfo.numeral,
             label: t(`${key}.label`),
         },
-        dek: t(`${key}.dek`),
+        /* The portfolio dek states how many projects there are: counted from
+           the content, so adding or removing a project never leaves it stale. */
+        dek:
+            key === "portfolio"
+                ? t("portfolio.dek", { count: await countProjects() })
+                : t(`${key}.dek`),
     };
+}
+
+async function countProjects(): Promise<number> {
+    const locale = await getLocale();
+    if (!isLocale(locale)) throw new Error(`Unknown locale : ${locale}`);
+    return getProjects(locale).length;
 }
 
 export async function getAllStations(): Promise<Station[]> {

@@ -14,7 +14,7 @@
 		},
 		"portfolio": {
 			"label": "Projects",
-			"dek": "Eleven projects, sorted by the nature of their difficulty rather than by technology."
+			"dek": "{count} projects, sorted by the nature of their difficulty rather than by technology."
 		},
 		"blog": {
 			"label": "Blog",
