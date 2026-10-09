@@ -284,23 +284,11 @@ body {
 }
 
 .t-title {
-  font-variation-settings:
-    "opsz" 90,
-    "SOFT" 0,
-    "WONK" 1;
   font-weight: 420;
 }
 
 .t-dek {
-  font-variation-settings:
-    "opsz" 20,
-    "SOFT" 50,
-    "WONK" 0;
   font-style: italic;
-}
-
-.t-station {
-  font-variation-settings: "SOFT" 40;
 }
 
 .animus-panel {
@@ -812,14 +800,7 @@ btn-quiet:hover {
   font-variant-ligatures: common-ligatures;
 }
 
-/* ── Reading body — charte §4.2 "Corps de lecture" ────────────────────────
-   opsz follows the actual size: at 17px the 12 drawing looked chunky, which is
-   the "pas fin du tout" reported on 2026-10-05. Amends charte §4.2. */
 :where(.prose) p {
-  font-variation-settings:
-    "opsz" 17,
-    "SOFT" 55,
-    "WONK" 0;
   font-weight: 400;
   font-size: var(--text-body);
   line-height: var(--leading-body);
@@ -829,10 +810,6 @@ btn-quiet:hover {
 
 /* ── Headings — charte §4.2. No h1: the page title lives in PageFrame. ──── */
 :where(.prose) h2 {
-  font-variation-settings:
-    "opsz" 40,
-    "SOFT" 30,
-    "WONK" 0;
   font-weight: 500;
   font-size: var(--text-2xl);
   line-height: var(--leading-title);
@@ -843,10 +820,6 @@ btn-quiet:hover {
 }
 
 :where(.prose) h3 {
-  font-variation-settings:
-    "opsz" 28,
-    "SOFT" 40,
-    "WONK" 0;
   font-weight: 560;
   font-size: var(--text-xl);
   line-height: var(--leading-title);
@@ -856,21 +829,13 @@ btn-quiet:hover {
   margin-top: 1em;
 }
 
-/* ── Emphasis — charte §4.2. The AXES differ, not just the weight. ──────── */
+/* ── Emphasis — charte §4.2 ─────────────────────────────────────────────── */
 :where(.prose) em {
-  font-variation-settings:
-    "opsz" 17,
-    "SOFT" 55,
-    "WONK" 0;
   font-style: italic;
   font-weight: 400;
 }
 
 :where(.prose) strong {
-  font-variation-settings:
-    "opsz" 17,
-    "SOFT" 40,
-    "WONK" 0;
   font-weight: 600;
 }
 
