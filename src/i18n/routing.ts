@@ -12,20 +12,19 @@ export const routing = defineRouting({
     // Localize URL's
     pathnames: {
         "/": "/",
-        "/about": { fr: "/bagage", en: "/provenance" },
-        "/portfolio": { fr: "/etapes", en: "/stages" },
-        "/portfolio/[slug]": { fr: "/etapes/[slug]", en: "/stages/[slug]" },
-        "/blog": { fr: "/carnet", en: "/notebook" },
+        "/about": { fr: "/a-propos", en: "/about" },
+        "/portfolio": { fr: "/projets", en: "/projects" },
+        "/portfolio/[slug]": { fr: "/projets/[slug]", en: "/projects/[slug]" },
+        "/blog": "/blog",
         "/blog/[category]": {
-            fr: "/carnet/[category]",
-            en: "/notebook/[category]",
+            fr: "/blog/[category]",
+            en: "/blog/[category]",
         },
         "/blog/[category]/[slug]": {
-            fr: "/carnet/[category]/[slug]",
-            en: "/notebook/[category]/[slug]",
+            fr: "/blog/[category]/[slug]",
+            en: "/blog/[category]/[slug]",
         },
-        "/contact": "/missive",
-        "/styleguide": "/styleguide",
+        "/contact": "/contact",
     },
 });
 
