@@ -51,3 +51,11 @@ export const findSlugInLocale = (
     if (translation.slug === slug) return;
     return translation.slug;
 };
+
+export const getAllProjectSlugs = (): string[] => {
+    return Array.from(
+        new Set<string>(
+            projects.filter((p) => p.draft === false).map((p) => p.slug),
+        ),
+    );
+};

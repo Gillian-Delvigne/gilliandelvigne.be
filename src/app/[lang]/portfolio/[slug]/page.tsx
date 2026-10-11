@@ -4,8 +4,8 @@ import {
     LOCALES,
     isLocale,
     getProject,
-    getProjects,
     findSlugInLocale,
+    getAllProjectSlugs,
 } from "@/content";
 import getCrumbs from "@/data/crumbs";
 import PageFrame from "@/components/layout/PageFrame";
@@ -15,7 +15,7 @@ import ProjectIdentity from "@/components/ui/ProjectIdentity";
 
 export async function generateStaticParams() {
     return LOCALES.flatMap((lang) =>
-        getProjects(lang).map((p) => ({ lang, slug: p.slug })),
+        getAllProjectSlugs().map((slug) => ({ lang, slug })),
     );
 }
 
@@ -47,7 +47,7 @@ export default async function Page({
     });
     return (
         <PageFrame title={project.title} breadcrumb={crumbs}>
-			<ProjectIdentity project={project}/>
+            <ProjectIdentity project={project} />
             <Prose>
                 <Mdx code={project.description} />
             </Prose>
