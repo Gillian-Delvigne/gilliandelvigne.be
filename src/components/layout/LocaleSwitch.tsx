@@ -4,6 +4,7 @@ import { useLocale } from "next-intl";
 import { useParams } from "next/navigation";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LOCALES, type Locale } from "@/content";
+import { getRoutingPathname } from "@/lib/pathname";
 
 const labels: Record<Locale, string> = {
     fr: "Français",
@@ -16,9 +17,12 @@ const SEP =
     "[&:not(:last-child)]:after:content-['·']";
 
 export function LocaleSwitch({ cn }: { cn: string }) {
-    const path = usePathname();
     const params = useParams();
     const current = useLocale();
+
+    // During the static build `usePathname` returns the filled internal path
+    // ("/portfolio/elausys"), not the template: find the template it matches.
+    const path = getRoutingPathname(usePathname()) ?? "/";
 
     return (
         <ul className={cn}>
@@ -33,14 +37,7 @@ export function LocaleSwitch({ cn }: { cn: string }) {
                             <span aria-current="true">{labels[locale]}</span>
                         ) : (
                             <Link
-                                // `usePathname` returns the canonical TEMPLATE
-                                // ("/portfolio/[slug]"), not the filled path, so
-                                // next-intl needs `params` to rebuild it in the
-                                // other locale.
-                                // @ts-expect-error — TS cannot know which template
-                                // is active, so it cannot check that `params`
-                                // matches it. At runtime both come from the same
-                                // route: they always agree.
+                                // @ts-expect-error: nothing in the types ties `params` to the template
                                 href={{ pathname: path, params }}
                                 locale={locale}
                                 lang={locale}
