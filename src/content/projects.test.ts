@@ -1,6 +1,11 @@
 import { expect, test } from "vitest";
 import { projects } from "../../.velite";
-import { getFeaturedProjects, getProject, getProjects } from "./index";
+import {
+    getAllProjectSlugs,
+    getFeaturedProjects,
+    getProject,
+    getProjects,
+} from "./index";
 
 test("only FR projects", () => {
     expect(getProjects("fr").every((p) => p.locale === "fr")).toBe(true);
@@ -49,4 +54,13 @@ test("featured is a subset of projects", () => {
     const featured = getFeaturedProjects("fr");
     expect(featured.every((p) => all.includes(p))).toBe(true);
     expect(featured.every((p) => p.featured)).toBe(true);
+});
+
+test("get all projects slugs without duplicates", () => {
+    const slugsInFr = getProjects("fr").map((p) => p.slug);
+    const slugsinEn = getProjects("en").map((p) => p.slug);
+    const allSlugs = Array.from(new Set([...slugsInFr, ...slugsinEn]));
+    expect(getAllProjectSlugs().sort()).toEqual(allSlugs.sort());
+    expect(getAllProjectSlugs()).toContain("app-premiers-secours");
+    expect(getAllProjectSlugs()).toContain("first-aid-app");
 });
