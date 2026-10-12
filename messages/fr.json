@@ -134,7 +134,6 @@
 		"partial": "partiellement en ligne",
 		"wip": "en cours",
 		"private": "privé",
-		"archived": "archivé",
-		"failed": "build cassé"
+		"archived": "archivé"
 	}
 }

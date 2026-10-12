@@ -134,7 +134,6 @@
 		"partial": "partly live",
 		"wip": "in progress",
 		"private": "private",
-		"archived": "archived",
-		"failed": "build failing"
+		"archived": "archived"
 	}
 }

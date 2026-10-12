@@ -152,10 +152,19 @@ export default defineConfig({
                     stack: s.array(s.string()).default([]),
                     draft: s.boolean().default(false),
                     status: s
-                        .enum(["live", "partial", "wip", "private"])
+                        .enum(["live", "partial", "wip", "private", "archived"])
                         .default("live"),
+                    evidence: s
+                        .object({
+                            scope: s.string().optional(),
+                            coupling: s.string().optional(),
+                            stakes: s.string().optional(),
+                            conformance: s.string().optional(),
+                            rules: s.string().optional(),
+                            disciplines: s.string().optional(),
+                        })
+                        .default({}),
                     order: s.number().default(0),
-                    emblem: s.string().optional(),
                     ref: s.string().optional(),
                     path: s.path(),
                     cover: s.image().optional(),
