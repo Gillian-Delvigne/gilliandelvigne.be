@@ -5,7 +5,10 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig({
   test: {
     environment: 'jsdom',
-	setupFiles: ["./vitest.setup.ts"]
+	setupFiles: ["./vitest.setup.ts"],
+	chaiConfig: {
+      truncateThreshold: 0,
+    },
   },
   plugins: [tsconfigPaths(), react()]
 })
