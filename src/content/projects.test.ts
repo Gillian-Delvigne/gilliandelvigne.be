@@ -58,8 +58,8 @@ test("featured is a subset of projects", () => {
 
 test("get all projects slugs without duplicates", () => {
     const slugsInFr = getProjects("fr").map((p) => p.slug);
-    const slugsinEn = getProjects("en").map((p) => p.slug);
-    const allSlugs = Array.from(new Set([...slugsInFr, ...slugsinEn]));
+    const slugsInEn = getProjects("en").map((p) => p.slug);
+    const allSlugs = Array.from(new Set([...slugsInFr, ...slugsInEn]));
     expect(getAllProjectSlugs().sort()).toEqual(allSlugs.sort());
     expect(getAllProjectSlugs()).toContain("app-premiers-secours");
     expect(getAllProjectSlugs()).toContain("first-aid-app");
