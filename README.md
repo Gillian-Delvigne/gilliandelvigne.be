@@ -1,5 +1,7 @@
 # gilliandelvigne.be
 
+[![CI](https://github.com/Gillian-Delvigne/gilliandelvigne.be/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Gillian-Delvigne/gilliandelvigne.be/actions/workflows/ci.yml)
+
 **Français** · [English](#en)
 
 Mon portfolio. Reprise d'un portfolio personnel existant, reconstruit sur Next 16 : App
