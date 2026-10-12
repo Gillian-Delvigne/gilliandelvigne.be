@@ -59,8 +59,8 @@ export const PROFILES: Record<ProjectKey, Profile> = {
     },
     "ulb-pharmacy-simulation": {
         scope: 2,
-        coupling: 3,
-        stakes: 3,
+        coupling: 1,
+        stakes: 1,
         conformance: 4,
         rules: 3,
         disciplines: 4,
@@ -68,13 +68,13 @@ export const PROFILES: Record<ProjectKey, Profile> = {
     "save-lives": {
         scope: 2,
         coupling: 2,
-        stakes: 3,
+        stakes: 1,
         conformance: 3,
         rules: 3,
         disciplines: 4,
     },
     pser: {
-        scope: 3,
+        scope: 1,
         coupling: 3,
         stakes: 4,
         conformance: 4,
