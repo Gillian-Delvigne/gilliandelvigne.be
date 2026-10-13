@@ -14,6 +14,7 @@ import Prose from "@/components/ui/Prose";
 import ProjectIdentity from "@/components/ui/ProjectIdentity";
 import { getTranslations } from "next-intl/server";
 import { AXES, getProfile } from "@/content/difficulty";
+import DifficultyHex from "@/components/ui/DifficultyHex";
 
 export async function generateStaticParams() {
     return LOCALES.flatMap((lang) =>
@@ -54,6 +55,8 @@ export default async function Page({
     return (
         <PageFrame title={project.title} breadcrumb={crumbs}>
             <ProjectIdentity project={project} />
+
+            {profile && <DifficultyHex profile={profile} />}
             {profile && (
                 <dl>
                     {AXES.map((axis) => (

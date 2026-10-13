@@ -4,10 +4,9 @@ import {
     calculatePoint,
     calculateRadius,
     setLabelPosition,
+    CENTER,
+    OUTER,
 } from "./hexagon.geometry";
-
-const CENTER = 60; // Simulates a 120 x 120 SVG viewbox
-const OUTER = 44; // Places the circle with a 16 gutter
 
 const expectPoint = (
     [x, y]: [number, number],

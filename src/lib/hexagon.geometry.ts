@@ -1,9 +1,14 @@
-import { AXES } from "@/content/difficulty";
+import { AXES, type Profile } from "@/content/difficulty";
+
+export type Point = [x: number, y: number];
+
+export const CENTER = 60; // Simulates a 120 x 120 SVG viewbox
+export const OUTER = 44; // Places the circle with a 16 gutter
 
 /** Share of the outer radius kept below the lowest value. A 0 drawn at the
    centre would collapse the polygon, so it sits on a dotted ring instead. */
 const FLOOR = 0.14;
-const MAX_LEVEL = 4;
+export const MAX_LEVEL = 4;
 
 const calculateAngle = (index: number) => {
     return -Math.PI / 2 + (index * 2 * Math.PI) / AXES.length;
@@ -33,4 +38,23 @@ export const setLabelPosition = (index: number) => {
     if (Math.abs(cosinus) < 0.01) return "middle";
     else if (cosinus > 0) return "start";
     else return "end";
+};
+
+export const profileVertices = (profile: Profile): Point[] => {
+    const points = AXES.map((axis, index) => {
+        const length = calculateRadius(OUTER, profile[axis]);
+        return calculatePoint(CENTER, CENTER, index, length);
+    });
+    return points;
+};
+
+export const toPointsAttribute = (points: Point[]): string => points.join(" ");
+
+export const ringVertices = (length: number): Point[] =>
+    AXES.map((_, index) => calculatePoint(CENTER, CENTER, index, length));
+
+export const frameRings = () => {
+    return Array.from({ length: MAX_LEVEL }, (_, i) => i + 1).map((lvl) =>
+        ringVertices((OUTER * lvl) / MAX_LEVEL),
+    );
 };
