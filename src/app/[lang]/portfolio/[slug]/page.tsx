@@ -14,6 +14,7 @@ import Prose from "@/components/ui/Prose";
 import ProjectIdentity from "@/components/ui/ProjectIdentity";
 import { getTranslations } from "next-intl/server";
 import { AXES, getProfile } from "@/content/difficulty";
+import type { AxisLabels } from "@/types/difficulty";
 import DifficultyHex from "@/components/ui/DifficultyHex";
 
 export async function generateStaticParams() {
@@ -27,6 +28,9 @@ export default async function Page({
 }: PageProps<"/[lang]/portfolio/[slug]">) {
     const { lang, slug } = await params;
     const t = await getTranslations("Difficulty.axes");
+    const hexLabels = Object.fromEntries(
+        AXES.map((axis) => [axis, t(axis)]),
+    ) as AxisLabels;
 
     if (!isLocale(lang)) return notFound();
     const project = getProject(lang, slug);
@@ -56,7 +60,13 @@ export default async function Page({
         <PageFrame title={project.title} breadcrumb={crumbs}>
             <ProjectIdentity project={project} />
 
-            {profile && <DifficultyHex profile={profile} />}
+            {profile && (
+                <DifficultyHex
+                    profile={profile}
+                    labels={hexLabels}
+                    className="w-60 h-60"
+                />
+            )}
             {profile && (
                 <dl>
                     {AXES.map((axis) => (

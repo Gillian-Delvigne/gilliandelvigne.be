@@ -1,5 +1,5 @@
 import type { ProjectKey } from "../../.velite/project-keys";
-import type { Level } from "@/types/difficulty";
+import type { Profile } from "@/types/difficulty";
 
 /* The axes of the hexagon, clockwise from the top. This array alone decides
    which axes exist and in which order they are drawn; the messages only name
@@ -13,8 +13,9 @@ export const AXES = [
     "disciplines",
 ] as const;
 
-export type Axis = (typeof AXES)[number];
-export type Profile = Record<Axis, Level>;
+/** Highest level of an axis. Keep in step with the Level type in
+    types/difficulty.ts. */
+export const MAX_LEVEL = 4;
 
 export const PROFILES: Record<ProjectKey, Profile> = {
     elausys: {

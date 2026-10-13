@@ -3,7 +3,8 @@ import { AXES } from "@/content/difficulty";
 import {
     calculatePoint,
     calculateRadius,
-    setLabelPosition,
+    getLabelHorizontalAnchor,
+    wrapLabel,
     CENTER,
     OUTER,
 } from "./hexagon.geometry";
@@ -69,9 +70,9 @@ describe("calculatePoint", () => {
     });
 });
 
-describe("setLabelPosition", () => {
+describe("getLabelHorizontalAnchor", () => {
     test("Labels are positionned properly around the circle", () => {
-        const result = AXES.map((_, i) => setLabelPosition(i));
+        const result = AXES.map((_, i) => getLabelHorizontalAnchor(i));
         expect(result).toStrictEqual([
             "middle",
             "start",
@@ -80,5 +81,29 @@ describe("setLabelPosition", () => {
             "end",
             "end",
         ]);
+    });
+});
+
+describe("wrapLabel", () => {
+    test("Small word : one word, no wrap", () => {
+        expect(wrapLabel("test")).toStrictEqual(["test"]);
+    });
+    test("Étendue : one word, no wrap", () => {
+        expect(wrapLabel("Étendue")).toStrictEqual(["Étendue"]);
+    });
+    test("Densité de règles: wraps after second word", () => {
+        expect(wrapLabel("Densité de règles")).toStrictEqual([
+            "Densité de",
+            "règles",
+        ]);
+    });
+    test("Pluridisciplinarité : wraps in the middle", () => {
+        expect(wrapLabel("Pluridisciplinarité")).toStrictEqual([
+            "Pluridisci-",
+            "plinarité",
+        ]);
+    });
+    test("Rule density: one word", () => {
+        expect(wrapLabel("Rule density")).toStrictEqual(["Rule density"]);
     });
 });
