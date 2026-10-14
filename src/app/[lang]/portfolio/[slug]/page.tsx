@@ -16,6 +16,7 @@ import { getTranslations } from "next-intl/server";
 import { AXES, getProfile } from "@/content/difficulty";
 import type { AxisLabels } from "@/types/difficulty";
 import DifficultyHex from "@/components/ui/DifficultyHex";
+import DifficultyTable from "@/components/ui/DifficultyTable";
 
 export async function generateStaticParams() {
     return LOCALES.flatMap((lang) =>
@@ -28,6 +29,7 @@ export default async function Page({
 }: PageProps<"/[lang]/portfolio/[slug]">) {
     const { lang, slug } = await params;
     const t = await getTranslations("Difficulty.axes");
+    const tDifficulty = await getTranslations("Difficulty");
     const hexLabels = Object.fromEntries(
         AXES.map((axis) => [axis, t(axis)]),
     ) as AxisLabels;
@@ -61,22 +63,31 @@ export default async function Page({
             <ProjectIdentity project={project} />
 
             {profile && (
-                <DifficultyHex
-                    profile={profile}
-                    labels={hexLabels}
-                    className="w-60 h-60"
-                />
+                <section aria-labelledby="difficulty-profile" className="my-12">
+                    {/* One profile per project page: a fixed id is unique. */}
+                    <h2
+                        id="difficulty-profile"
+                        className="mb-2.5 text-[1.22rem] leading-[1.25] font-semibold tracking-[-0.022em]"
+                    >
+                        {tDifficulty("title")}
+                    </h2>
+                    <p className="mb-4 max-w-[66ch] text-dim">
+                        {tDifficulty("intro")}
+                    </p>
+                    <div className="grid items-start gap-10 min-[860px]:grid-cols-[1fr_300px]">
+                        <DifficultyTable
+                            profile={profile}
+                            evidence={project.evidence}
+                        />
+                        <DifficultyHex
+                            profile={profile}
+                            labels={hexLabels}
+                            className="h-auto w-full"
+                        />
+                    </div>
+                </section>
             )}
-            {profile && (
-                <dl>
-                    {AXES.map((axis) => (
-                        <div key={axis}>
-                            <dt>{t(axis)}</dt>
-                            <dd>{profile[axis]}</dd>
-                        </div>
-                    ))}
-                </dl>
-            )}
+
             <Prose>
                 <Mdx code={project.description} />
             </Prose>

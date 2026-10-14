@@ -91,10 +91,12 @@
 		}
 	},
 	"Difficulty": {
+		"axis": "Axis",
 		"title": "Difficulty profile",
 		"intro": "Six axes, from 0 to 4. Every value sits next to the fact that justifies it.",
 		"evidence": "What justifies it",
 		"value": "Value",
+		"outOf": "out of",
 		"axes": {
 			"scope": "Scope",
 			"coupling": "Coupling",
