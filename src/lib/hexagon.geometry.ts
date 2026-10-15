@@ -16,7 +16,8 @@ export interface LabelData {
 export const CENTER = 60; // Simulates a 120 x 120 SVG viewbox
 export const OUTER = 44; // Places the circle with a 16 gutter
 /** Room added around the 120 x 120 sheet so the axis names fit. */
-export const LABEL_PAD = 48;
+export const LABEL_PAD_X = 48;
+export const LABEL_PAD_Y = 12;
 export const LABEL_GAP = 12;
 export const LINE_HEIGHT = 9;
 const WRAP_LIMIT = 12;
