@@ -14,7 +14,7 @@
 		},
 		"portfolio": {
 			"label": "Projects",
-			"dek": "{count} projects, sorted by the nature of their difficulty rather than by technology."
+			"dek": "{count} projects, from the web to systems, from teaching to code."
 		},
 		"blog": {
 			"label": "Blog",
@@ -91,45 +91,57 @@
 		}
 	},
 	"Difficulty": {
-		"axis": "Axis",
-		"title": "Difficulty profile",
-		"intro": "Six axes, from 0 to 4. Every value sits next to the fact that justifies it.",
-		"evidence": "What justifies it",
+		"axis": "Criterion",
+		"title": "What this project demanded",
+		"intro": "Six criteria, from 0 to 4: the further a branch reaches, the more the project demanded on that point.",
+		"evidence": "In practice",
 		"value": "Value",
 		"outOf": "out of",
 		"axes": {
-			"scope": "Scope",
-			"coupling": "Coupling",
+			"scope": "System size",
+			"coupling": "Dependencies",
 			"stakes": "Stakes",
-			"conformance": "Conformance",
-			"rules": "Rule density",
-			"disciplines": "Disciplines"
-		},
-		"short": {
-			"scope": "SCO",
-			"coupling": "CPL",
-			"stakes": "STK",
-			"conformance": "CNF",
-			"rules": "RUL",
-			"disciplines": "DSC"
+			"conformance": "Model fidelity",
+			"rules": "Business rules",
+			"disciplines": "Versatility"
 		},
 		"definitions": {
-			"scope": "How many heterogeneous pieces, and how many boundaries to cross.",
-			"coupling": "How many parties have to agree, human parties included.",
-			"stakes": "What actually breaks when something goes wrong.",
-			"conformance": "Whether an outside reference has to be matched exactly: a specification, a standard, the behaviour of another program.",
-			"rules": "How many cases, exceptions and nested conditions.",
-			"disciplines": "How many trades are carried in the same project: design, code, content, tooling."
+			"scope": "How many different pieces have to work together? (a website, a server, a database, outside services)",
+			"coupling": "How many parties, human or technical, must the project keep in agreement? When one changes, the others have to follow (on the code side: APIs, connected services; on the organisation side: departments, partners, the client)",
+			"stakes": "What happens when it breaks? (a minor annoyance, lost money, exposed data)",
+			"conformance": "Does the result have to reproduce an imposed model exactly? (a specification, a standard, an existing program)",
+			"rules": "How many business rules does the project have to apply? (exceptions, special cases, specific requirements, branching paths)",
+			"disciplines": "How many different hats did the project require? (frontend development, backend development, design, writing, teaching)"
 		},
 		"levels": {
-			"0": "None",
-			"1": "One, or negligible",
-			"2": "A few, with no interaction between them",
-			"3": "Many, with interactions",
-			"4": "Many, nested, and an error propagates"
+			"0": {
+				"name": "Not applicable",
+				"detail": ""
+			},
+			"1": {
+				"name": "Low",
+				"detail": "a single element, or nearly"
+			},
+			"2": {
+				"name": "Moderate",
+				"detail": "several independent elements"
+			},
+			"3": {
+				"name": "High",
+				"detail": "several elements that depend on one another"
+			},
+			"4": {
+				"name": "Very high",
+				"detail": "everything is linked, an error spreads"
+			}
 		},
-		"legend": "How to read this profile",
-		"floor": "The floor of the hexagon is not zero: a vertex at the centre would erase the shape. The dotted ring marks zero, and the numeric value is always shown."
+		"legend": {
+			"trigger": "Need help reading the hexagon?",
+			"title": "The hexagon, criterion by criterion",
+			"axesHeading": "What each criterion measures",
+			"levelsHeading": "What each level means",
+			"close": "Close the help"
+		}
 	},
 	"Status": {
 		"live": "live",
