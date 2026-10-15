@@ -17,6 +17,8 @@ import { AXES, getProfile } from "@/content/difficulty";
 import type { AxisLabels } from "@/types/difficulty";
 import DifficultyHex from "@/components/ui/DifficultyHex";
 import DifficultyTable from "@/components/ui/DifficultyTable";
+import DifficultyLegendTrigger from "@/components/ui/DifficultyLegendTrigger";
+import DifficultyLegend from "@/components/ui/DifficultyLegend";
 
 export async function generateStaticParams() {
     return LOCALES.flatMap((lang) =>
@@ -75,11 +77,17 @@ export default async function Page({
                             profile={profile}
                             evidence={project.evidence}
                         />
-                        <DifficultyHex
-                            profile={profile}
-                            labels={hexLabels}
-                            className="h-auto w-full"
-                        />
+                        <div className="flex flex-col">
+                            <DifficultyHex
+                                profile={profile}
+                                labels={hexLabels}
+                                className="h-auto w-full"
+                            />
+                            <DifficultyLegendTrigger
+                                label={t("legend.trigger")}
+                            />
+                            <DifficultyLegend />
+                        </div>
                     </div>
                 </section>
             )}

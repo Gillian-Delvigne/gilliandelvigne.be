@@ -8,7 +8,8 @@ import {
     ringVertices,
     CENTER,
     OUTER,
-    LABEL_PAD,
+    LABEL_PAD_X,
+    LABEL_PAD_Y,
     LINE_HEIGHT,
     calculateRadius,
     generateLabelData,
@@ -50,7 +51,7 @@ export default function DifficultyHex({
 
     return (
         <svg
-            viewBox={`${-LABEL_PAD} ${-LABEL_PAD} ${2 * CENTER + 2 * LABEL_PAD} ${2 * CENTER + 2 * LABEL_PAD}`}
+            viewBox={`${-LABEL_PAD_X} ${-LABEL_PAD_Y} ${2 * CENTER + 2 * LABEL_PAD_X} ${2 * CENTER + 2 * LABEL_PAD_Y}`}
             aria-hidden="true"
             className={cn(className)}
         >

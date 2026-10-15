@@ -13,7 +13,9 @@ export const AXES = [
     "disciplines",
 ] as const;
 
+export const LEVELS = [0, 1, 2, 3, 4] as const;
 export const MAX_LEVEL = 4;
+export const DIFFICULTY_LEGEND_ID = "difficulty-legend";
 
 export const PROFILES: Record<ProjectKey, Profile> = {
     elausys: {

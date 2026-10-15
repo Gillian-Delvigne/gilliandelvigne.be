@@ -146,6 +146,7 @@
     255 255 255 / 0.085
   ); /* one per screen, behind the brand mark */
   --lit: inset 0 1px 0 rgb(255 255 255 / 0.06); /* the top edge catches the light */
+  --veil: rgb(5 9 18 / 0.62);
   --shadow: none; /* a drop shadow does not read on black */
 
   /* ---- Hexagon grid ---- */
@@ -188,6 +189,8 @@
     --sunk: rgb(14 23 38 / 0.03);
     --glow: transparent; /* a white glow does not exist on a light background */
     --lit: inset 0 -1px 0 rgb(16 24 40 / 0.05); /* in light mode, the BOTTOM edge takes the shade */
+    --veil: rgb(14 23 38 / 0.28);
+    --brand-border: rgb(20 92 208 / 0.26);
     --shadow: 0 1px 1px rgb(16 24 40 / 0.03), 0 6px 16px rgb(16 24 40 / 0.04);
     --web: rgb(14 23 38 / 0.08);
     --web-out: rgb(14 23 38 / 0.18);
@@ -259,6 +262,13 @@ body {
   background: var(--color-rule);
   border-radius: 9999px;
   border: 3px solid var(--color-parchment);
+}
+[popover] {
+  scrollbar-color: var(--line) transparent;
+}
+[popover]::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-color: var(--color-surface);
 }
 
 /* Selection */
