@@ -38,20 +38,30 @@ export default async function DifficultyTable({
                     <tr key={axis}>
                         <th
                             scope="row"
-                            className={`${CELL} w-[1%] whitespace-nowrap text-left font-semibold text-ink`}
+                            className={`${CELL} w-[1%] text-left font-semibold text-ink min-[860px]:whitespace-nowrap`}
                         >
                             {tAxes(axis)}
                         </th>
                         <td className={`${CELL} text-dim`}>
                             {evidence?.[axis]}
                         </td>
+                        {/* The level name translates the number for a reader
+                            who does not know the scale; the number stays the
+                            measure. Read aloud: "Très élevé, 4 sur 4". */}
                         <td
-                            className={`${CELL} w-[1%] whitespace-nowrap text-right font-mono text-[0.8rem] font-semibold text-brand`}
+                            className={`${CELL} w-[1%] whitespace-nowrap text-right`}
                         >
-                            {profile[axis]}
-                            <span aria-hidden="true"> / </span>
-                            <span className="sr-only"> {t("outOf")} </span>
-                            {MAX_LEVEL}
+                            <span className="text-dim">
+                                {t(`levels.${profile[axis]}.name`)}
+                            </span>
+                            <span aria-hidden="true"> · </span>
+                            <span className="sr-only">, </span>
+                            <span className="font-mono text-[0.8rem] font-semibold text-brand">
+                                {profile[axis]}
+                                <span aria-hidden="true"> / </span>
+                                <span className="sr-only"> {t("outOf")} </span>
+                                {MAX_LEVEL}
+                            </span>
                         </td>
                     </tr>
                 ))}

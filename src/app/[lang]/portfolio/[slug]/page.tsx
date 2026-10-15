@@ -74,7 +74,7 @@ export default async function Page({
                     <p className="mb-4 max-w-[66ch] text-dim">
                         {tDifficulty("intro")}
                     </p>
-                    <div className="grid items-start gap-10 min-[860px]:grid-cols-[1fr_300px]">
+                    <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-10 min-[860px]:grid-cols-[minmax(0,1fr)_300px]">
                         <DifficultyTable
                             profile={profile}
                             evidence={project.evidence}
