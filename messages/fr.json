@@ -144,8 +144,8 @@
 		}
 	},
 	"Status": {
-		"live": "en production",
-		"partial": "partiellement en ligne",
+		"live": "en ligne",
+		"partial": "en ligne, partiellement privé",
 		"wip": "en cours",
 		"private": "privé",
 		"archived": "archivé"

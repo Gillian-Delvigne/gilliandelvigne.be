@@ -145,7 +145,7 @@
 	},
 	"Status": {
 		"live": "live",
-		"partial": "partly live",
+		"partial": "live, partly private",
 		"wip": "in progress",
 		"private": "private",
 		"archived": "archived"
