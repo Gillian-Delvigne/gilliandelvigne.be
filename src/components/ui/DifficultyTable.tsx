@@ -17,7 +17,7 @@ export default async function DifficultyTable({
     evidence,
 }: DifficultyTableProps) {
     const t = await getTranslations("Difficulty");
-    const tAxes = await getTranslations("Difficulty.axes");
+
     return (
         <table className="w-full border-collapse text-[0.85rem] mt-2">
             <thead>
@@ -40,7 +40,7 @@ export default async function DifficultyTable({
                             scope="row"
                             className={`${CELL} w-[1%] text-left font-semibold text-ink min-[860px]:whitespace-nowrap`}
                         >
-                            {tAxes(axis)}
+                            {t(`axes.${axis}`)}
                         </th>
                         <td className={`${CELL} text-dim`}>
                             {evidence?.[axis]}
