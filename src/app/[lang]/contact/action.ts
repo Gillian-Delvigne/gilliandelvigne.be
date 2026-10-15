@@ -4,9 +4,9 @@ import * as z from "zod";
 import { getTranslations } from "next-intl/server";
 import { Locale, isLocale } from "@/content";
 import type {
-    ContactErrorCode,
     ContactInfo,
     ContactFormState,
+    ContactErrorCode,
 } from "@/types/contact";
 import { ContactData } from "@/lib/validation";
 import sendEmail from "@/lib/email";
@@ -18,15 +18,11 @@ export default async function handleSubmit(
     formData: FormData,
 ): Promise<ContactFormState> {
     if (!isLocale(locale)) return { status: "initial" };
+
     const t = await getTranslations({
-        locale: locale,
-        namespace: "Contact.form.errors",
-    });
-    const tsendState = await getTranslations({
         locale: locale,
         namespace: "Contact.form",
     });
-
     const { site, name, email, message } = Object.fromEntries(formData);
     const result = ContactData.safeParse({
         name: name,
@@ -43,15 +39,15 @@ export default async function handleSubmit(
             logger("ERROR", "Error: ", err);
             return {
                 status: "sendingError",
-                sendingError: tsendState("error-msg"),
+                sendingError: t("error-msg"),
             };
         }
     }
     const zodErrors = z.flattenError(result.error, (issue) => {
-        const errorMsg = issue.message as ContactErrorCode;
+        const code = issue.message as ContactErrorCode;
         if (issue.code === "too_big")
-            return t(errorMsg, { max: issue.maximum as number });
-        return t(errorMsg);
+            return t(`errors.${code}`, { max: issue.maximum as number });
+        return t(`errors.${code}`);
     });
     const errors: Partial<Record<keyof ContactInfo, string>> = {};
     for (const [key, value] of Object.entries(zodErrors.fieldErrors) as [

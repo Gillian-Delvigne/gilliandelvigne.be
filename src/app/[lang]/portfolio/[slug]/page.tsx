@@ -28,10 +28,9 @@ export default async function Page({
     params,
 }: PageProps<"/[lang]/portfolio/[slug]">) {
     const { lang, slug } = await params;
-    const t = await getTranslations("Difficulty.axes");
-    const tDifficulty = await getTranslations("Difficulty");
+    const t = await getTranslations("Difficulty");
     const hexLabels = Object.fromEntries(
-        AXES.map((axis) => [axis, t(axis)]),
+        AXES.map((axis) => [axis, t(`axes.${axis}`)]),
     ) as AxisLabels;
 
     if (!isLocale(lang)) return notFound();
@@ -64,17 +63,14 @@ export default async function Page({
 
             {profile && (
                 <section aria-labelledby="difficulty-profile" className="my-12">
-                    {/* One profile per project page: a fixed id is unique. */}
                     <h2
                         id="difficulty-profile"
-                        className="mb-2.5 text-[1.22rem] leading-[1.25] font-semibold tracking-[-0.022em]"
+                        className="mb-2.5 text-[1.22rem] leading-tight font-semibold tracking-[-0.022em]"
                     >
-                        {tDifficulty("title")}
+                        {t("title")}
                     </h2>
-                    <p className="mb-4 max-w-[66ch] text-dim">
-                        {tDifficulty("intro")}
-                    </p>
-                    <div className="grid items-start gap-10 min-[860px]:grid-cols-[1fr_300px]">
+                    <p className="mb-4 max-w-[66ch] text-dim">{t("intro")}</p>
+                    <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-10 min-[860px]:grid-cols-[minmax(0,1fr)_300px]">
                         <DifficultyTable
                             profile={profile}
                             evidence={project.evidence}

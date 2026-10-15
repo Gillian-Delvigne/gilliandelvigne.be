@@ -14,7 +14,7 @@
 		},
 		"portfolio": {
 			"label": "Projets",
-			"dek": "{count} projets, rangés par nature de difficulté plutôt que par technologie."
+			"dek": "{count} projets, du web au système, de la pédagogie au code."
 		},
 		"blog": {
 			"label": "Blog",
@@ -91,45 +91,57 @@
 		}
 	},
 	"Difficulty": {
-		"axis": "Axe",
-		"title": "Profil de difficulté",
-		"intro": "Six axes, de 0 à 4. Chaque valeur est affichée à côté du fait qui la justifie.",
-		"evidence": "Ce qui le justifie",
+		"axis": "Critère",
+		"title": "Ce que ce projet a exigé",
+		"intro": "Six critères, de 0 à 4 : plus une branche s'étire, plus le projet a été exigeant sur ce point.",
+		"evidence": "Concrètement",
 		"value": "Valeur",
 		"outOf": "sur",
 		"axes": {
-			"scope": "Étendue",
-			"coupling": "Couplage",
+			"scope": "Taille du système",
+			"coupling": "Dépendances",
 			"stakes": "Enjeu",
-			"conformance": "Conformité",
-			"rules": "Densité de règles",
-			"disciplines": "Pluridisciplinarité"
-		},
-		"short": {
-			"scope": "ÉTE",
-			"coupling": "COU",
-			"stakes": "ENJ",
-			"conformance": "CNF",
-			"rules": "RÈG",
-			"disciplines": "PLU"
+			"conformance": "Fidélité au modèle",
+			"rules": "Règles métier",
+			"disciplines": "Polyvalence"
 		},
 		"definitions": {
-			"scope": "Combien de pièces hétérogènes, et combien de frontières à franchir.",
-			"coupling": "Combien de parties doivent s'accorder, les parties humaines comprises.",
-			"stakes": "Ce qui casse réellement en cas d'erreur.",
-			"conformance": "Existe-t-il une référence extérieure à satisfaire exactement : un cahier des charges, une norme, le comportement d'un autre programme.",
-			"rules": "Combien de cas, d'exceptions et d'imbrications.",
-			"disciplines": "Combien de métiers conduits dans le même projet : design, code, contenu, outillage."
+			"scope": "Combien de pièces différentes faut-il faire fonctionner ensemble ? (un site, un serveur, une base de données, des services extérieurs)",
+			"coupling": "Combien d'interlocuteurs, humains ou techniques, le projet doit-il tenir d'accord ? Quand l'un change, les autres doivent suivre (côté code : API, services connectés ; côté organisation : départements, partenaires, client)",
+			"stakes": "Que se passe-t-il quand ça casse ? (une gêne, de l'argent perdu, des données exposées)",
+			"conformance": "Faut-il reproduire exactement un modèle imposé ? (un cahier des charges, une norme, un programme existant)",
+			"rules": "Combien de règles propres au métier le projet doit-il appliquer ? (exceptions, cas particuliers, spécificités, embranchements)",
+			"disciplines": "Combien de casquettes différentes le projet a-t-il demandées ? (développement frontend, développement backend, design, rédaction, pédagogie)"
 		},
 		"levels": {
-			"0": "Aucun",
-			"1": "Un seul, ou négligeable",
-			"2": "Quelques-uns, sans interaction entre eux",
-			"3": "Nombreux, avec des interactions",
-			"4": "Nombreux, imbriqués, et une erreur se propage"
+			"0": {
+				"name": "Sans objet",
+				"detail": ""
+			},
+			"1": {
+				"name": "Faible",
+				"detail": "un seul élément, ou presque"
+			},
+			"2": {
+				"name": "Modéré",
+				"detail": "plusieurs éléments, indépendants"
+			},
+			"3": {
+				"name": "Élevé",
+				"detail": "plusieurs éléments qui dépendent les uns des autres"
+			},
+			"4": {
+				"name": "Très élevé",
+				"detail": "tout est lié, une erreur se propage"
+			}
 		},
-		"legend": "Lire ce profil",
-		"floor": "Le plancher de l'hexagone n'est pas zéro : un sommet au centre effacerait la forme. L'anneau en pointillés marque le zéro, et la valeur chiffrée est toujours affichée."
+		"legend": {
+			"trigger": "Besoin d'aide pour déchiffrer l'hexagone ?",
+			"title": "L'hexagone, critère par critère",
+			"axesHeading": "Ce que mesure chaque critère",
+			"levelsHeading": "Ce que vaut chaque niveau",
+			"close": "Fermer l'aide"
+		}
 	},
 	"Status": {
 		"live": "en production",
