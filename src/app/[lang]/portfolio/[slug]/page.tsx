@@ -64,7 +64,6 @@ export default async function Page({
 
             {profile && (
                 <section aria-labelledby="difficulty-profile" className="my-12">
-                    {/* One profile per project page: a fixed id is unique. */}
                     <h2
                         id="difficulty-profile"
                         className="mb-2.5 text-[1.22rem] leading-[1.25] font-semibold tracking-[-0.022em]"

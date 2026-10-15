@@ -13,8 +13,6 @@ export const AXES = [
     "disciplines",
 ] as const;
 
-/** Highest level of an axis. Keep in step with the Level type in
-    types/difficulty.ts. */
 export const MAX_LEVEL = 4;
 
 export const PROFILES: Record<ProjectKey, Profile> = {

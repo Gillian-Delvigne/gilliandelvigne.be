@@ -14,8 +14,6 @@ export async function getStation(key: NavKeys) {
             numeral: stationInfo.numeral,
             label: t(`${key}.label`),
         },
-        /* The portfolio dek states how many projects there are: counted from
-           the content, so adding or removing a project never leaves it stale. */
         dek:
             key === "portfolio"
                 ? t("portfolio.dek", { count: await countProjects() })

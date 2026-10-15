@@ -45,9 +45,6 @@ export default async function DifficultyTable({
                         <td className={`${CELL} text-dim`}>
                             {evidence?.[axis]}
                         </td>
-                        {/* The level name translates the number for a reader
-                            who does not know the scale; the number stays the
-                            measure. Read aloud: "Très élevé, 4 sur 4". */}
                         <td
                             className={`${CELL} w-[1%] whitespace-nowrap text-right`}
                         >
