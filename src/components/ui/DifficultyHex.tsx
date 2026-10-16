@@ -25,10 +25,8 @@ interface HexProps {
 
 /* Rendering of the profile, from the visual system. Values are in
    viewBox units, so they scale with the drawing. */
-const GRADIENT_CENTER_OPACITY = 0.46;
-const GRADIENT_EDGE_OPACITY = 0.12;
 const PROFILE_STROKE_WIDTH = 1.9;
-const VERTEX_RADIUS = 2.1;
+const VERTEX_RADIUS = 2.4;
 const ZERO_RING_DASH = "2 2";
 
 export default function DifficultyHex({
@@ -60,15 +58,15 @@ export default function DifficultyHex({
                     <stop
                         offset="0%"
                         style={{
-                            stopColor: "var(--color-brand)",
-                            stopOpacity: GRADIENT_CENTER_OPACITY,
+                            stopColor: "var(--brand-solid)",
+                            stopOpacity: "var(--hex-center)",
                         }}
                     />
                     <stop
                         offset="100%"
                         style={{
-                            stopColor: "var(--color-brand)",
-                            stopOpacity: GRADIENT_EDGE_OPACITY,
+                            stopColor: "var(--brand-solid)",
+                            stopOpacity: "var(--hex-edge)",
                         }}
                     />
                 </radialGradient>
@@ -107,7 +105,7 @@ export default function DifficultyHex({
                 points={toPointsAttribute(vertices)}
                 fill={`url(#${id})`}
                 strokeLinejoin="round"
-                className="stroke-brand"
+                className="stroke-(--brand-solid)"
                 strokeWidth={PROFILE_STROKE_WIDTH}
             />
             {vertices.map(([x, y], index) => (
@@ -116,7 +114,8 @@ export default function DifficultyHex({
                     cx={x}
                     cy={y}
                     r={VERTEX_RADIUS}
-                    className="fill-brand"
+                    className="fill-(--brand-solid) stroke-(--dot-ring)"
+                    strokeWidth={1.2}
                 />
             ))}
             {labelsData &&
