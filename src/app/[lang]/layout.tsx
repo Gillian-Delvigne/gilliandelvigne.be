@@ -8,7 +8,7 @@ import CompassNav from "@/components/layout/CompassNav";
 import { getAllStations } from "@/data/station";
 import { CompassMobile } from "@/components/layout/CompassMobile";
 import Footer from "@/components/layout/Footer";
-import { SvgDefs } from "@/components/layout/SvgDefs";
+import Halo from "@/components/layout/Halo";
 
 export const viewport: Viewport = { viewportFit: "cover" };
 
@@ -21,7 +21,7 @@ const inter = Inter({
 });
 
 const ibmPlexMono = IBM_Plex_Mono({
-    weight: [ "400", "500", "600"],
+    weight: ["400", "500", "600"],
     variable: "--font-ibm-mono",
     subsets: ["latin"],
 });
@@ -42,7 +42,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
             className={`${inter.variable} ${ibmPlexMono.variable} min-h-screen antialiased scrollbar-gutter-stable`}
         >
             <body className="flex flex-col min-h-screen">
-                <SvgDefs />
+                <Halo />
                 <NextIntlClientProvider>
                     <CompassNav stations={stations} />
                     <CompassMobile stations={stations} />

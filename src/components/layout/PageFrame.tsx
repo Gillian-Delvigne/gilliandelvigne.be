@@ -13,11 +13,6 @@ export default async function PageFrame({
 
     return (
         <div>
-            <div
-                className="relative isolate
-                before:pointer-events-none before:absolute before:inset-x-0 before:top-0 before:-z-10 before:h-140
-                before:bg-[radial-gradient(120%_70%_at_50%_-14%,var(--halo),transparent_62%)] before:content-['']"
-            ></div>
             <header className="mx-auto w-full px-(--gutter) max-w-(--width-content) py-24 md:py-32">
                 {breadcrumb && <Breadcrumb crumbs={breadcrumb} />}
                 {eyebrow && <Eyebrow {...eyebrow} />}
