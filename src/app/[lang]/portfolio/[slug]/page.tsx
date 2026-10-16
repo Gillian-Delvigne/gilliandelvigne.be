@@ -60,7 +60,7 @@ export default async function Page({
     const profile = getProfile(project.translationKey);
 
     return (
-        <PageFrame title={project.title} breadcrumb={crumbs}>
+        <PageFrame title={project.title} dek={project.dek} breadcrumb={crumbs}>
             <ProjectIdentity project={project} />
             {profile && (
                 <section aria-labelledby="difficulty-profile">
