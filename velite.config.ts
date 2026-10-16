@@ -8,6 +8,13 @@ import { isLocale, LOCALES, DEFAULT_LOCALE } from "./src/content/locales";
 import type { Locale } from "./src/content/locales";
 import * as fs from "fs";
 import * as path from "path";
+import messages from "./messages/fr.json";
+
+type ProjectCategory = keyof typeof messages.Projects.categories;
+const PROJECT_CATEGORIES = Object.keys(messages.Projects.categories) as [
+    ProjectCategory,
+    ...ProjectCategory[],
+];
 
 const BLOG_SEGMENTS = 4;
 const DEFAULT_SEGMENTS = 3;
@@ -150,7 +157,7 @@ export default defineConfig({
                     translationKey: s.string().max(50),
                     date: s.isodate(),
                     tags: s.array(s.string()).default([]),
-                    category: s.string(),
+                    category: s.enum(PROJECT_CATEGORIES),
                     stack: s.array(s.string()).default([]),
                     draft: s.boolean().default(false),
                     status: s

@@ -60,11 +60,10 @@ export default async function Page({
     const profile = getProfile(project.translationKey);
 
     return (
-        <PageFrame title={project.title} breadcrumb={crumbs}>
+        <PageFrame title={project.title} dek={project.dek} breadcrumb={crumbs}>
             <ProjectIdentity project={project} />
-
             {profile && (
-                <section aria-labelledby="difficulty-profile" className="my-12">
+                <section aria-labelledby="difficulty-profile">
                     <h2
                         id="difficulty-profile"
                         className="mb-2.5 text-[1.22rem] leading-tight font-semibold tracking-[-0.022em]"

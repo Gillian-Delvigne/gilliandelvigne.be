@@ -21,7 +21,7 @@ export default async function PageFrame({
                 </h1>
 
                 {dek && (
-                    <p className="t-dek mt-2 max-w-(--measure-prose) text-lg text-ink-secondary">
+                    <p className="mt-3 max-w-[56ch] text-[1.12rem] leading-[1.55] text-dim">
                         {dek}
                     </p>
                 )}
