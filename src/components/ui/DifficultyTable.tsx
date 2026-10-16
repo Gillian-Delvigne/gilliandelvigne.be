@@ -4,7 +4,7 @@ import { AXES, LEVELS, MAX_LEVEL } from "@/content/difficulty";
 import { getTranslations } from "next-intl/server";
 
 const HEAD =
-    "font-mono font-semibold text-[0.63rem] uppercase tracking-[0.08em] text-dim pr-3 pb-2.25 border-b border-(--line)";
+    "font-mono font-semibold text-2xs uppercase tracking-label text-dim pr-3 pb-2.25 border-b border-(--line)";
 const CELL =
     "py-2.25 pr-3 align-top border-b border-(--line-soft) group-last:border-b-0 group-last:pb-0";
 
@@ -19,7 +19,7 @@ export default async function DifficultyTable({
 }: DifficultyTableProps) {
     const t = await getTranslations("Difficulty");
     return (
-        <table className="w-full border-collapse text-[0.85rem] mt-2">
+        <table className="w-full border-collapse text-sm mt-2">
             <thead>
                 <tr>
                     <th scope="col" className={`${HEAD} text-left`}>
@@ -38,7 +38,7 @@ export default async function DifficultyTable({
                     <tr key={axis} className="group">
                         <th
                             scope="row"
-                            className={`${CELL} w-[1%] text-left font-semibold text-ink min-[860px]:whitespace-nowrap`}
+                            className={`${CELL} w-[1%] text-left font-semibold text-ink notation:whitespace-nowrap`}
                         >
                             {t(`axes.${axis}`)}
                         </th>
@@ -48,7 +48,7 @@ export default async function DifficultyTable({
                         <td className={`${CELL} w-[1%] whitespace-nowrap`}>
                             <div className="flex flex-col items-end">
                                 <span
-                                    className={`${profile[axis] > 0 ? "text-brand font-medium" : "text-dim font-normal"} text-[0.75rem] mb-1.5`}
+                                    className={`${profile[axis] > 0 ? "text-brand font-medium" : "text-dim font-normal"} text-xs mb-1.5`}
                                 >
                                     {t(`levels.${profile[axis]}.name`)}
                                 </span>
