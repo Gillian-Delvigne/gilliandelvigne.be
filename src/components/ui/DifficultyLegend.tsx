@@ -50,7 +50,7 @@ export default async function DifficultyLegend() {
                 {LEVELS.map((level) => (
                     <li
                         key={level}
-                        className="grid grid-cols-[2.2rem_1fr] items-baseline border-b border-(--line-soft) py-1.75 text-[0.9rem] text-dim"
+                        className="grid grid-cols-[2.2rem_1fr] items-baseline not-last:border-b not-last:border-(--line-soft) py-1.75 text-[0.9rem] text-dim"
                     >
                         <span className="font-mono text-[0.85rem] font-semibold text-brand">
                             {level}
