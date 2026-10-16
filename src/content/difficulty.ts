@@ -1,5 +1,6 @@
+import { max } from "date-fns";
 import type { ProjectKey } from "../../.velite/project-keys";
-import type { Profile } from "@/types/difficulty";
+import type { Profile, Axis } from "@/types/difficulty";
 
 /* The axes of the hexagon, clockwise from the top. This array alone decides
    which axes exist and in which order they are drawn; the messages only name
@@ -110,4 +111,12 @@ export const PROFILES: Record<ProjectKey, Profile> = {
 
 export const getProfile = (key: string): Profile | undefined => {
     return PROFILES[key as ProjectKey];
+};
+
+export const peakAxes = (profile: Profile): Axis[] => {
+    const keys = Object.keys(profile) as Axis[];
+    const maxKey = keys.reduce((a: Axis, b: Axis) =>
+        profile[a] > profile[b] ? a : b,
+    );
+    return AXES.filter((axis) => profile[axis] === profile[maxKey]);
 };
