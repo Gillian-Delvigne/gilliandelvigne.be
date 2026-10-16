@@ -66,12 +66,12 @@ export default async function Page({
                 <section aria-labelledby="difficulty-profile">
                     <h2
                         id="difficulty-profile"
-                        className="mb-2.5 text-[1.22rem] leading-tight font-semibold tracking-[-0.022em]"
+                        className="mb-2.5 text-lg leading-title font-semibold tracking-title"
                     >
                         {t("title")}
                     </h2>
-                    <p className="mb-4 max-w-[66ch] text-dim">{t("intro")}</p>
-                    <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-10 min-[860px]:grid-cols-[minmax(0,1fr)_300px]">
+                    <p className="mb-4 max-w-(--measure-prose) text-dim">{t("intro")}</p>
+                    <div className="grid grid-cols-1 items-start gap-10 notation:grid-cols-[minmax(0,1fr)_var(--spacing-hex-page)]">
                         <DifficultyTable
                             profile={profile}
                             evidence={project.evidence}

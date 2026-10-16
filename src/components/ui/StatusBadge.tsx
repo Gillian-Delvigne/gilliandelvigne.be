@@ -48,7 +48,7 @@ export default async function StatusBadge({
     const style: Tone = styles[status];
     return (
         <span
-            className={cn(`inline-flex items-center gap-1.5 rounded-[5px] border px-2.25 py-0.5 font-mono text-[0.66rem] font-medium whitespace-nowrap ${style.bg} ${style.text} ${style.border}`, className)}
+            className={cn(`inline-flex items-center gap-1.5 rounded-badge border px-2.25 py-0.5 font-mono text-2xs font-medium whitespace-nowrap ${style.bg} ${style.text} ${style.border}`, className)}
         >
             <span
                 aria-hidden="true"

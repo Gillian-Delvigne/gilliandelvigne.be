@@ -73,7 +73,7 @@ export default async function ProjectIdentity({
             <StatusBadge status={project.status} />
 
             {rows.length > 0 && (
-                <dl className="mt-3 flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-[0.88rem] text-dim">
+                <dl className="mt-3 flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-sm text-dim">
                     {rows.map(({ label, value }) => (
                         <div
                             key={label}
@@ -82,7 +82,7 @@ export default async function ProjectIdentity({
                                        not-last:after:bg-(--line) not-last:after:content-['']"
                         >
                             <dt className="sr-only">{label}</dt>
-                            <dd className="font-inter text-[0.88rem] text-dim">{value}</dd>
+                            <dd className="font-inter text-sm text-dim">{value}</dd>
                         </div>
                     ))}
                 </dl>

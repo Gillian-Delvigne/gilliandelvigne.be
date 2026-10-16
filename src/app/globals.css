@@ -80,7 +80,15 @@
 
     /* Radii */
     --radius-sm: 4px;
-    --radius-card: 10px;
+    --radius-card: 11px;
+    --radius-badge: 5px;
+
+    --spacing-hex-card: 6.5rem;
+    --spacing-hex-page: 18.75rem;
+
+    --breakpoint-notation: 53.75rem;
+
+    --shadow-card: var(--lit), var(--shadow);
     --radius-seal: 9999px;
 
     /* Easing curves */
@@ -119,6 +127,8 @@
 
     /* Read through var(…) only, no Tailwind utility attached. */
     --measure-prose: 66ch;
+    --measure-dek: 56ch;
+    --width-popover: 40rem;
     --width-content: 75rem;
     --width-canvas: 85rem;
     --gutter: 1.5rem;
@@ -145,6 +155,7 @@
     --mute-solid: #a0a0a0;
     --warm-surface: rgb(255 138 76 / 0.16);
     --halo: rgb(82 168 255 / 0.12);
+    --halo-gradient: radial-gradient(120% 70% at 50% -14%, var(--halo), transparent 62%);
     --brand-solid: #52a8ff;
     --gauge-off: rgb(255 255 255 / 0.16);
     --dot-ring: transparent;
@@ -155,7 +166,7 @@
     ); /* one per screen, behind the brand mark */
     --lit: inset 0 1px 0 rgb(255 255 255 / 0.06); /* the top edge catches the light */
     --veil: rgb(5 9 18 / 0.62);
-    --shadow: none; /* a drop shadow does not read on black */
+    --shadow: 0 0 transparent; /* a drop shadow does not read on black */
 
     /* ---- Hexagon grid ---- */
     --web: rgb(255 255 255 / 0.07);
@@ -260,6 +271,18 @@
 }
 
 /* Base */
+
+@layer base {
+    :focus-visible {
+        outline: 2px solid var(--color-brand);
+        outline-offset: 2px;
+        border-radius: 1px;
+    }
+    [data-surface="dark"] :focus-visible {
+        outline-color: var(--color-brand);
+    }
+}
+
 body {
     background: var(--color-parchment);
     color: var(--color-ink);
@@ -268,16 +291,6 @@ body {
     font-optical-sizing: auto;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-}
-
-/* Focus ring = rubric red (§2.3). On dark material: gilt. */
-:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-    border-radius: 1px;
-}
-[data-surface="dark"] :focus-visible {
-    outline-color: var(--color-gilt-leaf);
 }
 
 /* Scrollbars: visible, discreet (anti-pattern, spec 02) */

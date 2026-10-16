@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { AXES, DIFFICULTY_LEGEND_ID, LEVELS } from "@/content/difficulty";
 
 const HEADING =
-    "mt-5.5 mb-2.5 font-mono text-[0.66rem] font-semibold tracking-[0.1em] text-dim uppercase";
+    "mt-5.5 mb-2.5 font-mono text-2xs font-semibold tracking-label text-dim uppercase";
 
 export default async function DifficultyLegend() {
     const t = await getTranslations("Difficulty");
@@ -13,7 +13,7 @@ export default async function DifficultyLegend() {
             id={DIFFICULTY_LEGEND_ID}
             popover="auto"
             aria-labelledby={titleId}
-            className="m-auto max-h-[calc(100dvh-48px)] w-[min(40rem,calc(100vw-32px))] overflow-auto rounded-xl border border-(--line) bg-surface px-7 pt-6.5 pb-6 text-ink shadow-(--lit) backdrop:bg-(--veil)"
+            className="m-auto max-h-[calc(100dvh---spacing(12))] w-(--width-popover) max-w-[calc(100vw---spacing(8))] overflow-auto rounded-card border border-(--line) bg-surface px-7 pt-6.5 pb-6 text-ink shadow-(--lit) backdrop:bg-(--veil)"
         >
             <button
                 popoverTarget={DIFFICULTY_LEGEND_ID}
@@ -26,7 +26,7 @@ export default async function DifficultyLegend() {
 
             <h2
                 id={titleId}
-                className="mb-1.5 pr-10 text-[1.15rem] font-semibold tracking-title"
+                className="mb-1.5 pr-10 text-body font-semibold tracking-title"
             >
                 {t("legend.title")}
             </h2>
@@ -38,7 +38,7 @@ export default async function DifficultyLegend() {
                         <dt className="font-semibold sm:whitespace-nowrap">
                             {t(`axes.${axis}`)}
                         </dt>
-                        <dd className="mb-2 text-[0.9rem] text-dim sm:mb-0">
+                        <dd className="mb-2 text-sm text-dim sm:mb-0">
                             {t(`definitions.${axis}`)}
                         </dd>
                     </div>
@@ -50,9 +50,9 @@ export default async function DifficultyLegend() {
                 {LEVELS.map((level) => (
                     <li
                         key={level}
-                        className="grid grid-cols-[2.2rem_1fr] items-baseline not-last:border-b not-last:border-(--line-soft) py-1.75 text-[0.9rem] text-dim"
+                        className="grid grid-cols-[--spacing(9)_1fr] items-baseline not-last:border-b not-last:border-(--line-soft) py-1.75 text-sm text-dim"
                     >
-                        <span className="font-mono text-[0.85rem] font-semibold text-brand">
+                        <span className="font-mono text-sm font-semibold text-brand">
                             {level}
                         </span>
                         <span>

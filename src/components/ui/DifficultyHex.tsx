@@ -29,6 +29,7 @@ const PROFILE_STROKE_WIDTH = 1.9;
 const VERTEX_RADIUS = 2.4;
 const VERTEX_RING_WIDTH = 1.2;
 const ZERO_RING_DASH = "2 2";
+const LABEL_FONT_SIZE = 8.5;
 
 export default function DifficultyHex({
     profile,
@@ -41,19 +42,19 @@ export default function DifficultyHex({
     const zeroRing = ringVertices(calculateRadius(OUTER, 0));
     const id = useId();
     let labelsData;
+    let viewbox;
 
     if (labels) {
         labelsData = AXES.map((axis, index) =>
             generateLabelData(labels[axis], index),
         ) as LabelData[];
+        viewbox = `${-LABEL_PAD_X} ${-LABEL_PAD_Y} ${2 * CENTER + 2 * LABEL_PAD_X} ${2 * CENTER + 2 * LABEL_PAD_Y}`;
+    } else {
+        viewbox = `0 0 ${2 * CENTER} ${2 * CENTER}`;
     }
 
     return (
-        <svg
-            viewBox={`${-LABEL_PAD_X} ${-LABEL_PAD_Y} ${2 * CENTER + 2 * LABEL_PAD_X} ${2 * CENTER + 2 * LABEL_PAD_Y}`}
-            aria-hidden="true"
-            className={cn(className)}
-        >
+        <svg viewBox={viewbox} aria-hidden="true" className={cn(className)}>
             <defs>
                 <radialGradient id={id} cx="50%" cy="50%" r="60%">
                     <stop
@@ -130,7 +131,8 @@ export default function DifficultyHex({
                             y={y + offset}
                             textAnchor={textAnchor}
                             dominantBaseline="middle"
-                            className="fill-dim text-[8.5px]"
+                            fontSize={LABEL_FONT_SIZE}
+                            className="fill-dim"
                         >
                             {lines.map((line, k) => (
                                 <tspan
