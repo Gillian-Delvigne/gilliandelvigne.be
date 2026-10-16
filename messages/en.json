@@ -100,6 +100,7 @@
 		"evidence": "In practice",
 		"value": "Value",
 		"outOf": "out of",
+		"peak": "What weighed most: <b>{axes}</b>.",
 		"axes": {
 			"scope": "System size",
 			"coupling": "Dependencies",

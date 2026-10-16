@@ -1,4 +1,3 @@
-import { max } from "date-fns";
 import type { ProjectKey } from "../../.velite/project-keys";
 import type { Profile, Axis } from "@/types/difficulty";
 
