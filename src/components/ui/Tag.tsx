@@ -3,16 +3,14 @@ import { cn } from "@/lib/cn";
 
 interface TagProps {
     children: ReactNode;
-    tone?: "muted" | "verdigris";
     className?: string;
 }
 
-export function Tag({ children, tone = "muted", className }: TagProps) {
+export function Tag({ children, className }: TagProps) {
     return (
         <span
             className={cn(
-                "tag",
-                tone === "verdigris" && "tag-verdigris",
+                "rounded-sm border border-(--line-soft) bg-(--sunk) px-2 py-0.5 font-mono text-[0.65rem] font-medium text-dim",
                 className,
             )}
         >

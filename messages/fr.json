@@ -77,10 +77,13 @@
 	},
 	"Projects": {
 		"identity": {
-			"stack": "Stack",
-			"date": "Date",
+			"status": "Statut",
+			"category": "Catégorie",
+			"date": "Année",
 			"link": "Lien",
-			"repository": "Dépôt"
+			"repository": "Dépôt",
+			"stack": "Stack",
+			"newTab": "(s'ouvre dans un nouvel onglet)"
 		},
 		"categories": {
 			"web": "Web",
