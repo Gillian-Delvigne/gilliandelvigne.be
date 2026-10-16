@@ -27,6 +27,7 @@ interface HexProps {
    viewBox units, so they scale with the drawing. */
 const PROFILE_STROKE_WIDTH = 1.9;
 const VERTEX_RADIUS = 2.4;
+const VERTEX_RING_WIDTH = 1.2;
 const ZERO_RING_DASH = "2 2";
 
 export default function DifficultyHex({
@@ -115,7 +116,7 @@ export default function DifficultyHex({
                     cy={y}
                     r={VERTEX_RADIUS}
                     className="fill-(--brand-solid) stroke-(--dot-ring)"
-                    strokeWidth={1.2}
+                    strokeWidth={VERTEX_RING_WIDTH}
                 />
             ))}
             {labelsData &&

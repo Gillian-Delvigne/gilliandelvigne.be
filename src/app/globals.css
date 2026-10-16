@@ -147,7 +147,7 @@
     --halo: rgb(82 168 255 / 0.12);
     --brand-solid: #52a8ff;
     --gauge-off: rgb(255 255 255 / 0.16);
-	--dot-ring: transparent;
+    --dot-ring: transparent;
 
     /* ---- Depth ---- */
     --glow: rgb(
@@ -173,7 +173,6 @@
     --dur-land: 360ms;
     --dur-ink: 1100ms; /* the hexagon stroke draw */
     --dur-bloom: 900ms;
-
     --gloss: 0.2;
 }
 
@@ -210,7 +209,7 @@
         --halo: rgb(47 123 245 / 0.1);
         --brand-solid: #2f7bf5;
         --gauge-off: #d3dcea;
-		--dot-ring: var(--color-surface);
+        --dot-ring: var(--color-surface);
 
         --line: rgb(14 23 38 / 0.13);
         --line-soft: rgb(14 23 38 / 0.07);
