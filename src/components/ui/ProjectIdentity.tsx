@@ -1,24 +1,29 @@
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import type { Project } from "@/content";
+import StatusBadge from "./StatusBadge";
+import { Tag } from "./Tag";
 
-const readable = (href: string) =>
-    href
+const readable = (href: string) => {
+    if (href.includes("github")) return "github";
+    return href
         .replace(/^https?:\/\//, "")
         .replace(/^www\./, "")
         .replace(/\/$/, "");
+};
 
-const ExternalLink = ({ href }: { href: string }) => (
+const ExternalLink = ({ href, newTab }: { href: string; newTab: string }) => (
     <a
         href={href}
         target="_blank"
         rel="noreferrer noopener"
-        className="text-accent underline decoration-accent/50 underline-offset-[3px]
+        className="text-brand underline decoration-(--brand-border) underline-offset-4
                    transition-colors duration-(--dur-micro)
-                   hover:text-accent-deep hover:decoration-accent-deep
-                   focus-visible:text-accent-deep"
+                   hover:decoration-brand focus-visible:decoration-brand
+                   after:ml-1 after:inline-block after:content-['↗'/'']"
     >
         {readable(href)}
+        <span className="sr-only"> {newTab}</span>
     </a>
 );
 
@@ -27,53 +32,74 @@ export default async function ProjectIdentity({
 }: {
     project: Project;
 }) {
-    const t = await getTranslations("Projects.identity");
-
+    const t = await getTranslations("Projects");
 
     const rows: { label: string; value: ReactNode }[] = [
-        project.stack.length > 0 && {
-            label: t("stack"),
-            value: project.stack.join(", "),
+        project.category && {
+            label: t("identity.category"),
+            value: t(`categories.${project.category}`),
         },
         project.date && {
-            label: t("date"),
-            value: new Date(project.date).getFullYear(),
+            label: t("identity.date"),
+            value: (
+                <span className="font-bold">
+                    {new Date(project.date).getFullYear()}
+                </span>
+            ),
         },
         project.links?.live && {
-            label: t("link"),
-            value: <ExternalLink href={project.links.live} />,
+            label: t("identity.link"),
+            value: (
+                <ExternalLink
+                    href={project.links.live}
+                    newTab={t("identity.newTab")}
+                />
+            ),
         },
         project.links?.repo && {
-            label: t("repository"),
-            value: <ExternalLink href={project.links.repo} />,
+            label: t("identity.repository"),
+            value: (
+                <ExternalLink
+                    href={project.links.repo}
+                    newTab={t("identity.newTab")}
+                />
+            ),
         },
     ].filter(Boolean) as { label: string; value: ReactNode }[];
 
-    if (rows.length === 0) return null;
-
     return (
-        <dl className="my-8 grid gap-y-2">
-            {rows.map(({ label, value }) => (
-                <div
-                    key={label}
-                    className="grid grid-cols-[auto_1fr_auto] items-baseline gap-x-3"
-                >
-                    <dt
-                        className="font-mono text-xs leading-ui font-medium tracking-label
-                                   text-ink-muted uppercase whitespace-nowrap"
-                    >
-                        {label}
-                    </dt>
-                    <span
-                        aria-hidden="true"
-                        className="border-rule translate-y-[-0.2em] border-b border-dotted"
-                    />
+        <div className="mb-16">
+            <p className="sr-only">{t("identity.status")}</p>
+            <StatusBadge status={project.status} />
 
-                    <dd className="font-mono text-xs leading-ui text-ink tabular-nums">
-                        {value}
-                    </dd>
-                </div>
-            ))}
-        </dl>
+            {rows.length > 0 && (
+                <dl className="mt-3 flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-[0.88rem] text-dim">
+                    {rows.map(({ label, value }) => (
+                        <div
+                            key={label}
+                            className="flex items-center gap-x-3.5
+                                       not-last:after:size-0.75 not-last:after:rounded-full
+                                       not-last:after:bg-(--line) not-last:after:content-['']"
+                        >
+                            <dt className="sr-only">{label}</dt>
+                            <dd className="font-inter text-[0.88rem] text-dim">{value}</dd>
+                        </div>
+                    ))}
+                </dl>
+            )}
+
+            {project.stack.length > 0 && (
+                <ul
+                    aria-label={t("identity.stack")}
+                    className="mt-3.5 flex flex-wrap gap-1.5"
+                >
+                    {project.stack.map((elem) => (
+                        <li key={elem}>
+                            <Tag>{elem}</Tag>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
     );
 }

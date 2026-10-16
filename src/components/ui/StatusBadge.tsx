@@ -1,4 +1,5 @@
 import { Project } from "@/content";
+import { cn } from "@/lib/cn";
 import { getTranslations } from "next-intl/server";
 
 type Tone = { bg: string; text: string; border: string; solid: string };
@@ -38,14 +39,16 @@ const styles: Record<Project["status"], Tone> = {
 
 export default async function StatusBadge({
     status,
+	className
 }: {
     status: Project["status"];
+	className?: string;
 }) {
     const t = await getTranslations("Status");
     const style: Tone = styles[status];
     return (
         <span
-            className={`inline-flex items-center gap-1.5 rounded-[5px] border px-2.25 py-0.5 font-mono text-[0.66rem] font-medium whitespace-nowrap ${style.bg} ${style.text} ${style.border}`}
+            className={cn(`inline-flex items-center gap-1.5 rounded-[5px] border px-2.25 py-0.5 font-mono text-[0.66rem] font-medium whitespace-nowrap ${style.bg} ${style.text} ${style.border}`, className)}
         >
             <span
                 aria-hidden="true"

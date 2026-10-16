@@ -467,21 +467,6 @@ btn-quiet:hover {
     border-bottom-color: var(--color-gilt-leaf);
 }
 
-/* Labels (§4.5: mono, uppercase, wide tracking) */
-.tag {
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: var(--text-xs);
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    color: var(--color-ink-muted);
-}
-.tag-verdigris {
-    color: var(--color-verdigris);
-}
-[data-surface="dark"] .tag {
-    color: color-mix(in srgb, var(--color-parchment) 72%, transparent);
-}
-
 .tag-button {
     background: none;
     border: 0;
