@@ -109,6 +109,9 @@ export default function DifficultyHex({
                 strokeLinejoin="round"
                 className="stroke-(--brand-solid)"
                 strokeWidth={PROFILE_STROKE_WIDTH}
+                strokeDasharray={1}
+                strokeDashoffset={1}
+                pathLength={1}
             />
             {vertices.map(([x, y], index) => (
                 <circle
