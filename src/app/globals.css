@@ -157,7 +157,11 @@
     --mute-solid: #a0a0a0;
     --warm-surface: rgb(255 138 76 / 0.16);
     --halo: rgb(82 168 255 / 0.12);
-    --halo-gradient: radial-gradient(120% 70% at 50% -14%, var(--halo), transparent 62%);
+    --halo-gradient: radial-gradient(
+        120% 70% at 50% -14%,
+        var(--halo),
+        transparent 62%
+    );
     --brand-solid: #52a8ff;
     --gauge-off: rgb(255 255 255 / 0.16);
     --dot-ring: transparent;
@@ -1040,9 +1044,9 @@ btn-quiet:hover {
     letter-spacing: var(--tracking-label);
     color: var(--color-ink-muted);
     font-weight: 500;
+    -webkit-hyphens: none;
     hyphens: none;
 }
-
 
 @keyframes hex-fade {
     from {
