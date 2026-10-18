@@ -20,6 +20,7 @@ import { AXES } from "@/content/difficulty";
 interface HexProps {
     profile: Profile;
     labels?: AxisLabels;
+    animated?: boolean;
     className?: string;
 }
 
@@ -30,10 +31,22 @@ const VERTEX_RADIUS = 2.4;
 const VERTEX_RING_WIDTH = 1.2;
 const ZERO_RING_DASH = "2 2";
 const LABEL_FONT_SIZE = 8.5;
+const INNER_RINGS = 2;
+
+const ANIMATION = {
+    innerWeb: "animate-hex-fade",
+    outerWeb: "animate-hex-fade [animation-delay:var(--hex-delay-web)]",
+    profileFill:
+        "animate-hex-fade [animation-delay:var(--hex-delay-profile)] [animation-duration:var(--hex-trace)]",
+    profileStroke:
+        "animate-hex-draw [animation-delay:var(--hex-delay-profile)]",
+    dots: "animate-hex-fade [animation-delay:var(--hex-delay-dots)] [animation-duration:var(--dur-micro)]",
+};
 
 export default function DifficultyHex({
     profile,
     labels,
+    animated,
     className,
 }: HexProps) {
     const vertices = profileVertices(profile);
@@ -79,7 +92,15 @@ export default function DifficultyHex({
                         key={frame.join("_")}
                         points={toPointsAttribute(frame)}
                         fill="none"
-                        className={`${index === framePoints.length - 1 ? "stroke-(--web-out)" : "stroke-(--web)"}`}
+                        className={cn(
+                            index === framePoints.length - 1
+                                ? "stroke-(--web-out)"
+                                : "stroke-(--web)",
+                            animated &&
+                                (index < INNER_RINGS
+                                    ? ANIMATION.innerWeb
+                                    : ANIMATION.outerWeb),
+                        )}
                         strokeLinejoin="round"
                     />
                 );
@@ -93,7 +114,10 @@ export default function DifficultyHex({
                         y1={CENTER}
                         x2={x}
                         y2={y}
-                        className="stroke-(--web)"
+                        className={cn(
+                            "stroke-(--web)",
+                            animated && ANIMATION.outerWeb,
+                        )}
                     />
                 );
             })}
@@ -101,14 +125,24 @@ export default function DifficultyHex({
                 points={toPointsAttribute(zeroRing)}
                 fill="none"
                 strokeDasharray={ZERO_RING_DASH}
-                className="stroke-(--zero)"
+                className={cn("stroke-(--zero)", animated && ANIMATION.outerWeb)}
             />
             <polygon
                 points={toPointsAttribute(vertices)}
                 fill={`url(#${id})`}
+                className={cn(animated && ANIMATION.profileFill)}
+            />
+            <polygon
+                points={toPointsAttribute(vertices)}
+                fill="none"
                 strokeLinejoin="round"
-                className="stroke-(--brand-solid)"
+                className={cn(
+                    "stroke-(--brand-solid)",
+                    animated && ANIMATION.profileStroke,
+                )}
                 strokeWidth={PROFILE_STROKE_WIDTH}
+                strokeDasharray={1}
+                pathLength={1}
             />
             {vertices.map(([x, y], index) => (
                 <circle
@@ -116,7 +150,10 @@ export default function DifficultyHex({
                     cx={x}
                     cy={y}
                     r={VERTEX_RADIUS}
-                    className="fill-(--brand-solid) stroke-(--dot-ring)"
+                    className={cn(
+                        "fill-(--brand-solid) stroke-(--dot-ring)",
+                        animated && ANIMATION.dots,
+                    )}
                     strokeWidth={VERTEX_RING_WIDTH}
                 />
             ))}
