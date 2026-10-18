@@ -80,6 +80,7 @@ export default async function Page({
                             <DifficultyHex
                                 profile={profile}
                                 labels={hexLabels}
+                                animated
                                 className="h-auto w-full"
                             />
                             <DifficultyLegendTrigger
