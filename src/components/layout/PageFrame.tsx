@@ -26,7 +26,7 @@ export default async function PageFrame({
                     </p>
                 )}
             </header>
-            <section className="mx-auto w-full px-(--gutter) max-w-(--width-content) pb-[max(6rem,var(--space-compass-tab))] md:pb-32">
+            <section className="flex flex-col gap-16 mx-auto w-full px-(--gutter) max-w-(--width-content) pb-[max(6rem,var(--space-compass-tab))] md:pb-32">
                 {children}
             </section>
         </div>

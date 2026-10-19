@@ -68,7 +68,7 @@ export default async function ProjectIdentity({
     ].filter(Boolean) as { label: string; value: ReactNode }[];
 
     return (
-        <div className="mb-16">
+        <div>
             <p className="sr-only">{t("identity.status")}</p>
             <StatusBadge status={project.status} />
 
