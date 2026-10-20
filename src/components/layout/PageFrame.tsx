@@ -13,10 +13,10 @@ export default async function PageFrame({
 
     return (
         <div>
-            <header className="mx-auto w-full px-(--gutter) max-w-(--width-content) py-12 md:py-24">
+            <header className="mx-auto w-full px-(--gutter) max-w-(--width-content) pt-10 pb-7">
                 {breadcrumb && <Breadcrumb crumbs={breadcrumb} />}
                 {eyebrow && <Eyebrow {...eyebrow} />}
-                <h1 className="t-title text-3xl leading-title tracking-title">
+                <h1 className="font-semibold text-3xl leading-title tracking-title">
                     {heading}
                 </h1>
 
@@ -26,7 +26,7 @@ export default async function PageFrame({
                     </p>
                 )}
             </header>
-            <section className="mx-auto w-full px-(--gutter) max-w-(--width-content) pb-[max(6rem,var(--space-compass-tab))] md:pb-32">
+            <section className="flex flex-col gap-16 mx-auto w-full px-(--gutter) max-w-(--width-content) pb-[max(6rem,var(--space-compass-tab))] md:pb-32">
                 {children}
             </section>
         </div>

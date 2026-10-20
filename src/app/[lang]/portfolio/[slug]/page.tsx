@@ -63,14 +63,19 @@ export default async function Page({
         <PageFrame title={project.title} dek={project.dek} breadcrumb={crumbs}>
             <ProjectIdentity project={project} />
             {profile && (
-                <section aria-labelledby="difficulty-profile">
+                <section
+                    aria-labelledby="difficulty-profile"
+                    className="bg-surface shadow-card rounded-card border border-(--line) p-6"
+                >
                     <h2
                         id="difficulty-profile"
                         className="mb-2.5 text-lg leading-title font-semibold tracking-title"
                     >
                         {t("title")}
                     </h2>
-                    <p className="mb-4 max-w-(--measure-prose) text-dim">{t("intro")}</p>
+                    <p className="mb-4 max-w-(--measure-prose) text-dim">
+                        {t("intro")}
+                    </p>
                     <div className="grid grid-cols-1 items-start gap-10 notation:grid-cols-[minmax(0,1fr)_var(--spacing-hex-page)]">
                         <DifficultyTable
                             profile={profile}
