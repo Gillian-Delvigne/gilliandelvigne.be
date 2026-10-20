@@ -2,7 +2,15 @@ import { projects, type Project } from "../../.velite";
 import type { Locale } from "./locales";
 import { findTranslation } from "./translations";
 
+const NOT_FOUND = -1;
+
 export type { Project };
+
+export interface NextProject {
+    project: Project;
+    position: number;
+    total: number;
+}
 
 export const getProjects = (locale: Locale): Project[] => {
     return projects
@@ -58,4 +66,19 @@ export const getAllProjectSlugs = (): string[] => {
             projects.filter((p) => p.draft === false).map((p) => p.slug),
         ),
     );
+};
+
+export const getNextProject = (
+    locale: Locale,
+    slug: string,
+): NextProject | undefined => {
+    const projects = getProjects(locale);
+    const currIndex = projects.findIndex((project) => project.slug === slug);
+    if (currIndex === NOT_FOUND) return undefined;
+    const nextIndex = (currIndex + 1) % projects.length;
+    return {
+        project: projects[nextIndex],
+        position: nextIndex + 1,
+        total: projects.length,
+    };
 };
