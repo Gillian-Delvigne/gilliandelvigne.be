@@ -86,6 +86,8 @@
     --spacing-hex-card: 6.5rem;
     --spacing-hex-page: 18.75rem;
     --spacing-brand: 1.3875rem;
+    --spacing-brand-compact: 1.125rem;
+    --spacing-nav-compact: 0.6875rem;
 
     --breakpoint-notation: 53.75rem;
 
@@ -105,6 +107,7 @@
     --animate-floating: floating 2.5s ease-in-out infinite;
     --animate-hex-fade: hex-fade var(--hex-step) var(--ease-map) both;
     --animate-hex-draw: hex-draw var(--hex-trace) var(--ease-map) both;
+
     @keyframes floating {
         0%,
         100% {
@@ -250,8 +253,7 @@
         --veil: rgb(14 23 38 / 0.28);
         --brand-surface: rgb(18 85 201 / 0.09);
         --brand-border: rgb(18 85 201 / 0.3);
-        --shadow:
-            0 1px 1px rgb(20 32 56 / 0.1), 0 2px 5px rgb(20 32 56 / 0.08);
+        --shadow: 0 1px 1px rgb(20 32 56 / 0.1), 0 2px 5px rgb(20 32 56 / 0.08);
         --web: rgb(29 41 64 / 0.09);
         --web-out: rgb(29 41 64 / 0.2);
         --zero: rgb(29 41 64 / 0.26);
@@ -1083,5 +1085,37 @@ btn-quiet:hover {
     }
     to {
         stroke-dashoffset: 0;
+    }
+}
+
+@keyframes nav-shrink {
+    to {
+        padding-block: var(--spacing-nav-compact);
+    }
+}
+
+@keyframes brand-shrink {
+    to {
+        height: var(--spacing-brand-compact);
+    }
+}
+
+@supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+        html {
+            overflow-anchor: none;
+        }
+
+        .site-bar {
+            animation: nav-shrink linear both;
+            animation-timeline: scroll(root);
+            animation-range: 0 192px;
+        }
+
+        .site-brand {
+            animation: brand-shrink linear both;
+            animation-timeline: scroll(root);
+            animation-range: 0 192px;
+        }
     }
 }
