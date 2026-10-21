@@ -12,7 +12,7 @@ const labels: Record<Locale, string> = {
 };
 
 const SEP =
-    "[&:not(:last-child)]:after:text-ink-muted " +
+    "[&:not(:last-child)]:after:text-dim " +
     "[&:not(:last-child)]:after:px-2 " +
     "[&:not(:last-child)]:after:content-['·']";
 
@@ -31,7 +31,7 @@ export function LocaleSwitch({ cn }: { cn: string }) {
                 return (
                     <li
                         key={locale}
-                        className={`${SEP} ${isCurrent ? "text-accent" : "text-ink-muted"}`}
+                        className={`${SEP} ${isCurrent ? "text-ink" : "text-dim"}`}
                     >
                         {isCurrent ? (
                             <span aria-current="true">{labels[locale]}</span>
@@ -42,19 +42,9 @@ export function LocaleSwitch({ cn }: { cn: string }) {
                                 locale={locale}
                                 lang={locale}
                                 hrefLang={locale}
-                                className="hover:text-accent focus-visible:text-accent
-                                           decoration-ink-muted
-                                           transition-colors duration-(--dur-micro) group"
+                                className="transition-colors duration-(--dur-micro) hover:text-ink"
                             >
-                                <span className="relative pb-0.5">
-                                    <span>
-                                        {labels[locale]}
-                                        <span
-                                            aria-hidden="true"
-                                            className="bg-gilt absolute inset-x-0 bottom-0 h-px origin-center scale-x-0 transition-transform duration-(--dur-micro) ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
-                                        />
-                                    </span>
-                                </span>
+                                {labels[locale]}
                             </Link>
                         )}
                     </li>

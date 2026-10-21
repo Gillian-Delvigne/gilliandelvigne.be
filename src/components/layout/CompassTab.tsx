@@ -25,7 +25,7 @@ export function CompassTab({ stations, dialogRef }: CompassTabProps) {
             onClick={() => dialogRef.current?.showModal()}
             aria-haspopup="dialog"
             aria-label={t("nav-btn")}
-            className="fixed top-(--compass-tab-offset) inset-x-4 z-40 md:hidden animus-panel flex items-center justify-center gap-2 font-display text-xs p-1.75 h-12 cursor-pointer"
+            className="fixed top-(--compass-tab-offset) inset-x-4 z-40 lg:hidden flex items-center justify-center gap-2 font-display text-xs p-1.75 h-12 cursor-pointer"
         >
             <span
                 aria-hidden="true"
