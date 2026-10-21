@@ -93,9 +93,10 @@
 			"serious-game": "Serious game"
 		},
 		"next": {
+			"aria": "Continuer",
 			"label": "Projet suivant",
 			"all": "Tous les projets",
-			"contact": "Une question sur {title} ? Me contacter"
+			"contact": "Une question sur {title} ? Me contacter"
 		}
 	},
 	"Difficulty": {

@@ -101,7 +101,7 @@ export default async function Page({
             <Prose>
                 <Mdx code={project.description} />
             </Prose>
-			<ProjectNext locale={lang} slug={project.slug} title={project.title}/>
+            <ProjectNext locale={lang} slug={project.slug} title={project.title} />
         </PageFrame>
     );
 }
