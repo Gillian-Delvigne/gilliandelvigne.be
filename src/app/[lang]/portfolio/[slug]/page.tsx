@@ -19,6 +19,7 @@ import DifficultyHex from "@/components/ui/DifficultyHex";
 import DifficultyTable from "@/components/ui/DifficultyTable";
 import DifficultyLegendTrigger from "@/components/ui/DifficultyLegendTrigger";
 import DifficultyLegend from "@/components/ui/DifficultyLegend";
+import ProjectNext from "@/components/layout/ProjectNext";
 
 export async function generateStaticParams() {
     return LOCALES.flatMap((lang) =>
@@ -100,6 +101,7 @@ export default async function Page({
             <Prose>
                 <Mdx code={project.description} />
             </Prose>
+            <ProjectNext locale={lang} slug={project.slug} title={project.title} />
         </PageFrame>
     );
 }

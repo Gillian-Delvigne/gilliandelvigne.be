@@ -1,10 +1,11 @@
-import { expect, test } from "vitest";
+import { expect, test, describe } from "vitest";
 import { projects } from "../../.velite";
 import {
     getAllProjectSlugs,
     getFeaturedProjects,
     getProject,
     getProjects,
+    getNextProject,
 } from "./index";
 
 test("only FR projects", () => {
@@ -63,4 +64,27 @@ test("get all projects slugs without duplicates", () => {
     expect(getAllProjectSlugs().sort()).toEqual(allSlugs.sort());
     expect(getAllProjectSlugs()).toContain("app-premiers-secours");
     expect(getAllProjectSlugs()).toContain("first-aid-app");
+});
+
+describe("getNextProject", () => {
+    test("elausys leads to helpdesk-delvaux, third of eleven", () => {
+        const next = getNextProject("fr", "elausys");
+        expect(next?.project.slug).toBe("helpdesk-delvaux");
+        expect(next?.position).toBe(3);
+        expect(next?.total).toBe(11);
+    });
+
+    test("the last project leads back to the first", () => {
+        const next = getNextProject("fr", "ab-decowood");
+        expect(next?.project.slug).toBe("modules-odoo");
+        expect(next?.position).toBe(1);
+    });
+
+    test("projects with the same order follow their date", () => {
+        expect(getNextProject("fr", "save-lives")?.project.slug).toBe("pser");
+    });
+
+    test("unknown slug", () => {
+        expect(getNextProject("fr", "not-known")).toBe(undefined);
+    });
 });
