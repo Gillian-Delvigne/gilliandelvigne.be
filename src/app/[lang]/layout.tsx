@@ -4,7 +4,7 @@ import { lang } from "next/root-params";
 import { LOCALES } from "@/content";
 import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
-import CompassNav from "@/components/layout/CompassNav";
+import SiteNav from "@/components/layout/SiteNav";
 import { getAllStations } from "@/data/station";
 import { CompassMobile } from "@/components/layout/CompassMobile";
 import Footer from "@/components/layout/Footer";
@@ -44,7 +44,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
             <body className="flex flex-col min-h-screen">
                 <Halo />
                 <NextIntlClientProvider>
-                    <CompassNav stations={stations} />
+                    <SiteNav stations={stations} />
                     <CompassMobile stations={stations} />
                     <main className="grow">{children}</main>
                     <Footer />
