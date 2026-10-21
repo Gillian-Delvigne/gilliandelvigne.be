@@ -91,6 +91,11 @@
 			"systeme": "Système",
 			"e-learning": "e-learning",
 			"serious-game": "Serious game"
+		},
+		"next": {
+			"label": "Projet suivant",
+			"all": "Tous les projets",
+			"contact": "Une question sur {title} ? Me contacter"
 		}
 	},
 	"Difficulty": {
