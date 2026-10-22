@@ -15,9 +15,11 @@ export default function SiteNav({ stations }: SiteNavProps) {
                 <Brand className="justify-self-start" />
                 <NavList stations={stations} className="hidden lg:block" />
                 <LocaleSwitch className="hidden lg:flex justify-self-end" />
-                <MobileMenu className="col-start-3 justify-self-end lg:hidden">
+                <MobileMenu
+                    className="col-start-3 justify-self-end lg:hidden"
+                    footer={<LocaleSwitch />}
+                >
                     <NavList stations={stations} vertical />
-                    <LocaleSwitch />
                 </MobileMenu>
             </div>
         </header>

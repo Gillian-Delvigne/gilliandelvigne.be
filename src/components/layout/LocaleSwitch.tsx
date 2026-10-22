@@ -28,7 +28,7 @@ export function LocaleSwitch({ className }: { className?: string }) {
     return (
         <ul
             className={cn(
-                "rounded-badge border border-(--line) px-2 py-0.75 font-mono text-2xs leading-4 font-medium tracking-label uppercase",
+                "flex w-fit rounded-badge border border-(--line) px-2 py-0.75 font-mono text-2xs leading-4 font-medium tracking-label uppercase",
                 className,
             )}
         >

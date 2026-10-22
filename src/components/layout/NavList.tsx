@@ -23,7 +23,14 @@ export default function NavList({
                 >
                     {stations.map((station) => (
                         <li key={station.href}>
-                            <NavLink href={station.href}>
+                            <NavLink
+                                href={station.href}
+                                className={
+                                    vertical
+                                        ? "-mx-2.5 flex min-h-11 items-center text-base"
+                                        : undefined
+                                }
+                            >
                                 {station.eyebrow.label}
                             </NavLink>
                         </li>

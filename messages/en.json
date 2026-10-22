@@ -30,8 +30,9 @@
 	},
 	"Route": {
 		"aria": "Site route",
-		"nav-btn": "Open navigation",
-		"close": "Close"
+		"nav-btn": "Open the menu",
+		"close": "Close the menu",
+		"menu": "Menu"
 	},
 	"Footer": {
 		"colophon": "Next 16 · public code",
