@@ -1063,3 +1063,7 @@ btn-quiet:hover {
         }
     }
 }
+
+html:has(dialog[open]) {
+    overflow: hidden;
+}

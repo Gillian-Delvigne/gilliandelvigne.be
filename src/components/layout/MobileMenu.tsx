@@ -31,13 +31,24 @@ export default function MobileMenu({ children, className }: MobileMenuProps) {
                 className="w-full h-fit"
                 ref={dialogRef}
                 onClick={(e) => {
-                    if (e.target === dialogRef.current) close();
+                    console.log(e.target);
+                    if (
+                        e.target === e.currentTarget ||
+                        (e.target as Element).closest("a")
+                    )
+                        close();
                 }}
             >
-                <button type="button" onClick={() => close()}>
-                    close
-                </button>
-                {children}
+                <div>
+                    <div className="flex justify-between">
+                        <span>Menu</span>
+                        <button type="button" onClick={() => close()}>
+                            close
+                        </button>
+                    </div>
+
+                    {children}
+                </div>
             </dialog>
         </>
     );
