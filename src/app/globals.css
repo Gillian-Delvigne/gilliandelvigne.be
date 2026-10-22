@@ -104,22 +104,8 @@
     ); /* the stroke draw, measured on nextjs.org */
     --ease-land: cubic-bezier(0.34, 1.4, 0.64, 1);
 
-    --animate-floating: floating 2.5s ease-in-out infinite;
     --animate-hex-fade: hex-fade var(--hex-step) var(--ease-map) both;
     --animate-hex-draw: hex-draw var(--hex-trace) var(--ease-map) both;
-
-    @keyframes floating {
-        0%,
-        100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-5px);
-        }
-    }
-
-    --space-compass-tab: calc(4rem + env(safe-area-inset-bottom, 0px));
-    --compass-tab-offset: calc(1rem + env(safe-area-inset-bottom, 0px));
 }
 
 @theme inline {
@@ -296,7 +282,6 @@
 @media (min-width: 48rem) {
     :root {
         --gutter: 2.5rem;
-        --space-compass-tab: 0px;
     }
 }
 @media (min-width: 75rem) {
@@ -365,13 +350,6 @@ body {
         scroll-behavior: auto !important;
         animation-delay: 0s !important;
     }
-}
-
-.nav-sheet {
-    box-shadow:
-        0 -16px 30px -16px color-mix(in srgb, var(--color-ink) 38%, transparent),
-        inset 0 1px 0 rgb(255 255 255 / 0.6),
-        inset 0 -1px 0 color-mix(in srgb, var(--color-ink) 14%, transparent);
 }
 
 .footer-material {
@@ -1084,4 +1062,8 @@ btn-quiet:hover {
             animation-range: 0 192px;
         }
     }
+}
+
+html:has(dialog[open]) {
+    overflow: hidden;
 }
