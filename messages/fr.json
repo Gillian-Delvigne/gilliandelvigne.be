@@ -30,11 +30,8 @@
 	},
 	"Route": {
 		"aria": "Parcours du site",
-		"aria-mobile": "navigation mobile du site",
-		"readout": "Parcours",
 		"nav-btn": "Ouvrir la navigation",
-		"close": "Fermer",
-		"collapse": "replier le parcours"
+		"close": "Fermer"
 	},
 	"Footer": {
 		"colophon": "Next 16 · code public",
