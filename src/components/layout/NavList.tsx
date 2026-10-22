@@ -5,7 +5,7 @@ import NavLink from "./NavLink";
 
 interface NavlistProps {
     stations: Station[];
-    className: string;
+    className?: string;
     vertical?: boolean;
 }
 

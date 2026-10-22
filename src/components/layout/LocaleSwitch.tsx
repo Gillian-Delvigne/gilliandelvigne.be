@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { Link, usePathname } from "@/i18n/navigation";
 import { LOCALES, type Locale } from "@/content";
 import { getRoutingPathname } from "@/lib/pathname";
+import { cn } from "@/lib/cn";
 
 const labels: Record<Locale, string> = {
     fr: "Français",
@@ -16,7 +17,7 @@ const SEP =
     "[&:not(:last-child)]:after:px-2 " +
     "[&:not(:last-child)]:after:content-['·']";
 
-export function LocaleSwitch({ cn }: { cn: string }) {
+export function LocaleSwitch({ className }: { className?: string }) {
     const params = useParams();
     const current = useLocale();
 
@@ -25,7 +26,12 @@ export function LocaleSwitch({ cn }: { cn: string }) {
     const path = getRoutingPathname(usePathname()) ?? "/";
 
     return (
-        <ul className={cn}>
+        <ul
+            className={cn(
+                "rounded-badge border border-(--line) px-2 py-0.75 font-mono text-2xs leading-4 font-medium tracking-label uppercase",
+                className,
+            )}
+        >
             {LOCALES.map((locale) => {
                 const isCurrent = locale === current;
                 return (
