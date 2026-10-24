@@ -1,25 +1,8 @@
-import type { Numeral, Crumb } from "@/types/navigation";
+import type { Crumb } from "@/types/navigation";
 
-type PageFrameBase = {
+export interface PageFrameProps {
     children: React.ReactNode;
-    dek?: string;
-};
-
-export interface EyebrowProps {
-    numeral: Numeral;
-    label: string;
-}
-
-type AsStation = PageFrameBase & {
-    eyebrow: EyebrowProps;
-    title?: string;
-    breadcrumb?: Crumb[];
-};
-
-type AsDetail = PageFrameBase & {
-	eyebrow?: never;
     title: string;
-    breadcrumb: Crumb[];
-};
-
-export type PageFrameProps = AsStation | AsDetail;
+    dek?: string;
+    breadcrumb?: Crumb[];
+}

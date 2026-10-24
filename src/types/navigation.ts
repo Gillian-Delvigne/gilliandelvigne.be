@@ -1,7 +1,6 @@
 import type messages from "../../messages/fr.json";
 
 export type NavKeys = keyof (typeof messages)["Nav"];
-export type Numeral = "I" | "II" | "III" | "IV" | "V";
 import type { ComponentProps } from "react";
 import type { Link } from "@/i18n/navigation";
 import type { StaticPathname } from "@/i18n/routing";
@@ -14,12 +13,10 @@ export type Crumb = { label: string; href: ComponentProps<typeof Link>["href"] }
 export interface NavEntry {
     key: NavKeys;
     href: StaticPathname;
-    numeral: Numeral;
 }
 
 export interface NavItem {
     href: StaticPathname;
-    numeral: Numeral;
     label: string;
     dek: string;
 }

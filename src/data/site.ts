@@ -16,9 +16,9 @@ export const SITE = {
 } as const;
 
 export const NAV = [
-    { key: "home", href: "/", numeral: "I" },
-    { key: "portfolio", href: "/portfolio", numeral: "II" },
-    { key: "blog", href: "/blog", numeral: "III" },
-    { key: "about", href: "/about", numeral: "IV" },
-    { key: "contact", href: "/contact", numeral: "V" },
+    { key: "home", href: "/" },
+    { key: "portfolio", href: "/portfolio" },
+    { key: "blog", href: "/blog" },
+    { key: "about", href: "/about" },
+    { key: "contact", href: "/contact" },
 ] as const satisfies readonly NavEntry[];

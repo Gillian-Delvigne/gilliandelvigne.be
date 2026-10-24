@@ -10,7 +10,6 @@ export async function getNavItem(key: NavKeys): Promise<NavItem> {
     const t = await getTranslations("Nav");
     return {
         href: entry.href,
-        numeral: entry.numeral,
         label: t(`${key}.label`),
         dek:
             key === "portfolio"

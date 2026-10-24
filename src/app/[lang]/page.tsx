@@ -6,7 +6,7 @@ export default async function Home() {
   
 
     return (
-        <PageFrame eyebrow={{ numeral: pageInfo.numeral, label: pageInfo.label }} dek={pageInfo.dek}>
+        <PageFrame title={pageInfo.label} dek={pageInfo.dek}>
             <p>Contenu de la Home</p>
         </PageFrame>
     );

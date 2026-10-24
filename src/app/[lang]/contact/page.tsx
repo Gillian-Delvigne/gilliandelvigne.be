@@ -1,4 +1,5 @@
 import { getNavItem } from "@/data/nav";
+import getCrumbs from "@/data/crumbs";
 import PageFrame from "@/components/layout/PageFrame";
 import ContactForm from "@/components/forms/ContactForm";
 import { isLocale } from "@/content";
@@ -12,7 +13,11 @@ export default async function Contact({
     if (!isLocale(lang)) return;
 
     return (
-        <PageFrame eyebrow={{ numeral: pageInfo.numeral, label: pageInfo.label }} dek={pageInfo.dek}>
+        <PageFrame
+            title={pageInfo.label}
+            dek={pageInfo.dek}
+            breadcrumb={await getCrumbs("contact")}
+        >
             <ContactForm submitAction={handleSubmit.bind(null, lang)} />
         </PageFrame>
     );

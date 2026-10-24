@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getProjects, isLocale } from "@/content";
 import { getNavItem } from "@/data/nav";
+import getCrumbs from "@/data/crumbs";
 import PageFrame from "@/components/layout/PageFrame";
 import ProjectCard from "@/components/ui/ProjectCard";
 import DifficultyLegend from "@/components/ui/DifficultyLegend";
@@ -19,7 +20,11 @@ export default async function Portfolio({
     const tDifficulty = await getTranslations("Difficulty");
 
     return (
-        <PageFrame eyebrow={{ numeral: pageInfo.numeral, label: pageInfo.label }} dek={pageInfo.dek}>
+        <PageFrame
+            title={pageInfo.label}
+            dek={pageInfo.dek}
+            breadcrumb={await getCrumbs("portfolio")}
+        >
             <DifficultyLegendTrigger label={tDifficulty("legend.trigger")} />
             <div className="grid grid-cols-[repeat(auto-fill,minmax(310px,1fr))] gap-6 py-8">
                 {projects.length
