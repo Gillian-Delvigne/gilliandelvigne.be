@@ -28,11 +28,11 @@
 	"Breadcrumb": {
 		"name": "Breadcrumb"
 	},
-	"Route": {
-		"aria": "Site route",
-		"nav-btn": "Open the menu",
+	"Menu": {
+		"aria": "Main navigation",
+		"open": "Open the menu",
 		"close": "Close the menu",
-		"menu": "Menu"
+		"label": "Menu"
 	},
 	"Footer": {
 		"colophon": "Next 16 · public code",

@@ -1,15 +1,15 @@
 import type { NavKeys, Crumb } from "../types/navigation";
-import { getStation } from "./nav";
+import { getNavItem } from "./nav";
 
 export default async function getCrumbs(
     section: NavKeys,
     ...tail: Crumb[]
 ): Promise<Crumb[]> {
-    const home = await getStation("home");
-    const sec = await getStation(section);
+    const home = await getNavItem("home");
+    const sec = await getNavItem(section);
     return [
-        { label: home.eyebrow.label, href: home.href },
-        { label: sec.eyebrow.label, href: sec.href },
+        { label: home.label, href: home.href },
+        { label: sec.label, href: sec.href },
         ...tail,
     ];
 }

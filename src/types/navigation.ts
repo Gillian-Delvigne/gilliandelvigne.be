@@ -17,10 +17,9 @@ export interface NavEntry {
     numeral: Numeral;
 }
 
-export interface Station {
+export interface NavItem {
     href: StaticPathname;
-    eyebrow: { numeral: Numeral; label: string };
+    numeral: Numeral;
+    label: string;
     dek: string;
 }
-
-export type Axis = "x" | "y";

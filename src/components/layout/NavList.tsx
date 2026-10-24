@@ -1,37 +1,37 @@
 import { useTranslations } from "next-intl";
-import type { Station } from "@/types/navigation";
+import type { NavItem } from "@/types/navigation";
 import { cn } from "@/lib/cn";
 import NavLink from "./NavLink";
 
 interface NavlistProps {
-    stations: Station[];
+    items: NavItem[];
     className?: string;
     vertical?: boolean;
 }
 
 export default function NavList({
-    stations,
+    items,
     className,
     vertical,
 }: NavlistProps) {
-    const t = useTranslations("Route");
+    const t = useTranslations("Menu");
     return (
         <nav aria-label={t("aria")} className={cn(className)}>
-            {stations.length > 0 && (
+            {items.length > 0 && (
                 <ol
                     className={`flex ${vertical ? "flex-col" : "items-center"} gap-1`}
                 >
-                    {stations.map((station) => (
-                        <li key={station.href}>
+                    {items.map((item) => (
+                        <li key={item.href}>
                             <NavLink
-                                href={station.href}
+                                href={item.href}
                                 className={
                                     vertical
                                         ? "-mx-2.5 flex min-h-11 items-center text-base"
                                         : undefined
                                 }
                             >
-                                {station.eyebrow.label}
+                                {item.label}
                             </NavLink>
                         </li>
                     ))}

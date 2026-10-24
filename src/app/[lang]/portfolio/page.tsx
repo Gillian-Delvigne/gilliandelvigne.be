@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getProjects, isLocale } from "@/content";
-import { getStation } from "@/data/nav";
+import { getNavItem } from "@/data/nav";
 import PageFrame from "@/components/layout/PageFrame";
 import ProjectCard from "@/components/ui/ProjectCard";
 import DifficultyLegend from "@/components/ui/DifficultyLegend";
@@ -13,13 +13,13 @@ export default async function Portfolio({
     const { lang } = await params;
     if (!isLocale(lang)) return notFound();
 
-    const pageInfo = await getStation("portfolio");
+    const pageInfo = await getNavItem("portfolio");
     const projects = getProjects(lang);
     const t = await getTranslations("Empty");
     const tDifficulty = await getTranslations("Difficulty");
 
     return (
-        <PageFrame eyebrow={pageInfo.eyebrow} dek={pageInfo.dek}>
+        <PageFrame eyebrow={{ numeral: pageInfo.numeral, label: pageInfo.label }} dek={pageInfo.dek}>
             <DifficultyLegendTrigger label={tDifficulty("legend.trigger")} />
             <div className="grid grid-cols-[repeat(auto-fill,minmax(310px,1fr))] gap-6 py-8">
                 {projects.length
