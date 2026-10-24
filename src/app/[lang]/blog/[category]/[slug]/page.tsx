@@ -1,4 +1,3 @@
-import { getStation } from "@/data/station";
 import getCrumbs from "@/data/crumbs";
 import { findCatAndSlugByLocale, getCategory, getPost } from "@/content";
 import { isLocale } from "@/content";
@@ -12,7 +11,6 @@ export default async function BlogPost({
     params,
 }: PageProps<"/[lang]/blog/[category]/[slug]">) {
     const { lang, category, slug } = await params;
-    const pageInfo = await getStation("blog");
 
     if (!isLocale(lang)) return notFound();
     const cat = getCategory(lang, category);
@@ -48,9 +46,8 @@ export default async function BlogPost({
         },
     );
     return (
-        <PageFrame eyebrow={pageInfo.eyebrow} breadcrumb={crumbs}>
+        <PageFrame title={post.title} breadcrumb={crumbs}>
             <Prose>
-                <h2>{post.title}</h2>
                 <Mdx code={post.content} />
             </Prose>
         </PageFrame>

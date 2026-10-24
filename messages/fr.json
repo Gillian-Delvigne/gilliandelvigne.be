@@ -28,11 +28,11 @@
 	"Breadcrumb": {
 		"name": "Fil d'Ariane"
 	},
-	"Route": {
-		"aria": "Parcours du site",
-		"nav-btn": "Ouvrir le menu",
+	"Menu": {
+		"aria": "Navigation principale",
+		"open": "Ouvrir le menu",
 		"close": "Fermer le menu",
-		"menu": "Menu"
+		"label": "Menu"
 	},
 	"Footer": {
 		"colophon": "Next 16 · code public",

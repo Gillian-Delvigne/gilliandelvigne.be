@@ -10,27 +10,24 @@ export const Breadcrumb = async ({ crumbs }: BreadcrumbProps) => {
     const t = await getTranslations("Breadcrumb");
 
     return (
-        <nav id="breadcrumb-nav" aria-label={t("name")} className="py-12">
-            <ol className="flex flex-col sm:flex-row flex-wrap text-2xs">
-                {crumbs.map((crumb, index) => {
-                    const isFirst = index === 0;
-                    const isLast = index === crumbs.length - 1;
-                    const beforeElem =
-                        "before:my-2 before:flex-col sm:before:mx-4 before:flex sm:before:inline-block before:h-1 before:w-1 before:rotate-45 before:bg-rule before:align-middle";
-                    return (
-                        <li
-                            key={crumb.label}
-                            className={`font-mono ${isLast ? "text-ink" : "text-ink-muted"} tracking-label ${!isFirst ? beforeElem : undefined}`}
+        <nav aria-label={t("name")} className="mb-6">
+            <ol className="flex flex-wrap font-mono text-2xs font-medium tracking-label text-dim uppercase">
+                {crumbs.map((crumb, index) => (
+                    <li
+                        key={crumb.label}
+                        className="not-first:before:mx-2 not-first:before:opacity-50 not-first:before:content-['/'/'']"
+                    >
+                        <Link
+                            href={crumb.href}
+                            aria-current={
+                                index === crumbs.length - 1 ? "page" : undefined
+                            }
+                            className="transition-colors duration-(--dur-micro) hover:text-ink"
                         >
-                            <Link
-                                href={crumb.href}
-                                aria-current={isLast ? "page" : undefined}
-                            >
-                                {crumb.label}
-                            </Link>
-                        </li>
-                    );
-                })}
+                            {crumb.label}
+                        </Link>
+                    </li>
+                ))}
             </ol>
         </nav>
     );

@@ -1,12 +1,12 @@
 import PageFrame from "@/components/layout/PageFrame";
-import { getStation } from "@/data/station";
+import { getNavItem } from "@/data/nav";
 
 export default async function Home() {
-    const pageInfo = await getStation("home");
+    const pageInfo = await getNavItem("home");
   
 
     return (
-        <PageFrame eyebrow={pageInfo.eyebrow} dek={pageInfo.dek}>
+        <PageFrame title={pageInfo.label} dek={pageInfo.dek}>
             <p>Contenu de la Home</p>
         </PageFrame>
     );

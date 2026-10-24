@@ -5,7 +5,7 @@ import { LOCALES } from "@/content";
 import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
 import SiteNav from "@/components/layout/SiteNav";
-import { getAllStations } from "@/data/station";
+import { getNavItems } from "@/data/nav";
 import Footer from "@/components/layout/Footer";
 import Halo from "@/components/layout/Halo";
 
@@ -33,7 +33,7 @@ export const dynamicParams = false;
 
 export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
     const language = await lang();
-    const stations = await getAllStations();
+    const navItems = await getNavItems();
 
     return (
         <html
@@ -43,7 +43,7 @@ export default async function RootLayout({ children }: LayoutProps<"/[lang]">) {
             <body className="flex flex-col min-h-screen">
                 <Halo />
                 <NextIntlClientProvider>
-                    <SiteNav stations={stations} />
+                    <SiteNav items={navItems} />
                     <main className="grow">{children}</main>
                     <Footer />
                 </NextIntlClientProvider>

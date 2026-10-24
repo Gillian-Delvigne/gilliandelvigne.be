@@ -1,12 +1,17 @@
-import { getStation } from "@/data/station";
+import { getNavItem } from "@/data/nav";
+import getCrumbs from "@/data/crumbs";
 import PageFrame from "@/components/layout/PageFrame";
 
 export default async function About() {
-    const pageInfo = await getStation("about");
-	
-		return (
-			<PageFrame eyebrow={pageInfo.eyebrow} dek={pageInfo.dek}>
-				<p>Contenu de la Home</p>
-			</PageFrame>
-		);
+    const pageInfo = await getNavItem("about");
+
+    return (
+        <PageFrame
+            title={pageInfo.label}
+            dek={pageInfo.dek}
+            breadcrumb={await getCrumbs("about")}
+        >
+            <p>Contenu de la Home</p>
+        </PageFrame>
+    );
 }

@@ -25,7 +25,7 @@ export default function MobileMenu({
 }: MobileMenuProps) {
     const dialogRef = useRef<HTMLDialogElement>(null);
     const labelId = useId();
-    const t = useTranslations("Route");
+    const t = useTranslations("Menu");
     const close = () => dialogRef.current?.close();
 
     return (
@@ -34,7 +34,7 @@ export default function MobileMenu({
                 type="button"
                 onClick={() => dialogRef.current?.showModal()}
                 aria-haspopup="dialog"
-                aria-label={t("nav-btn")}
+                aria-label={t("open")}
                 className={cn(TARGET, className)}
             >
                 <span
@@ -67,7 +67,7 @@ export default function MobileMenu({
                         <div className="site-bar py-5.5">
                             <div className="site-brand flex h-brand min-h-5 items-center justify-between">
                                 <span id={labelId} className={cn(LABEL, "translate-y-px")}>
-                                    {t("menu")}
+                                    {t("label")}
                                 </span>
                                 <button
                                     type="button"
