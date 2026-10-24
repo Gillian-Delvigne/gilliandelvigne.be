@@ -102,10 +102,17 @@
         0.355,
         1
     ); /* the stroke draw, measured on nextjs.org */
+    --ease-pen: cubic-bezier(0.37, 0, 0.63, 1);
     --ease-land: cubic-bezier(0.34, 1.4, 0.64, 1);
 
     --animate-hex-fade: hex-fade var(--hex-step) var(--ease-map) both;
     --animate-hex-draw: hex-draw var(--hex-trace) var(--ease-map) both;
+
+    --animate-brand-draw: brand-draw var(--brand-trace) var(--ease-pen) both;
+    --animate-brand-name: hex-fade var(--brand-name-fade) var(--ease-map)
+        var(--brand-name-delay) both;
+    --animate-brand-dot: brand-dot var(--brand-dot-pop) var(--ease-map)
+        var(--brand-dot-delay) both;
 }
 
 @theme inline {
@@ -191,6 +198,14 @@
     --hex-delay-web: var(--hex-step);
     --hex-delay-profile: calc(var(--hex-step) * 2);
     --hex-delay-dots: 1800ms;
+
+    /* -- Brand durations and delays -- */
+    --brand-trace: var(--hex-trace);
+    --brand-name-fade: var(--hex-step);
+    --brand-name-delay: 160ms;
+    --brand-dot-pop: 240ms;
+    --brand-dot-delay: var(--brand-trace);
+
     --gloss: 0.2;
 }
 
@@ -1066,4 +1081,26 @@ btn-quiet:hover {
 
 html:has(dialog[open]) {
     overflow: hidden;
+}
+
+@keyframes brand-draw {
+    from {
+        stroke-dashoffset: 1;
+        opacity: 0;
+    }
+    1% {
+        opacity: 1;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes brand-dot {
+    from {
+        scale: 0;
+    }
+    to {
+        scale: 1;
+    }
 }
