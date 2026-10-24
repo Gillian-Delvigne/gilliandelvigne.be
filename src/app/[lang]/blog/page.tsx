@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getPosts, isLocale } from "@/content";
-import { getStation } from "@/data/station";
+import { getStation } from "@/data/nav";
 import PageFrame from "@/components/layout/PageFrame";
 import PostCard from "@/components/ui/PostCard";
 

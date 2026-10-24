@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getProjects, isLocale } from "@/content";
-import { getStation } from "@/data/station";
+import { getStation } from "@/data/nav";
 import PageFrame from "@/components/layout/PageFrame";
 import ProjectCard from "@/components/ui/ProjectCard";
 import DifficultyLegend from "@/components/ui/DifficultyLegend";

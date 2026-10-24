@@ -5,7 +5,7 @@ import { LOCALES } from "@/content";
 import { Inter, IBM_Plex_Mono } from "next/font/google";
 import "../globals.css";
 import SiteNav from "@/components/layout/SiteNav";
-import { getAllStations } from "@/data/station";
+import { getAllStations } from "@/data/nav";
 import Footer from "@/components/layout/Footer";
 import Halo from "@/components/layout/Halo";
 

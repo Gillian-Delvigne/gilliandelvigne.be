@@ -1,5 +1,5 @@
 import PageFrame from "@/components/layout/PageFrame";
-import { getStation } from "@/data/station";
+import { getStation } from "@/data/nav";
 
 export default async function Home() {
     const pageInfo = await getStation("home");

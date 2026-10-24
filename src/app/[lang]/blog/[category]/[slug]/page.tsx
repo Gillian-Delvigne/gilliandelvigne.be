@@ -1,4 +1,4 @@
-import { getStation } from "@/data/station";
+import { getStation } from "@/data/nav";
 import getCrumbs from "@/data/crumbs";
 import { findCatAndSlugByLocale, getCategory, getPost } from "@/content";
 import { isLocale } from "@/content";

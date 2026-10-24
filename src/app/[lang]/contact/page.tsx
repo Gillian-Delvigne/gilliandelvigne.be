@@ -1,4 +1,4 @@
-import { getStation } from "@/data/station";
+import { getStation } from "@/data/nav";
 import PageFrame from "@/components/layout/PageFrame";
 import ContactForm from "@/components/forms/ContactForm";
 import { isLocale } from "@/content";

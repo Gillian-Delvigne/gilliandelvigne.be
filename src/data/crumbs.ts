@@ -1,5 +1,5 @@
 import type { NavKeys, Crumb } from "../types/navigation";
-import { getStation } from "./station";
+import { getStation } from "./nav";
 
 export default async function getCrumbs(
     section: NavKeys,
