@@ -9,7 +9,7 @@ export default async function PageFrame({
 }: PageFrameProps) {
     return (
         <div>
-            <header className="mx-auto w-full px-(--gutter) max-w-(--width-content) pt-10 pb-7">
+            <header className="shell pt-10 pb-7">
                 {breadcrumb && <Breadcrumb crumbs={breadcrumb} />}
                 <h1 className="font-semibold text-3xl leading-title tracking-title">
                     {title}
@@ -21,7 +21,7 @@ export default async function PageFrame({
                     </p>
                 )}
             </header>
-            <section className="flex flex-col mx-auto w-full px-(--gutter) max-w-(--width-content) pb-24 md:pb-32">
+            <section className="shell flex flex-col pb-24 md:pb-32">
                 {children}
             </section>
         </div>

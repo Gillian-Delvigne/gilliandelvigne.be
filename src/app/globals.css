@@ -328,6 +328,13 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+@utility shell {
+    margin-inline: auto;
+    width: 100%;
+    max-width: var(--width-content);
+    padding-inline: var(--gutter);
+}
+
 /* Scrollbars: visible, discreet (anti-pattern, spec 02) */
 * {
     scrollbar-color: var(--color-rule) transparent;
