@@ -36,7 +36,9 @@ export const getProject = (
 };
 
 export const getFeaturedProjects = (locale: Locale) => {
-    return getProjects(locale).filter((project) => project.featured);
+    return getProjects(locale)
+        .filter((project) => project.featured)
+        .sort((a, b) => a.date.localeCompare(b.date));
 };
 
 export const getProjectTranslation = (

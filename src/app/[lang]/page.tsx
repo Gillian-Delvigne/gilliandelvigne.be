@@ -1,13 +1,19 @@
-import PageFrame from "@/components/layout/PageFrame";
-import { getNavItem } from "@/data/nav";
+import { notFound } from "next/navigation";
+import { isLocale } from "@/content";
+import FeaturedProjects from "@/components/layout/FeaturedProjects";
+import HomeHero from "@/components/layout/HomeHero";
+import HomeColumns from "@/components/layout/HomeColumns";
 
-export default async function Home() {
-    const pageInfo = await getNavItem("home");
-  
-
+const Home = async ({ params }: PageProps<"/[lang]">) => {
+    const { lang } = await params;
+    if (!isLocale(lang)) return notFound();
     return (
-        <PageFrame title={pageInfo.label} dek={pageInfo.dek}>
-            <p>Contenu de la Home</p>
-        </PageFrame>
+        <div className="shell pb-24 md:pb-32">
+            <HomeHero />
+            <FeaturedProjects locale={lang} />
+            <HomeColumns />
+        </div>
     );
-}
+};
+
+export default Home;

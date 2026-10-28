@@ -7,9 +7,17 @@ import DifficultyHex from "./DifficultyHex";
 import StatusBadge from "./StatusBadge";
 import { Tag } from "./Tag";
 
+interface ProjectCardProps {
+    project: Project;
+    headingLevel?: 2 | 3;
+}
+
 const MAX_STACK_TAGS = 3;
 
-export default async function ProjectCard({ project }: { project: Project }) {
+export default async function ProjectCard({
+    project,
+    headingLevel,
+}: ProjectCardProps) {
     const format = await getFormatter({ locale: project.locale });
     const t = await getTranslations("Difficulty");
     const profile = PROFILES[project.translationKey as ProjectKey];
@@ -23,6 +31,8 @@ export default async function ProjectCard({ project }: { project: Project }) {
     });
     const year = format.dateTime(new Date(project.date), { year: "numeric" });
 
+    const Heading = `h${headingLevel ?? 2}` as const;
+
     return (
         <article
             className="relative rounded-card border border-(--line) bg-surface p-4.75
@@ -31,7 +41,7 @@ export default async function ProjectCard({ project }: { project: Project }) {
                        hover:border-(--brand-border)"
         >
             <header className="flex items-baseline justify-between gap-2.5 border-b border-(--line-soft) pb-2.75">
-                <h2 className="text-base leading-title font-semibold tracking-title">
+                <Heading className="text-base leading-title font-semibold tracking-title">
                     <Link
                         locale={project.locale}
                         href={{
@@ -45,7 +55,7 @@ export default async function ProjectCard({ project }: { project: Project }) {
                     >
                         {project.title}
                     </Link>
-                </h2>
+                </Heading>
                 <span className="font-mono text-xs font-medium text-dim">
                     {year}
                 </span>
@@ -57,9 +67,7 @@ export default async function ProjectCard({ project }: { project: Project }) {
 
             <div className="grid grid-cols-[var(--spacing-hex-card)_1fr] items-center gap-4">
                 <DifficultyHex profile={profile} className="size-hex-card" />
-                <p className="text-xs leading-normal text-dim">
-                    {axePhrase}
-                </p>
+                <p className="text-xs leading-normal text-dim">{axePhrase}</p>
             </div>
 
             <div className="mt-3.75 flex flex-wrap items-center gap-1.5">
