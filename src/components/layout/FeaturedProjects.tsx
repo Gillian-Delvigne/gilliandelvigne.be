@@ -13,7 +13,7 @@ const FeaturedProjects = async ({ locale }: { locale: Locale }) => {
             <p>{t("kicker", { count: count })}</p>
             <h2>{t("title")}</h2>
             <p>{t("body")}</p>
-            <div className="grid grid-cols-3 gap-6 py-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-8">
                 {projects.map((project) => (
                     <ProjectCard
                         key={project.slug}
@@ -22,7 +22,9 @@ const FeaturedProjects = async ({ locale }: { locale: Locale }) => {
                     />
                 ))}
             </div>
-            <Button href="/portfolio">{t("all", { count: count })}</Button>
+            <Button variant="primary" href="/portfolio">
+                {t("all", { count: count })}
+            </Button>
         </div>
     );
 };

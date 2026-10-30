@@ -11,9 +11,13 @@ const HomeHero = async () => {
             <p>{t("kicker")}</p>
             <h1>{SITE.name}</h1>
             <p>{intro}</p>
-            <div className="flex">
-                <Button href="/portfolio">{t("cta.projects")}</Button>
-                <Button href="/about">{t("cta.about")}</Button>
+            <div className="flex flex-wrap gap-2.75">
+                <Button variant="primary" href="/portfolio">
+                    {t("cta.projects")}
+                </Button>
+                <Button variant="secondary" href="/about">
+                    {t("cta.about")}
+                </Button>
             </div>
         </div>
     );
