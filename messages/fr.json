@@ -35,31 +35,31 @@
 		"label": "Menu"
 	},
 	"Home": {
-		"kicker": "Pédagogie numérique · Développement full-stack<country> · Belgique</country>",
+		"kicker": "Pédagogie numérique <dot></dot> Développement full-stack<country> <dot></dot> Belgique</country>",
 		"cta": {
 			"projects": "Voir les projets",
 			"about": "Le parcours"
 		},
 		"featured": {
-			"kicker": "Trois projets sur {count}",
+			"kicker": "Projets choisis",
 			"title": "De la simulation pédagogique à l'ERP",
 			"body": "D'une simulation où je n'avais qu'un doigt dans la programmation à des modules Odoo où j'y suis jusqu'au cou.",
 			"all": "Voir les {count} projets"
 		},
 		"pedagogy": {
-			"title": "Avant le code, la pédagogie",
+			"title": "La pédagogie",
 			"items": [
 				{
 					"title": "UNamur et Van In/De Boeck",
-					"body": "Dès 2011, conseiller pédagogique et assistant à l'UNamur, puis assistant d'édition et responsable ICT chez Van In/De Boeck jusqu'en 2017, où le développement est entré dans mes fonctions."
+					"body": "Dès 2011, conseiller pédagogique et assistant à l'UNamur, puis assistant d'édition et responsable ICT chez Van In/De Boeck jusqu'en 2017, où le développement est entré dans mes fonctions, avec des manuels numériques et des plateformes d'apprentissage (LMS) dédiées."
 				},
 				{
 					"title": "Croix-Rouge de Belgique",
-					"body": "Digital Learning Manager jusqu'en 2021 : Premiers secours en route, la formation que suit tout candidat au permis à Bruxelles (13 modules), et une application de premiers secours qui a dépassé 25 000 utilisateurs, du cahier des charges au déploiement."
+					"body": "Digital Learning Manager jusqu'en 2021 : des dispositifs de formation, dont Premiers secours en route (13 modules, suivis par tout candidat au permis à Bruxelles) et le jeu Save Lives, et une application de premiers secours, pilotée du cahier des charges au déploiement, qui a dépassé 25 000 utilisateurs. J'y ai aussi codé une application Angular de gestion des inscriptions aux formations et contribué au portail d'inscription de Premiers secours en route."
 				},
 				{
 					"title": "ULB et CPFB",
-					"body": "Techno-pédagogue jusqu'en 2023 : membre du Centre d'appui pédagogique de l'ULB, administrateur Moodle et Microsoft Azure au CPFB, où j'ai accompagné les formateurs dans leur transition numérique."
+					"body": "Techno-pédagogue jusqu'en 2023 : à l'ULB, membre du Centre d'appui pédagogique et concepteur de l'officine pédagogique virtuelle de la faculté de pharmacie ; au CPFB, administrateur Moodle et Microsoft Azure, la refonte du site et l'accompagnement des formateurs dans leur transition numérique."
 				}
 			]
 		},
@@ -67,16 +67,16 @@
 			"title": "Le développement",
 			"items": [
 				{
-					"title": "42 Belgium",
-					"body": "Depuis 2023, en C et C++ (un cursus qui équivaut à un bachelier en informatique) ; c'est là que j'ai écrit minishell, un shell UNIX, et fdf, un moteur de rendu 3D filaire."
+					"title": "Développeur freelance",
+					"body": "Depuis 2021, des sites web pour des artisans locaux, de la maquette à la mise en ligne."
 				},
 				{
-					"title": "Technobel",
-					"body": "La filière intensive Développeur Odoo, terminée en octobre 2026 (environ 400 heures, 15 places sur tests d'admission) : Python, PostgreSQL, ORM, sécurité applicative."
+					"title": "Elausys",
+					"body": "Développeur full-stack en 2025 : refonte complète de l'architecture digitale d'une PME de domotique, avec une API Express en TypeScript, une instance Supabase auto-hébergée et quatre applications React."
 				},
 				{
-					"title": "Vitrine Odoo",
-					"body": "En cours sur mon serveur (VPS) ; ce sera la prochaine étude de cas."
+					"title": "42 Belgium, Technobel et AWS",
+					"body": "Depuis 2023 à 42 Belgium, C et C++ (un cursus qui équivaut à un bachelier en informatique) : mémoire, processus, rendu 3D, et des projets full-stack. À Technobel, la filière intensive Développeur Odoo, terminée en octobre 2026 (environ 400 heures, 15 places sur tests d'admission) : Python, PostgreSQL, ORM, sécurité applicative. Certification AWS Certified Cloud Practitioner."
 				}
 			]
 		}
@@ -151,7 +151,7 @@
 		"evidence": "Concrètement",
 		"value": "Valeur",
 		"outOf": "sur",
-		"peak": "Ce qui a pesé le plus : <b>{axes}</b>.",
+		"peak": "Le plus exigeant : <b>{axes}</b>.",
 		"axes": {
 			"scope": "Taille du système",
 			"coupling": "Dépendances",
