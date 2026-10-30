@@ -38,7 +38,7 @@
 		"kicker": "Digital learning · Full-stack development<country> · Belgium</country>",
 		"cta": {
 			"projects": "See the projects",
-			"about": "My journey"
+			"about": "My background"
 		},
 		"featured": {
 			"kicker": "Three projects out of {count}",
@@ -59,7 +59,7 @@
 				},
 				{
 					"title": "ULB and CPFB",
-					"body": "Learning technologist until 2023: member of the ULB teaching support centre, Moodle administrator and Microsoft Azure at CPFB, where I helped trainers through their digital transition."
+					"body": "Learning technologist until 2023: member of the ULB teaching support centre, Moodle and Microsoft Azure administrator at CPFB, where I helped trainers through their digital transition."
 				}
 			]
 		},
@@ -72,7 +72,7 @@
 				},
 				{
 					"title": "Technobel",
-					"body": "The intensive Odoo Developer track, completed in October 2026 (about 400 hours, 15 places on admission tests): Python, PostgreSQL, ORM, application security."
+					"body": "The intensive Odoo Developer track, completed in October 2026 (about 400 hours, 15 places, by admission test): Python, PostgreSQL, ORM, application security."
 				},
 				{
 					"title": "Odoo showcase",
@@ -83,7 +83,7 @@
 	},
 	"Footer": {
 		"colophon": "Next 16 · public code",
-		"tagline": "Built with",
+		"tagline": "Written with",
 		"location": "Grez-Doiceau",
 		"contact": "Get in touch"
 	},
@@ -108,7 +108,7 @@
 				"email-required": "Without an address, I can't write back.",
 				"email-invalid": "That address doesn't look right. Check the @ and the domain.",
 				"message-required": "Write me a few words.",
-				"message-too-long": "This message is over {max} characters. Keep it short; I'll pick it up from there."
+				"message-too-long": "This message is over {max} characters. Keep it short; we'll talk about the rest later."
 			},
 			"sealing": "Sending…",
 			"success-msg": "Message sent. I reply within two working days.",
@@ -195,7 +195,7 @@
 			"title": "The hexagon, criterion by criterion",
 			"axesHeading": "What each criterion measures",
 			"levelsHeading": "What each level means",
-			"close": "Close the help"
+			"close": "Close help"
 		}
 	},
 	"Status": {
