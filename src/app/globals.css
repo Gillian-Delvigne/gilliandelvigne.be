@@ -1034,3 +1034,9 @@ html:has(dialog[open]) {
         scale: 1;
     }
 }
+
+@media (scripting: enabled) {
+    [data-reveal]:not([data-visible]) * {
+        animation-play-state: paused;
+    }
+}

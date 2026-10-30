@@ -18,7 +18,7 @@
 		},
 		"blog": {
 			"label": "Blog",
-			"dek": "What I had to understand in order to move on, written cleanly enough to serve again."
+			"dek": "Notions I had to understand to move on, written cleanly enough to serve again."
 		},
 		"contact": {
 			"label": "Contact",
@@ -146,8 +146,7 @@
 	},
 	"Difficulty": {
 		"axis": "Criterion",
-		"title": "What this project demanded",
-		"intro": "Six criteria, from 0 to 4: the further a branch reaches, the more the project demanded on that point.",
+		"title": "Difficulty profile",
 		"evidence": "In practice",
 		"value": "Value",
 		"outOf": "out of",
@@ -193,8 +192,8 @@
 		"legend": {
 			"trigger": "Need help reading the hexagon?",
 			"title": "The hexagon, criterion by criterion",
-			"axesHeading": "What each criterion measures",
-			"levelsHeading": "What each level means",
+			"axesHeading": "The criteria",
+			"levelsHeading": "The levels",
 			"close": "Close help"
 		}
 	},

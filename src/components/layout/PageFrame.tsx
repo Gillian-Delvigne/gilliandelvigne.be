@@ -21,7 +21,7 @@ export default async function PageFrame({
                     </p>
                 )}
             </header>
-            <section className="shell flex flex-col pb-24 md:pb-32">
+            <section className="shell flex flex-col gap-16 pb-24 md:pb-32">
                 {children}
             </section>
         </div>

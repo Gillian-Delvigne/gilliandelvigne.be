@@ -15,6 +15,7 @@ import ProjectIdentity from "@/components/ui/ProjectIdentity";
 import { getTranslations } from "next-intl/server";
 import { AXES, getProfile } from "@/content/difficulty";
 import type { AxisLabels } from "@/types/difficulty";
+import { RevealOnView } from "@/components/ui/RevealOnView";
 import DifficultyHex from "@/components/ui/DifficultyHex";
 import DifficultyTable from "@/components/ui/DifficultyTable";
 import DifficultyLegendTrigger from "@/components/ui/DifficultyLegendTrigger";
@@ -70,19 +71,16 @@ export default async function Page({
                 >
                     <h2
                         id="difficulty-profile"
-                        className="mb-2.5 text-lg leading-title font-semibold tracking-title"
+                        className="mb-4 text-lg leading-title font-semibold tracking-title"
                     >
                         {t("title")}
                     </h2>
-                    <p className="mb-4 max-w-(--measure-prose) text-dim">
-                        {t("intro")}
-                    </p>
                     <div className="grid grid-cols-1 items-start gap-10 notation:grid-cols-[minmax(0,1fr)_var(--spacing-hex-page)]">
                         <DifficultyTable
                             profile={profile}
                             evidence={project.evidence}
                         />
-                        <div className="flex flex-col">
+                        <RevealOnView>
                             <DifficultyHex
                                 profile={profile}
                                 labels={hexLabels}
@@ -93,7 +91,7 @@ export default async function Page({
                                 label={t("legend.trigger")}
                             />
                             <DifficultyLegend />
-                        </div>
+                        </RevealOnView>
                     </div>
                 </section>
             )}
@@ -101,7 +99,11 @@ export default async function Page({
             <Prose>
                 <Mdx code={project.description} />
             </Prose>
-            <ProjectNext locale={lang} slug={project.slug} title={project.title} />
+            <ProjectNext
+                locale={lang}
+                slug={project.slug}
+                title={project.title}
+            />
         </PageFrame>
     );
 }
