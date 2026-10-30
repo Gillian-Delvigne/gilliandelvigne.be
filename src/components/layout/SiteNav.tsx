@@ -11,7 +11,7 @@ interface SiteNavProps {
 export default function SiteNav({ items }: SiteNavProps) {
     return (
         <header className="sticky top-0 z-20 border-b border-(--line-soft) bg-bg [--brand-dot:var(--brand-solid)]">
-            <div className="site-bar mx-auto grid grid-cols-[1fr_auto_1fr] items-center w-full max-w-(--width-content) gap-5 px-(--gutter) py-5.5">
+            <div className="shell site-bar grid grid-cols-[1fr_auto_1fr] items-center gap-5  py-5.5">
                 <Brand className="justify-self-start" />
                 <NavList items={items} className="hidden lg:block" />
                 <LocaleSwitch className="hidden lg:flex justify-self-end" />

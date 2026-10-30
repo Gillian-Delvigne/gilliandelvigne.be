@@ -6,7 +6,7 @@
 	"Nav": {
 		"home": {
 			"label": "Accueil",
-			"dek": "Ingénieur pédagogique devenu développeur full-stack. Deux métiers, une exigence : des applications comprises par ceux qui s'en servent."
+			"dek": "Ingénieur pédagogique et développeur full-stack : {careerYears, plural, one {# an} other {# ans}} d'expérience, dont plus de 10 ans à concevoir et piloter des formations, des simulations et des serious games, et {devYears} dans le développement. Je code depuis l'adolescence, en autodidacte, et en tant que professionnel depuis 2021."
 		},
 		"about": {
 			"label": "À propos",
@@ -33,6 +33,53 @@
 		"open": "Ouvrir le menu",
 		"close": "Fermer le menu",
 		"label": "Menu"
+	},
+	"Home": {
+		"kicker": "Pédagogie numérique · Développement full-stack<country> · Belgique</country>",
+		"cta": {
+			"projects": "Voir les projets",
+			"about": "Le parcours"
+		},
+		"featured": {
+			"kicker": "Trois projets sur {count}",
+			"title": "De la simulation pédagogique à l'ERP",
+			"body": "D'une simulation où je n'avais qu'un doigt dans la programmation à des modules Odoo où j'y suis jusqu'au cou.",
+			"all": "Voir les {count} projets"
+		},
+		"pedagogy": {
+			"title": "Avant le code, la pédagogie",
+			"items": [
+				{
+					"title": "UNamur et Van In/De Boeck",
+					"body": "Dès 2011, conseiller pédagogique et assistant à l'UNamur, puis assistant d'édition et responsable ICT chez Van In/De Boeck jusqu'en 2017, où le développement est entré dans mes fonctions."
+				},
+				{
+					"title": "Croix-Rouge de Belgique",
+					"body": "Digital Learning Manager jusqu'en 2021 : Premiers secours en route, la formation que suit tout candidat au permis à Bruxelles (13 modules), et une application de premiers secours qui a dépassé 25 000 utilisateurs, du cahier des charges au déploiement."
+				},
+				{
+					"title": "ULB et CPFB",
+					"body": "Techno-pédagogue jusqu'en 2023 : membre du Centre d'appui pédagogique de l'ULB, administrateur Moodle et Microsoft Azure au CPFB, où j'ai accompagné les formateurs dans leur transition numérique."
+				}
+			]
+		},
+		"development": {
+			"title": "Le développement",
+			"items": [
+				{
+					"title": "42 Belgium",
+					"body": "Depuis 2023, en C et C++ (un cursus qui équivaut à un bachelier en informatique) ; c'est là que j'ai écrit minishell, un shell UNIX, et fdf, un moteur de rendu 3D filaire."
+				},
+				{
+					"title": "Technobel",
+					"body": "La filière intensive Développeur Odoo, terminée en octobre 2026 (environ 400 heures, 15 places sur tests d'admission) : Python, PostgreSQL, ORM, sécurité applicative."
+				},
+				{
+					"title": "Vitrine Odoo",
+					"body": "En cours sur mon serveur (VPS) ; ce sera la prochaine étude de cas."
+				}
+			]
+		}
 	},
 	"Footer": {
 		"colophon": "Next 16 · code public",

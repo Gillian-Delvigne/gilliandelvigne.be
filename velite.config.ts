@@ -153,7 +153,7 @@ export default defineConfig({
                 .object({
                     type: s.literal("project").default("project"),
                     title: s.string().max(120),
-                    dek: s.string().max(200),
+                    dek: s.string().max(300),
                     translationKey: s.string().max(50),
                     date: s.isodate(),
                     tags: s.array(s.string()).default([]),

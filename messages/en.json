@@ -6,7 +6,7 @@
 	"Nav": {
 		"home": {
 			"label": "Home",
-			"dek": "A learning engineer turned full-stack developer. Two crafts, one requirement: applications the people using them can understand."
+			"dek": "Learning engineer and full-stack developer: {careerYears, plural, one {# year} other {# years}} of experience, more than 10 of them designing and running courses, simulations and serious games, and {devYears} in development. I have been coding since my teens, self-taught, and professionally since 2021."
 		},
 		"about": {
 			"label": "About",
@@ -34,9 +34,56 @@
 		"close": "Close the menu",
 		"label": "Menu"
 	},
+	"Home": {
+		"kicker": "Digital learning · Full-stack development<country> · Belgium</country>",
+		"cta": {
+			"projects": "See the projects",
+			"about": "My background"
+		},
+		"featured": {
+			"kicker": "Three projects out of {count}",
+			"title": "From learning simulation to ERP",
+			"body": "From a simulation where I barely had a finger in the code to Odoo modules where I'm in up to my neck.",
+			"all": "See all {count} projects"
+		},
+		"pedagogy": {
+			"title": "Before code, learning design",
+			"items": [
+				{
+					"title": "UNamur and Van In/De Boeck",
+					"body": "From 2011, teaching advisor and assistant at UNamur, then editorial assistant and ICT manager at Van In/De Boeck until 2017, where development became part of my job."
+				},
+				{
+					"title": "Belgian Red Cross",
+					"body": "Digital Learning Manager until 2021: First aid on the road, the course every driving-licence candidate in Brussels takes (13 modules), and a first-aid app that passed 25,000 users, from specifications to rollout."
+				},
+				{
+					"title": "ULB and CPFB",
+					"body": "Learning technologist until 2023: member of the ULB teaching support centre, Moodle and Microsoft Azure administrator at CPFB, where I helped trainers through their digital transition."
+				}
+			]
+		},
+		"development": {
+			"title": "Development",
+			"items": [
+				{
+					"title": "42 Belgium",
+					"body": "Since 2023, in C and C++ (a curriculum equivalent to a bachelor's in computer science); that is where I wrote minishell, a UNIX shell, and fdf, a 3D wireframe renderer."
+				},
+				{
+					"title": "Technobel",
+					"body": "The intensive Odoo Developer track, completed in October 2026 (about 400 hours, 15 places, by admission test): Python, PostgreSQL, ORM, application security."
+				},
+				{
+					"title": "Odoo showcase",
+					"body": "In progress on my server (VPS); it will be the next case study."
+				}
+			]
+		}
+	},
 	"Footer": {
 		"colophon": "Next 16 · public code",
-		"tagline": "Built with",
+		"tagline": "Written with",
 		"location": "Grez-Doiceau",
 		"contact": "Get in touch"
 	},
@@ -61,7 +108,7 @@
 				"email-required": "Without an address, I can't write back.",
 				"email-invalid": "That address doesn't look right. Check the @ and the domain.",
 				"message-required": "Write me a few words.",
-				"message-too-long": "This message is over {max} characters. Keep it short; I'll pick it up from there."
+				"message-too-long": "This message is over {max} characters. Keep it short; we'll talk about the rest later."
 			},
 			"sealing": "Sending…",
 			"success-msg": "Message sent. I reply within two working days.",
@@ -148,7 +195,7 @@
 			"title": "The hexagon, criterion by criterion",
 			"axesHeading": "What each criterion measures",
 			"levelsHeading": "What each level means",
-			"close": "Close the help"
+			"close": "Close help"
 		}
 	},
 	"Status": {

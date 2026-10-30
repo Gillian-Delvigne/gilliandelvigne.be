@@ -86,8 +86,6 @@
     --spacing-hex-card: 6.5rem;
     --spacing-hex-page: 18.75rem;
     --spacing-brand: 1.3875rem;
-    --spacing-brand-compact: 1.125rem;
-    --spacing-nav-compact: 0.6875rem;
 
     --breakpoint-notation: 53.75rem;
 
@@ -127,6 +125,8 @@
     /* Read through var(…) only, no Tailwind utility attached. */
     --measure-prose: 66ch;
     --measure-dek: 56ch;
+    --measure-lead: 60ch;
+    --width-card: 19.375rem;
     --width-popover: 40rem;
     --width-content: 75rem;
     --width-canvas: 85rem;
@@ -167,6 +167,11 @@
     --glow: rgb(
         255 255 255 / 0.085
     ); /* one per screen, behind the brand mark */
+    --glow-gradient: radial-gradient(
+        closest-side,
+        var(--glow),
+        transparent 64%
+    );
     --lit: inset 0 1px 0 rgb(255 255 255 / 0.06); /* the top edge catches the light */
     --veil: rgb(5 9 18 / 0.62);
     --shadow: 0 0 transparent; /* a drop shadow does not read on black */
@@ -207,6 +212,9 @@
     --brand-dot-delay: var(--brand-trace);
 
     --gloss: 0.2;
+
+    --nav-compact: 0.6875rem;
+    --brand-compact: 1.125rem;
 }
 
 @media (prefers-color-scheme: light) {
@@ -328,6 +336,13 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+@utility shell {
+    margin-inline: auto;
+    width: 100%;
+    max-width: var(--width-content);
+    padding-inline: var(--gutter);
+}
+
 /* Scrollbars: visible, discreet (anti-pattern, spec 02) */
 * {
     scrollbar-color: var(--color-rule) transparent;
@@ -389,91 +404,6 @@ body {
         color-mix(in srgb, var(--color-parchment) 4%, transparent) 0 1px,
         transparent 1px 4px
     );
-}
-
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    border: 1px solid transparent;
-    padding: 0.625rem 1.25rem;
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: var(--text-xs);
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-    line-height: var(--leading-ui);
-    text-decoration: none;
-    cursor: pointer;
-    border-radius: var(--radius-sm);
-    -webkit-border-radius: var(--radius-sm);
-    -moz-border-radius: var(--radius-sm);
-    -ms-border-radius: var(--radius-sm);
-    -o-border-radius: var(--radius-sm);
-    transition:
-        background-color var(--dur-micro) var(--ease-out),
-        border-color var(--dur-micro) var(--ease-out),
-        color var(--dur-micro) var(--ease-out),
-        transform var(--dur-micro) var(--ease-out);
-}
-
-.btn:active {
-    transform: translateY(1px);
-} /* it sinks: a press */
-
-.btn[aria-disabled="true"] {
-    opacity: 0.55;
-    cursor: not-allowed;
-}
-
-.btn-primary {
-    background: var(--color-accent);
-    color: var(--color-parchment);
-}
-
-.btn-primary:hover {
-    background: var(--color-accent-deep);
-}
-
-[data-surface="dark"] .btn-primary {
-    background: var(--color-accent-on-dark);
-    color: var(--color-ink-panel);
-}
-
-.btn-secondary {
-    border-color: var(--color-ink-muted);
-    color: var(--color-ink);
-}
-.btn-secondary:hover {
-    border-color: var(--color-ink);
-    background: var(--color-parchment-raised);
-}
-
-.btn-quiet {
-    padding-inline: 0;
-    padding-bottom: 2px;
-    color: var(--color-accent);
-    border-bottom-color: color-mix(
-        in srgb,
-        var(--color-accent) 40%,
-        transparent
-    );
-}
-
-btn-quiet:hover {
-    color: var(--color-accent-deep);
-    border-bottom-color: var(--color-accent-deep);
-}
-[data-surface="dark"] .btn-quiet {
-    color: var(--color-accent-on-dark);
-    border-bottom-color: color-mix(
-        in srgb,
-        var(--color-accent-on-dark) 40%,
-        transparent
-    );
-}
-[data-surface="dark"] .btn-quiet:hover {
-    color: var(--color-gilt-leaf);
-    border-bottom-color: var(--color-gilt-leaf);
 }
 
 .tag-button {
@@ -1049,13 +979,13 @@ btn-quiet:hover {
 
 @keyframes nav-shrink {
     to {
-        padding-block: var(--spacing-nav-compact);
+        padding-block: var(--nav-compact);
     }
 }
 
 @keyframes brand-shrink {
     to {
-        height: var(--spacing-brand-compact);
+        height: var(--brand-compact);
     }
 }
 

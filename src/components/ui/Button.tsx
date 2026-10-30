@@ -35,10 +35,14 @@ interface AsLink
 
 type BtnProps = AsButton | AsLink;
 
+const BASE =
+    "inline-flex cursor-pointer items-center gap-2 rounded-md border border-transparent px-4 py-2.25 text-sm font-medium transition-colors duration-(--dur-micro) active:translate-y-px aria-disabled:cursor-not-allowed aria-disabled:opacity-55";
+
 const VARIANTS: Record<Variant, string> = {
-    primary: "btn-primary",
-    secondary: "btn-secondary",
-    quiet: "btn-quiet",
+    primary: "bg-ink text-bg hover:bg-ink/90",
+    secondary:
+        "border-(--line) text-ink hover:border-(--brand-border) hover:text-brand",
+    quiet: "text-dim hover:text-ink",
 };
 
 export default function Button({
@@ -47,7 +51,7 @@ export default function Button({
     variant = "secondary",
     ...rest
 }: BtnProps) {
-    const classes = cn("btn", VARIANTS[variant], className);
+    const classes = cn(BASE, VARIANTS[variant], className);
 
     if (rest.href === undefined) {
         const { type, ...props } = rest;
