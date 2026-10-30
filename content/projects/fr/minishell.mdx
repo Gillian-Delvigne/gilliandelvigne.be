@@ -21,14 +21,14 @@ Reconstruire les mécanismes d'un shell : analyse de la ligne de commande, tubes
 redirections, variables d'environnement, gestion des processus et des signaux.
 Tout à la main, sans dépendance.
 
-## Ce que j'ai fait
+## La réalisation
 
 Un analyseur qui découpe, quote et développe la ligne saisie ; l'exécution des
 commandes internes et externes ; les tubes et redirections ; le contrôle des
 codes de retour et des signaux. Une attention particulière portée à la fidélité
 au comportement réel de `bash`, et à l'absence de fuite mémoire.
 
-## Ce que j'en retiens
+## Le bilan
 
 On croit connaître un shell jusqu'à devoir décider ce que fait exactement
 `echo "a"'b'c` — et découvrir que la réponse tient dans un automate d'états. Les

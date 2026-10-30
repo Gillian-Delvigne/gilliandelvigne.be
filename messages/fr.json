@@ -18,7 +18,7 @@
 		},
 		"blog": {
 			"label": "Blog",
-			"dek": "Ce que j'ai dû comprendre pour avancer, écrit assez proprement pour resservir."
+			"dek": "Des notions comprises pour avancer, écrites assez proprement pour resservir."
 		},
 		"contact": {
 			"label": "Contact",
@@ -146,8 +146,7 @@
 	},
 	"Difficulty": {
 		"axis": "Critère",
-		"title": "Ce que ce projet a exigé",
-		"intro": "Six critères, de 0 à 4 : plus une branche s'étire, plus le projet a été exigeant sur ce point.",
+		"title": "Le profil de difficulté",
 		"evidence": "Concrètement",
 		"value": "Valeur",
 		"outOf": "sur",
@@ -193,8 +192,8 @@
 		"legend": {
 			"trigger": "Besoin d'aide pour déchiffrer l'hexagone ?",
 			"title": "L'hexagone, critère par critère",
-			"axesHeading": "Ce que mesure chaque critère",
-			"levelsHeading": "Ce que vaut chaque niveau",
+			"axesHeading": "Les critères",
+			"levelsHeading": "Les niveaux",
 			"close": "Fermer l'aide"
 		}
 	},
