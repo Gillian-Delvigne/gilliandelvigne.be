@@ -8,11 +8,9 @@ const Home = async ({ params }: PageProps<"/[lang]">) => {
     const { lang } = await params;
     if (!isLocale(lang)) return notFound();
     return (
-        <div className="shell pb-24 md:pb-32">
+        <div className="shell flex flex-col gap-28 pb-24 md:pb-32">
             <HomeHero />
-            <hr className="my-11 border-(--line-soft)" />
             <FeaturedProjects locale={lang} />
-            <hr className="my-11 border-(--line-soft)" />
             <HomeColumns />
         </div>
     );

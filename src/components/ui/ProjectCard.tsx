@@ -35,7 +35,7 @@ export default async function ProjectCard({
 
     return (
         <article
-            className="relative rounded-card border border-(--line) bg-surface p-4.75
+            className="relative row-span-4 grid grid-rows-subgrid gap-y-0 rounded-card border border-(--line) bg-surface p-4.75
                        shadow-card
                        transition-colors duration-(--dur-micro)
                        hover:border-(--brand-border)"
@@ -70,7 +70,7 @@ export default async function ProjectCard({
                 <p className="text-xs leading-normal text-dim">{axePhrase}</p>
             </div>
 
-            <div className="mt-3.75 flex flex-wrap items-center gap-1.5">
+            <div className="mt-3.75 flex flex-wrap content-start items-center gap-1.5">
                 <StatusBadge status={project.status} />
                 {project.stack.slice(0, MAX_STACK_TAGS).map((tech) => (
                     <Tag key={tech}>{tech}</Tag>

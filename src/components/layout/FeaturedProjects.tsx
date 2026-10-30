@@ -11,7 +11,7 @@ const FeaturedProjects = async ({ locale }: { locale: Locale }) => {
     return (
         <div>
             <p className="mb-2.5 font-mono text-2xs font-semibold tracking-label text-dim uppercase">
-                {t("kicker", { count: count })}
+                {t("kicker")}
             </p>
             <h2 className="mb-2.5 text-xl leading-title font-semibold tracking-title">
                 {t("title")}
