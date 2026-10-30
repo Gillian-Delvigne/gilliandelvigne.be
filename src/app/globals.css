@@ -86,8 +86,6 @@
     --spacing-hex-card: 6.5rem;
     --spacing-hex-page: 18.75rem;
     --spacing-brand: 1.3875rem;
-    --spacing-brand-compact: 1.125rem;
-    --spacing-nav-compact: 0.6875rem;
 
     --breakpoint-notation: 53.75rem;
 
@@ -207,6 +205,9 @@
     --brand-dot-delay: var(--brand-trace);
 
     --gloss: 0.2;
+
+	--nav-compact: 0.6875rem;
+    --brand-compact: 1.125rem;
 }
 
 @media (prefers-color-scheme: light) {
@@ -1056,13 +1057,13 @@ btn-quiet:hover {
 
 @keyframes nav-shrink {
     to {
-        padding-block: var(--spacing-nav-compact);
+        padding-block: var(--nav-compact);
     }
 }
 
 @keyframes brand-shrink {
     to {
-        height: var(--spacing-brand-compact);
+        height: var(--brand-compact);
     }
 }
 
