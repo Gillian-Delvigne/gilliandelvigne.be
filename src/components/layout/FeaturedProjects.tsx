@@ -10,10 +10,14 @@ const FeaturedProjects = async ({ locale }: { locale: Locale }) => {
     const count = getProjects(locale).length;
     return (
         <div>
-            <p>{t("kicker", { count: count })}</p>
-            <h2>{t("title")}</h2>
-            <p>{t("body")}</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-8">
+            <p className="mb-2.5 font-mono text-2xs font-semibold tracking-label text-dim uppercase">
+                {t("kicker", { count: count })}
+            </p>
+            <h2 className="mb-2.5 text-xl leading-title font-semibold tracking-title">
+                {t("title")}
+            </h2>
+            <p className="max-w-(--measure-prose) text-dim">{t("body")}</p>
+            <div className="mt-5.5 grid grid-cols-[repeat(auto-fill,minmax(310px,1fr))] gap-6">
                 {projects.map((project) => (
                     <ProjectCard
                         key={project.slug}
@@ -22,7 +26,7 @@ const FeaturedProjects = async ({ locale }: { locale: Locale }) => {
                     />
                 ))}
             </div>
-            <Button variant="primary" href="/portfolio">
+            <Button variant="secondary" href="/portfolio" className="mt-5.5">
                 {t("all", { count: count })}
             </Button>
         </div>

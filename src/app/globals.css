@@ -125,6 +125,7 @@
     /* Read through var(…) only, no Tailwind utility attached. */
     --measure-prose: 66ch;
     --measure-dek: 56ch;
+    --measure-lead: 60ch;
     --width-popover: 40rem;
     --width-content: 75rem;
     --width-canvas: 85rem;
@@ -165,6 +166,11 @@
     --glow: rgb(
         255 255 255 / 0.085
     ); /* one per screen, behind the brand mark */
+    --glow-gradient: radial-gradient(
+        closest-side,
+        var(--glow),
+        transparent 64%
+    );
     --lit: inset 0 1px 0 rgb(255 255 255 / 0.06); /* the top edge catches the light */
     --veil: rgb(5 9 18 / 0.62);
     --shadow: 0 0 transparent; /* a drop shadow does not read on black */

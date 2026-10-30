@@ -10,7 +10,9 @@ const Home = async ({ params }: PageProps<"/[lang]">) => {
     return (
         <div className="shell pb-24 md:pb-32">
             <HomeHero />
+            <hr className="my-11 border-(--line-soft)" />
             <FeaturedProjects locale={lang} />
+            <hr className="my-11 border-(--line-soft)" />
             <HomeColumns />
         </div>
     );
