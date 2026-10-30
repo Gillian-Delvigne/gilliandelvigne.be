@@ -17,7 +17,7 @@ const FeaturedProjects = async ({ locale }: { locale: Locale }) => {
                 {t("title")}
             </h2>
             <p className="max-w-(--measure-prose) text-dim">{t("body")}</p>
-            <div className="mt-5.5 grid grid-cols-[repeat(auto-fill,minmax(310px,1fr))] gap-6">
+            <div className="mt-5.5 grid grid-cols-[repeat(auto-fill,minmax(var(--width-card),1fr))] gap-6">
                 {projects.map((project) => (
                     <ProjectCard
                         key={project.slug}

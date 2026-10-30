@@ -35,7 +35,7 @@
 		"label": "Menu"
 	},
 	"Home": {
-		"kicker": "Digital learning · Full-stack development · Belgium",
+		"kicker": "Digital learning · Full-stack development<country> · Belgium</country>",
 		"cta": {
 			"projects": "See the projects",
 			"about": "My journey"

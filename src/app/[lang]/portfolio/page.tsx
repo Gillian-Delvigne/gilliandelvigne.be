@@ -26,7 +26,7 @@ export default async function Portfolio({
             breadcrumb={await getCrumbs("portfolio")}
         >
             <DifficultyLegendTrigger label={tDifficulty("legend.trigger")} />
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(310px,1fr))] gap-6 py-8">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(var(--width-card),1fr))] gap-6 py-8">
                 {projects.length
                     ? projects.map((project) => (
                           <ProjectCard key={project.title} project={project} />

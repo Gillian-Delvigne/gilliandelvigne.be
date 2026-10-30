@@ -35,7 +35,7 @@
 		"label": "Menu"
 	},
 	"Home": {
-		"kicker": "Pédagogie numérique · Développement full-stack · Belgique",
+		"kicker": "Pédagogie numérique · Développement full-stack<country> · Belgique</country>",
 		"cta": {
 			"projects": "Voir les projets",
 			"about": "Le parcours"
