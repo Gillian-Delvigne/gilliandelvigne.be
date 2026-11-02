@@ -1,52 +1,65 @@
 ---
 type: project
 title: Elausys
-dek: "L'architecture digitale d'une PME de domotique, refaite de zéro : une API, quatre sites, et une boutique reliée à ses outils de paiement, de livraison et de gestion client."
+dek: "L'architecture digitale d'une PME de domotique, refaite de zéro : une API, quatre sites, et une boutique reliée à ses outils de paiement, de livraison et de gestion client."
 translationKey: elausys
-date: 2025-09-01
+date: 2025-10-01
 status: partial
 category: applicatif
 tags: [full-stack, multi-tenant, auto-hébergement]
-stack: [Express, TypeScript, Supabase, PostgreSQL, Docker, React]
+stack: [Express, TypeScript, Supabase, PostgreSQL, React, Next.js, n8n, Docker]
 ref: PRJ-04
 order: 2
 featured: true
+evidence:
+  scope: "Une API Express de 147 routes, une base PostgreSQL de 43 tables, quatre sites et un tableau de bord d'administration."
+  coupling: "Six services extérieurs à tenir d'accord : Stripe, Axonaut, Brevo, Notion, UPS et Google, une partie par n8n."
+  stakes: "Une commande qui échoue est une vente perdue : paiement, facture et envoi s'enchaînent sans intervention."
+  conformance: "Aucun cahier des charges imposé : une demande en quatre lignes, à traduire en spécifications."
+  rules: "Le prix dépend du client (invité, particulier, professionnel), de son numéro de TVA et du pays de livraison."
+  disciplines: "Seul au développement : base de données, API, interfaces, déploiement et documentation."
 links:
   live: https://elausys.be
 ---
 
 ## Le besoin
 
-Un intégrateur en domotique KNX exploitait quatre présences en ligne sans socle
-commun : le site institutionnel, l'activité automation, l'alarme intrusion et la
-boutique. Chacune avait son contenu, son catalogue et ses données, maintenus
-séparément.
+Elausys est une petite entreprise wallonne de domotique (l'automatisation des bâtiments, de l'éclairage au chauffage). Son fondateur, Nicolas Detournay, mène plusieurs activités de front, et chacune a son site : la société et sa boutique, l'intégration KNX (le standard de la domotique professionnelle), les systèmes d'alarme, et une place de marché où des distributeurs vendent leurs produits en livraison directe. Cette dernière était encore un MVP (une première version, réduite à l'essentiel) en cours de développement lorsque j'ai quitté l'entreprise.
+
+À mon arrivée, en octobre 2025, il y avait surtout des coquilles : une instance Supabase auto-hébergée encore vide, un n8n (un outil d'automatisation) dans le même état, et un vieux WordPress avec WooCommerce pour la boutique. Créer une fiche produit, suivre une commande, préparer un colis, publier un contenu : tout se faisait à la main, ou presque. Pour une structure de cette taille, chaque tâche répétée coûte directement de l'argent.
+
+La demande tenait en quatre lignes : une application web pour le site et sa boutique, des automatisations entre le site, le CRM et les outils de publication, et deux chantiers sur des applications existantes. La contrainte, elle, ne se discutait pas : tout devait tourner sur le serveur de l'entreprise, et être en ligne pour l'ISE 2026 (le grand salon européen de l'audiovisuel et de la domotique), en février. Il restait quatre mois.
+
+## La difficulté
+
+Sur le papier, chaque brique est connue. La difficulté venait de leur nombre, et de ce que chacune ne contrôlait pas les autres.
+
+Le socle, d'abord. Une même base de données sert quatre sites distincts (une architecture dite multi-tenant, où chaque site est un locataire du même système). Un client qui crée son compte sur l'un se connecte avec les mêmes identifiants sur les autres ; chaque commande, elle, reste rattachée au site où elle a été passée.
+
+Les e-mails, ensuite. Supabase envoie lui-même ceux de l'authentification (création de compte, validation, mot de passe oublié), alors que l'entreprise voulait tout faire passer par Brevo, son outil d'e-mails transactionnels. Il a fallu intercepter les envois de Supabase par un webhook (un appel automatique d'un service vers un autre) et les réécrire, sans casser la connexion des clients.
+
+Le CRM, aussi. Axonaut gère les clients et les factures de deux sociétés distinctes, et je devais composer avec les lacunes de son API. Un client qui commande sur deux sites différents, une adresse modifiée, une facture à émettre sur le bon compte, plusieurs comptes pour une même société : chaque cas nécessitait une synchronisation sans heurt dans le CRM.
+
+Les prix, enfin. Le montant affiché dépend du type de client (invité, particulier ou professionnel), d'une éventuelle remise, d'un numéro de TVA valide et du pays de livraison : 21 % pour la Belgique, 0 % pour un professionnel d'un autre pays de l'Union ou pour l'export. Le même produit peut donc avoir quatre prix différents selon la personne qui le regarde.
 
 ## La réalisation
 
-L'ensemble de la plateforme, **de zéro, en tant que développeur full-stack**.
+J'étais seul au développement, avec le fondateur pour décider. J'ai conçu et maintenu l'ensemble : la base de données, l'API, les interfaces et la documentation. J'ai travaillé en développement guidé par les spécifications (chaque fonctionnalité est d'abord décrite, puis implémentée et vérifiée contre sa description), ce qui faisait de moi la mémoire du projet, ancrée par la suite dans un dossier de documentation.
 
-Côté serveur, une API Express en TypeScript au-dessus d'une instance **Supabase
-auto-hébergée**, déployée par Docker : authentification, catalogue, données
-partagées entre les quatre domaines. L'auto-hébergement était un choix — garder
-la donnée chez le client plutôt que chez un prestataire.
+L'ensemble repose sur une seule API Express en TypeScript (147 routes, 27 services) et une seule base PostgreSQL de 43 tables, partagée par tous les sites. Chaque donnée porte l'identifiant de son site, et la base elle-même refuse qu'un site lise les données d'un autre. Autour, quatre applications React : la boutique principale (en 8 langues), les deux sites vitrines, et la place de marché.
 
-Côté client, quatre applications React indépendantes dans un monorepo. Chacune
-garde ses dépendances et son cycle de déploiement ; seule la couche données est
-mutualisée.
+La règle la plus importante ne vit pas dans l'API, mais dans la base. Le calcul des prix, des remises et de la TVA est écrit en PL/pgSQL (le langage des fonctions de PostgreSQL), avec 38 autres fonctions et 18 déclencheurs. Calculer les prix dans l'API aurait été plus simple à écrire ; mais chaque site aurait alors pu en avoir sa propre version, et une seule différence de centime suffit à fausser une facture.
 
-Le travail a couvert la modélisation de la base, les procédures de mise à jour de
-l'instance Supabase, et la documentation d'exploitation.
+Deux décisions ont pesé plus que les autres. La première : écarter l'idée de tout relier par des automatisations n8n, et construire plutôt un tableau de bord d'administration sur mesure. Il n'était pas prioritaire au départ ; il s'est révélé indispensable, parce qu'il est le seul endroit où le fondateur voit et gère l'ensemble de ses activités. La seconde ne venait pas de moi : à la suite d'un audit SEO (le référencement dans les moteurs de recherche), le fondateur a décidé de faire passer la place de marché de Vite à Next.js, après le salon. Le site était donc déjà en production : il fallait changer de framework sous ses pieds, sans qu'une seule page ni une seule commande cesse de fonctionner.
+
+Mon passé de pédagogue a joué, il me semble, à trois endroits : l'ergonomie des sites, où un client doit comprendre seul comment commander et quel prix s'applique à lui ; le tableau de bord, pensé pour quelqu'un dont le métier n'est pas l'informatique ; et la documentation, écrite pour le fondateur et la personne qui reprendra le projet (un ordre de lecture, un schéma par flux, une procédure par opération).
 
 ## Le bilan
 
-Le multi-tenant n'est pas d'abord un problème de base de données, c'est un
-problème de frontière : décider ce qui est commun et ce qui ne doit surtout pas
-l'être. Mutualiser trop se paie en couplage, pas assez en duplication — et les
-deux factures arrivent après la livraison.
+La plateforme est en ligne et fonctionne : plus de 1 000 utilisateurs, et des ventes en ligne qui représentent en moyenne un chiffre d'affaires mensuel à cinq chiffres. Elle n'est pas sans défaut : des retours de clients m'ont appris que certaines actions étaient impossibles dans certaines langues. Le défaut n'apparaissait ni en français ni en anglais, les deux langues de mes tests : il venait de la table des traductions, que les langues ajoutées ensuite ne suivaient pas entièrement.
 
-Auto-héberger Supabase apprend aussi ce qu'un service géré cache : les sauvegardes,
-les migrations et les montées de version cessent d'être une case à cocher.
+Je referais deux choses autrement. D'une part, je réduirais la part confiée aux automatisations n8n : elles ajoutent une dépendance et de la complexité, et elles manquent de robustesse. Une erreur qui survient à la frontière entre le site et un workflow est mal journalisée (enregistrée dans les logs), et difficile à rattraper dans le workflow lui-même. D'autre part, je ne changerais plus de framework en cours de route ; un audit SEO se fait avant d'écrire la première page.
 
-Une partie du dispositif est publique ; l'API, l'administration et les
-trois autres sites ne le sont pas.
+J'en garde une démarche plus entrepreneuriale qu'un projet d'école ne m'en avait jamais demandé, la pratique de PL/pgSQL et de l'administration de Supabase, et l'habitude d'écrire la spécification avant le code.
+
+Vu de loin, l'ensemble ressemble à un tableau électrique : beaucoup de circuits, tous reliés au même compteur. Mais chacun a son étiquette, et on sait lequel couper.
