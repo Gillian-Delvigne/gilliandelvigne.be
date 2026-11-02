@@ -3,47 +3,63 @@ type: project
 title: Elausys
 dek: "A home-automation SME's digital architecture, rebuilt from scratch: one API, four sites, and a shop wired to its payment, shipping and customer-management tools."
 translationKey: elausys
-date: 2025-09-01
+date: 2025-10-01
 status: partial
 category: applicatif
 tags: [full-stack, multi-tenant, self-hosting]
-stack: [Express, TypeScript, Supabase, PostgreSQL, Docker, React]
+stack: [Express, TypeScript, Supabase, PostgreSQL, React, Next.js, n8n, Docker]
 ref: PRJ-04
 order: 2
 featured: true
+evidence:
+  scope: "An Express API with 147 routes, a PostgreSQL database with 43 tables, four sites and an admin dashboard."
+  coupling: "Six outside services to keep in step: Stripe, Axonaut, Brevo, Notion, UPS and Google, some of them through n8n."
+  stakes: "A failed order is a lost sale: payment, invoice and shipping run in sequence with no one stepping in."
+  conformance: "No imposed specification: a four-line request, to be turned into specifications."
+  rules: "The price depends on the customer (guest, private, professional), their VAT number and the delivery country."
+  disciplines: "The only developer: database, API, interfaces, deployment and documentation."
 links:
   live: https://elausys.be
 ---
 
 ## The need
 
-A KNX home-automation integrator ran four separate web presences with no shared
-foundation: the corporate site, the automation business, intrusion alarms and the
-shop. Each had its own content, catalogue and data, maintained separately.
+Elausys is a small home-automation company in Wallonia (automating buildings, from lighting to heating). Its founder, Nicolas Detournay, runs several businesses at once, and each has its own site: the company and its shop, KNX integration (the standard for professional home automation), alarm systems, and a marketplace where distributors sell their products with direct delivery. The marketplace was still an MVP (a first version, cut down to the essentials) and under development when I left the company.
+
+When I arrived, in October 2025, there were mostly empty shells: a self-hosted Supabase instance with nothing in it, an n8n instance (an automation tool) in the same state, and an old WordPress site running WooCommerce for the shop. Creating a product page, tracking an order, preparing a parcel, publishing content: almost everything was done by hand. For a business of that size, every repeated task costs money directly.
+
+The request fitted in four lines: a web application for the site and its shop, automations between the site, the CRM and the publishing tools, and two jobs on existing applications. The constraint was not up for discussion: everything had to run on the company's own server, and be live for ISE 2026 (Europe's major trade show for audiovisual and home automation), in February. That left four months.
+
+## The difficulty
+
+On paper, every building block was familiar. The difficulty came from how many there were, and from the fact that none of them controlled the others.
+
+The foundation, first. A single database serves four separate sites (a multi-tenant architecture, where each site is a tenant of the same system). A customer who creates an account on one site signs in with the same credentials on the others; each order, however, stays attached to the site where it was placed.
+
+Then the emails. Supabase sends its own authentication emails (account creation, confirmation, forgotten password), whereas the company wanted everything to go through Brevo, its transactional email tool. I had to intercept Supabase's emails through a webhook (an automatic call from one service to another) and rewrite them, without breaking customer sign-in.
+
+The CRM, too. Axonaut manages the customers and invoices of two separate companies, and I had to work around the gaps in its API. A customer ordering on two different sites, a changed address, an invoice to issue on the right account, several accounts for the same company: each case needed a clean synchronisation into the CRM.
+
+Finally, the prices. The amount shown depends on the type of customer (guest, private or professional), any discount, a valid VAT number and the delivery country: 21% for Belgium, 0% for a professional in another EU country or for export. The same product can therefore have four different prices, depending on who is looking at it.
 
 ## The work
 
-The whole platform, **from scratch, as the full-stack developer**.
+I was the only developer, with the founder making the decisions. I designed and maintained the whole system: the database, the API, the interfaces and the documentation. I worked in spec-driven development (each feature is described first, then implemented and checked against its description), which made me the project's memory, later anchored in a documentation folder.
 
-On the server, an Express API in TypeScript on top of a **self-hosted Supabase**
-instance deployed with Docker: authentication, catalogue, and the data shared
-across the four domains. Self-hosting was a deliberate choice — keeping the data
-with the client rather than with a vendor.
+Everything rests on a single Express API in TypeScript (147 routes, 27 services) and a single PostgreSQL database of 43 tables, shared by all the sites. Every record carries its site's identifier, and the database itself refuses to let one site read another's data. Around it sit four React applications: the main shop (in 8 languages), the two showcase sites, and the marketplace.
 
-On the client, four independent React applications in a monorepo. Each keeps its
-own dependencies and release cycle; only the data layer is shared.
+The most important rule lives in the database rather than in the API. Prices, discounts and VAT are calculated in PL/pgSQL (PostgreSQL's function language), alongside 38 other functions and 18 triggers. Calculating prices in the API would have been easier to write; but each site could then have ended up with its own version, and a single cent's difference is enough to get an invoice wrong.
 
-The work covered database modelling, the upgrade procedures for the Supabase
-instance, and the operations documentation.
+Two decisions mattered more than the rest. The first: I set aside the idea of connecting everything through n8n automations, and built a custom admin dashboard instead. It wasn't a priority at the start; it turned out to be essential, because it's the only place where the founder can see and manage all of his businesses. The second wasn't mine: following an SEO audit (search-engine ranking), the founder decided to move the marketplace from Vite to Next.js, after the trade show. The site was therefore already in production: the framework had to be swapped out from under it, without a single page or order breaking.
+
+My background in learning design came into play, I think, in three places: the usability of the sites, where customers have to work out on their own how to order and which price applies to them; the dashboard, designed for someone whose job isn't IT; and the documentation, written for the founder and for whoever takes the project over (a reading order, a diagram per flow, a procedure per operation).
 
 ## The takeaway
 
-Multi-tenancy isn't primarily a database problem, it's a boundary problem:
-deciding what is shared and what must never be. Sharing too much is paid for in
-coupling, too little in duplication — and both bills arrive after delivery.
+The platform is live and working: more than 1,000 users, and online sales that average a five-figure monthly turnover. It isn't flawless: customer feedback taught me that some actions were impossible in some languages. The fault showed up in neither French nor English, the two languages I tested in: it came from the translation table, which the languages added later didn't fully follow.
 
-Self-hosting Supabase also teaches you what a managed service hides: backups,
-migrations and version upgrades stop being a checkbox.
+There are two things I'd do differently. On the one hand, I'd hand less over to n8n automations: they add a dependency and complexity, and they fail too easily. An error that occurs at the boundary between the site and a workflow is poorly logged, and hard to recover from within the workflow itself. On the other, I wouldn't switch frameworks mid-project again; an SEO audit belongs before the first page is written.
 
-Part of the system is public; the API, the admin and the three other
-sites are not.
+I came away with a far more entrepreneurial way of working than any school project had ever asked of me, hands-on experience of PL/pgSQL and Supabase administration, and the habit of writing the specification before the code.
+
+From a distance, the whole thing looks like a fuse box: lots of circuits, all wired to the same meter. But every one of them is labelled, and you know which one to switch off.
