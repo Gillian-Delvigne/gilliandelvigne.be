@@ -14,7 +14,7 @@
 		},
 		"portfolio": {
 			"label": "Projets",
-			"dek": "{count} projets, du web au système, de la pédagogie au code."
+			"dek": "{count} projets, du web au système, de la pédagogie au code, chacun mesuré sur six critères : chaque branche de son profil dit ce qu'il a exigé, de 0 à 4."
 		},
 		"blog": {
 			"label": "Blog",
@@ -190,7 +190,7 @@
 			}
 		},
 		"legend": {
-			"trigger": "Besoin d'aide pour déchiffrer l'hexagone ?",
+			"trigger": "En savoir plus sur les critères",
 			"title": "L'hexagone, critère par critère",
 			"axesHeading": "Les critères",
 			"levelsHeading": "Les niveaux",
