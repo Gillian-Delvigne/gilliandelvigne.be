@@ -120,7 +120,7 @@
 }
 
 :root {
-    color-scheme: dark light;
+    color-scheme: dark;
 
     /* Read through var(…) only, no Tailwind utility attached. */
     --measure-prose: 66ch;
@@ -215,91 +215,6 @@
 
     --nav-compact: 0.6875rem;
     --brand-compact: 1.125rem;
-}
-
-@media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]) {
-        /* Light mode: the card is LIGHTER than the page, no pure white anywhere.
-       Values measured on Waking Up, light mode. */
-        --color-bg: #dce2eb;
-        --color-surface: #f4f6f9;
-        --color-raised: #fbfcfd;
-        --color-ink: #1d2940; /* 15.8:1; not pure black, too harsh */
-        --color-dim: #4e5a70; /* 5.3:1; their #969ca2 drops to 2.43:1 */
-        --color-brand: #1255c9;
-        --color-brand-deep: #52a8ff;
-        --color-ok: #15694a;
-        --color-warn: #705a04;
-        --color-err: #b51c1e;
-        --color-mute: #4a5e79;
-        --color-warm: #b85000;
-
-        --ok-surface: #c6f7de;
-        --ok-border: transparent;
-        --ok-solid: #28996e;
-        --warn-surface: #faebbd;
-        --warn-border: transparent;
-        --warn-solid: #a08527;
-        --err-surface: #fee7e3;
-        --err-border: transparent;
-        --err-solid: #f64741;
-        --mute-surface: #e4edfa;
-        --mute-border: transparent;
-        --mute-solid: #6f8aaf;
-        --warm-surface: rgb(255 138 76 / 0.16);
-        --halo: rgb(255 255 255 / 0.62);
-        --brand-solid: #1f6fff;
-        --gauge-off: #d6dde7;
-        --dot-ring: var(--color-surface);
-
-        --line: rgb(29 41 64 / 0.14);
-        --line-soft: rgb(29 41 64 / 0.075);
-        --sunk: rgb(29 41 64 / 0.05);
-        --glow: transparent; /* a white glow does not exist on a light background */
-        --lit:
-            inset 0 1px 0 rgb(255 255 255 / 0.95),
-            inset 0 -1px 0 rgb(29 41 64 / 0.05); /* in light mode, the BOTTOM edge takes the shade */
-        --veil: rgb(14 23 38 / 0.28);
-        --brand-surface: rgb(18 85 201 / 0.09);
-        --brand-border: rgb(18 85 201 / 0.3);
-        --shadow: 0 1px 1px rgb(20 32 56 / 0.1), 0 2px 5px rgb(20 32 56 / 0.08);
-        --web: rgb(29 41 64 / 0.09);
-        --web-out: rgb(29 41 64 / 0.2);
-        --zero: rgb(29 41 64 / 0.26);
-        --line-abs: rgb(14 23 38 / 0.28);
-        --line-abs-dim: rgb(14 23 38 / 0.15);
-        --hex-center: 0.08;
-        --hex-edge: 0.3;
-
-        --ok-shadow:
-            0 0 0 1px rgb(50 131 97 / 0.07), 0 1px 1px rgb(50 131 97 / 0.12),
-            0 2px 6px -2px rgb(50 131 97 / 0.2);
-        --warn-shadow:
-            0 0 0 1px rgb(145 118 38 / 0.07), 0 1px 1px rgb(145 118 38 / 0.12),
-            0 2px 6px -2px rgb(145 118 38 / 0.2);
-        --err-shadow:
-            0 0 0 1px rgb(197 55 50 / 0.07), 0 1px 1px rgb(197 55 50 / 0.12),
-            0 2px 6px -2px rgb(197 55 50 / 0.2);
-        --mute-shadow:
-            0 0 0 1px rgb(91 115 149 / 0.07), 0 1px 1px rgb(91 115 149 / 0.12),
-            0 2px 6px -2px rgb(91 115 149 / 0.2);
-
-        /* temporary aliases, light mode */
-        --color-parchment: #dce2eb;
-        --color-parchment-raised: #f4f6f9;
-        --color-parchment-sunken: #d1d7e1;
-        --color-ink-panel: #fbfcfd;
-        --color-ink-secondary: #39414f;
-        --color-ink-muted: #4e5a70;
-        --color-rule: #d6d9df;
-        --color-accent: #1255c9;
-        --color-accent-deep: #52a8ff;
-        --color-accent-on-dark: #145cd0;
-        --color-verdigris: #0b6e5e;
-        --color-verdigris-bright: #0b6e5e;
-        --color-gilt: #1d2940;
-        --color-gilt-leaf: #d6d9df;
-    }
 }
 
 @media (min-width: 48rem) {
