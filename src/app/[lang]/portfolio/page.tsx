@@ -6,7 +6,8 @@ import getCrumbs from "@/data/crumbs";
 import PageFrame from "@/components/layout/PageFrame";
 import ProjectCard from "@/components/ui/ProjectCard";
 import DifficultyLegend from "@/components/ui/DifficultyLegend";
-import DifficultyLegendTrigger from "@/components/ui/DifficultyLegendTrigger";
+import { getProfile, LEGEND_PROJECT } from "@/content/difficulty";
+import DifficultyFigure from "@/components/ui/DifficultyFigure";
 
 export default async function Portfolio({
     params,
@@ -17,15 +18,17 @@ export default async function Portfolio({
     const pageInfo = await getNavItem("portfolio");
     const projects = getProjects(lang);
     const t = await getTranslations("Empty");
-    const tDifficulty = await getTranslations("Difficulty");
+    const legendProfile = getProfile(LEGEND_PROJECT);
 
     return (
         <PageFrame
             title={pageInfo.label}
             dek={pageInfo.dek}
             breadcrumb={await getCrumbs("portfolio")}
+            aside={
+                legendProfile && <DifficultyFigure profile={legendProfile} />
+            }
         >
-            <DifficultyLegendTrigger label={tDifficulty("legend.trigger")} />
             <div className="grid grid-cols-[repeat(auto-fill,minmax(var(--width-card),1fr))] gap-6">
                 {projects.length
                     ? projects.map((project) => (
