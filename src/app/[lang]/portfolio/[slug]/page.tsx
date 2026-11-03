@@ -13,13 +13,10 @@ import Mdx from "@/components/ui/Mdx";
 import Prose from "@/components/ui/Prose";
 import ProjectIdentity from "@/components/ui/ProjectIdentity";
 import { getTranslations } from "next-intl/server";
-import { AXES, getProfile } from "@/content/difficulty";
-import type { AxisLabels } from "@/types/difficulty";
-import { RevealOnView } from "@/components/ui/RevealOnView";
-import DifficultyHex from "@/components/ui/DifficultyHex";
+import { getProfile } from "@/content/difficulty";
 import DifficultyTable from "@/components/ui/DifficultyTable";
-import DifficultyLegendTrigger from "@/components/ui/DifficultyLegendTrigger";
 import DifficultyLegend from "@/components/ui/DifficultyLegend";
+import DifficultyFigure from "@/components/ui/DifficultyFigure";
 import ProjectNext from "@/components/layout/ProjectNext";
 
 export async function generateStaticParams() {
@@ -33,9 +30,6 @@ export default async function Page({
 }: PageProps<"/[lang]/portfolio/[slug]">) {
     const { lang, slug } = await params;
     const t = await getTranslations("Difficulty");
-    const hexLabels = Object.fromEntries(
-        AXES.map((axis) => [axis, t(`axes.${axis}`)]),
-    ) as AxisLabels;
 
     if (!isLocale(lang)) return notFound();
     const project = getProject(lang, slug);
@@ -80,18 +74,10 @@ export default async function Page({
                             profile={profile}
                             evidence={project.evidence}
                         />
-                        <RevealOnView>
-                            <DifficultyHex
-                                profile={profile}
-                                labels={hexLabels}
-                                animated
-                                className="h-auto w-full"
-                            />
-                            <DifficultyLegendTrigger
-                                label={t("legend.trigger")}
-                            />
+                        <div>
+                            <DifficultyFigure profile={profile} />
                             <DifficultyLegend />
-                        </RevealOnView>
+                        </div>
                     </div>
                 </section>
             )}
