@@ -8,6 +8,9 @@ import ProjectCard from "@/components/ui/ProjectCard";
 import DifficultyLegend from "@/components/ui/DifficultyLegend";
 import { getProfile, LEGEND_PROJECT } from "@/content/difficulty";
 import DifficultyFigure from "@/components/ui/DifficultyFigure";
+import { FIELD_OF } from "@/content/fields";
+import ProjectFilter from "@/components/ui/ProjectFilter";
+import type { FieldCard } from "@/types/portfolio";
 
 export default async function Portfolio({
     params,
@@ -19,6 +22,11 @@ export default async function Portfolio({
     const projects = getProjects(lang);
     const t = await getTranslations("Empty");
     const legendProfile = getProfile(LEGEND_PROJECT);
+    const cards = projects.map((project): FieldCard => ({
+        key: project.slug,
+        field: FIELD_OF[project.category],
+        card: <ProjectCard project={project} />,
+    }));
 
     return (
         <PageFrame
@@ -29,13 +37,11 @@ export default async function Portfolio({
                 legendProfile && <DifficultyFigure profile={legendProfile} />
             }
         >
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(var(--width-card),1fr))] gap-6">
-                {projects.length
-                    ? projects.map((project) => (
-                          <ProjectCard key={project.title} project={project} />
-                      ))
-                    : t("projects")}
-            </div>
+            {cards.length > 0 ? (
+                <ProjectFilter cards={cards} />
+            ) : (
+                <p className="text-dim">{t("projects")}</p>
+            )}
             <DifficultyLegend />
         </PageFrame>
     );
