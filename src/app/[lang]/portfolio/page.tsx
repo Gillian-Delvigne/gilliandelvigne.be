@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getProjects, isLocale } from "@/content";
@@ -10,6 +11,7 @@ import { getProfile, LEGEND_PROJECT } from "@/content/difficulty";
 import DifficultyFigure from "@/components/ui/DifficultyFigure";
 import { FIELD_OF } from "@/content/fields";
 import ProjectFilter from "@/components/ui/ProjectFilter";
+import ProjectFilterView from "@/components/ui/ProjectFilterView";
 import type { FieldCard } from "@/types/portfolio";
 
 export default async function Portfolio({
@@ -22,11 +24,13 @@ export default async function Portfolio({
     const projects = getProjects(lang);
     const t = await getTranslations("Empty");
     const legendProfile = getProfile(LEGEND_PROJECT);
-    const cards = projects.map((project): FieldCard => ({
-        key: project.slug,
-        field: FIELD_OF[project.category],
-        card: <ProjectCard project={project} />,
-    }));
+    const cards = projects.map(
+        (project): FieldCard => ({
+            key: project.slug,
+            field: FIELD_OF[project.category],
+            card: <ProjectCard project={project} />,
+        }),
+    );
 
     return (
         <PageFrame
@@ -38,7 +42,11 @@ export default async function Portfolio({
             }
         >
             {cards.length > 0 ? (
-                <ProjectFilter cards={cards} />
+                <Suspense
+                    fallback={<ProjectFilterView cards={cards} choice="all" />}
+                >
+                    <ProjectFilter cards={cards} />
+                </Suspense>
             ) : (
                 <p className="text-dim">{t("projects")}</p>
             )}
