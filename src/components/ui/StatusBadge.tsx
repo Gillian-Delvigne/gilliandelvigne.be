@@ -33,18 +33,18 @@ const styles: Record<Project["status"], Tone> = {
         shadow: "shadow-(--warn-shadow)",
     },
     private: {
-        bg: "bg-(--mute-surface)",
-        text: "text-mute",
-        border: "border-(--mute-border)",
-        solid: "bg-(--mute-solid)",
-        shadow: "shadow-(--mute-shadow)",
+        bg: "bg-(--private-surface)",
+        text: "text-private",
+        border: "border-(--private-border)",
+        solid: "bg-(--private-solid)",
+        shadow: "shadow-(--private-shadow)",
     },
     archived: {
-        bg: "bg-(--mute-surface)",
-        text: "text-mute",
-        border: "border-(--mute-border)",
-        solid: "bg-(--mute-solid)",
-        shadow: "shadow-(--mute-shadow)",
+        bg: "bg-(--archived-surface)",
+        text: "text-archived",
+        border: "border-(--archived-border)",
+        solid: "bg-(--archived-solid)",
+        shadow: "shadow-(--archived-shadow)",
     },
 };
 
