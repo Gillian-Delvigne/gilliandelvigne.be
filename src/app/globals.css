@@ -24,7 +24,8 @@
     --color-ok: #50f0d8; /* 171° · 12,84:1 AAA */
     --color-warn: #fbbf24; /* 43°  · 10,92:1 AAA */
     --color-err: #ff7b72; /* 4°   · 7,23:1 AAA */
-    --color-mute: #a0a0a0; /* information, archived, private */
+    --color-private: #c099ff; /* 300° · 8.02:1 AAA · closed code */
+    --color-archived: #d8c0a1; /* 75°, low chroma · 10.39:1 AAA · switched off */
 
     /* ---- Warm hue: ONLY inside a figure ---- */
     --color-warm: #ff8a4c; /* 21° · complement of the brand hue (171° apart) */
@@ -41,7 +42,7 @@
     --color-parchment-sunken: #121829; /* → creux */
     --color-ink-panel: #242a3c; /* → raised */
     --color-ink-secondary: #c2c7cf;
-    --color-ink-muted: #a0a0a0; /* → dim */
+    --color-ink-muted: #aaaaaa; /* → dim */
     --color-rule: #2a3147; /* → border, opaque equivalent of rgba(255,255,255,.14) */
     --color-accent: #52a8ff; /* → brand */
     --color-accent-deep: #145cd0; /* → brand-deep */
@@ -150,9 +151,12 @@
     --err-surface: rgb(255 123 114 / 0.13);
     --err-border: rgb(255 123 114 / 0.3);
     --err-solid: #ff7b72;
-    --mute-surface: rgb(255 255 255 / 0.04);
-    --mute-border: rgb(255 255 255 / 0.14);
-    --mute-solid: #a0a0a0;
+    --private-surface: rgb(192 153 255 / 0.13);
+    --private-border: rgb(192 153 255 / 0.28);
+    --private-solid: #c099ff;
+    --archived-surface: rgb(216 192 161 / 0.13);
+    --archived-border: rgb(216 192 161 / 0.28);
+    --archived-solid: #d8c0a1;
     --warm-surface: rgb(255 138 76 / 0.16);
     --halo: rgb(82 168 255 / 0.12);
     --halo-gradient: radial-gradient(
@@ -189,7 +193,8 @@
     --ok-shadow: 0 0 transparent;
     --warn-shadow: 0 0 transparent;
     --err-shadow: 0 0 transparent;
-    --mute-shadow: 0 0 transparent;
+    --private-shadow: 0 0 transparent;
+    --archived-shadow: 0 0 transparent;
 
     /* ---- Durations ---- */
     --dur-micro: 200ms;
