@@ -14,7 +14,7 @@
 
     /* ---- Text (measured on the Next 16.3.4 error page) ---- */
     --color-ink: #ededed; /* primary text */
-    --color-dim: #a0a0a0; /* secondary text */
+    --color-dim: #aaaaaa; /* secondary text · 7.85:1 on bg, 7.10:1 on surface, AAA */
 
     /* ---- Brand: a single hue, two steps ---- */
     --color-brand: #52a8ff; /* 210° · 7.29:1 AAA · text, link, stroke */
