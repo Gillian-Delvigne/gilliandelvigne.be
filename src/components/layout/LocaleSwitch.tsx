@@ -12,12 +12,12 @@ const labels: Record<Locale, string> = {
     en: "English",
 };
 
-const SEP =
-    "[&:not(:last-child)]:after:text-dim " +
-    "[&:not(:last-child)]:after:px-2 " +
-    "[&:not(:last-child)]:after:content-['·']";
+const ITEM =
+    "flex min-h-7 min-w-9 items-center justify-center rounded-md border border-transparent px-2.5 " +
+    "text-dim transition-colors duration-(--dur-micro) " +
+    "aria-[current=true]:border-(--brand-border) aria-[current=true]:bg-(--brand-surface) aria-[current=true]:text-brand";
 
-export function LocaleSwitch({ className }: { className?: string }) {
+export const LocaleSwitch = ({ className }: { className?: string }) => {
     const params = useParams();
     const current = useLocale();
 
@@ -28,19 +28,23 @@ export function LocaleSwitch({ className }: { className?: string }) {
     return (
         <ul
             className={cn(
-                "flex w-fit rounded-badge border border-(--line) px-2 py-0.75 font-mono text-2xs leading-4 font-medium tracking-label uppercase",
+                "flex w-fit gap-0.5 rounded-card border border-(--line) bg-(--sunk) p-0.75 font-mono text-2xs leading-none font-medium tracking-label uppercase",
                 className,
             )}
         >
             {LOCALES.map((locale) => {
-                const isCurrent = locale === current;
+                const label = (
+                    <>
+                        <span aria-hidden="true">{locale}</span>
+                        <span className="sr-only">{labels[locale]}</span>
+                    </>
+                );
                 return (
-                    <li
-                        key={locale}
-                        className={`${SEP} ${isCurrent ? "text-ink" : "text-dim"}`}
-                    >
-                        {isCurrent ? (
-                            <span aria-current="true">{labels[locale]}</span>
+                    <li key={locale}>
+                        {locale === current ? (
+                            <span aria-current="true" className={ITEM}>
+                                {label}
+                            </span>
                         ) : (
                             <Link
                                 // @ts-expect-error: nothing in the types ties `params` to the template
@@ -48,9 +52,12 @@ export function LocaleSwitch({ className }: { className?: string }) {
                                 locale={locale}
                                 lang={locale}
                                 hrefLang={locale}
-                                className="transition-colors duration-(--dur-micro) hover:text-ink"
+                                className={cn(
+                                    ITEM,
+                                    "hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand",
+                                )}
                             >
-                                {labels[locale]}
+                                {label}
                             </Link>
                         )}
                     </li>
@@ -58,4 +65,4 @@ export function LocaleSwitch({ className }: { className?: string }) {
             })}
         </ul>
     );
-}
+};
