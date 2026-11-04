@@ -137,6 +137,13 @@
 			"e-learning": "E-learning",
 			"serious-game": "Serious game"
 		},
+		"filter": {
+			"legend": "Show projects",
+			"all": "All",
+			"pedagogy": "Learning design",
+			"development": "Development",
+			"count": "{count, plural, one {# project shown} other {# projects shown}}"
+		},
 		"next": {
 			"aria": "Continue",
 			"label": "Next project",
