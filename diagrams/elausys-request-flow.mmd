@@ -2,7 +2,7 @@ flowchart LR
     accTitle: Request routing
     accDescr: Nginx Proxy Manager receives every HTTPS request and routes it by hostname: Supabase through Kong, the Express API, n8n, or the static files of the four sites.
 
-    B(["Browser"])
+    B("Browser")
     NPM["Nginx Proxy Manager<br/>:443"]
 
     subgraph SUPA["supa.elausys.cloud"]
