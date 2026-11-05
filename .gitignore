@@ -50,3 +50,5 @@ specs/
 
 # macOS
 .DS_Store
+
+diagrams/*.svg
