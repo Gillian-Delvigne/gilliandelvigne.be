@@ -1,0 +1,43 @@
+flowchart TB
+    accTitle: Elausys architecture
+    accDescr: A single entry point, Nginx Proxy Manager, routes traffic to four React sites, the Express API and a self-hosted Supabase. The API handles the database, e-mails, payments and, through n8n, the CRM sync.
+
+    U(["Browsers"])
+    NPM["Nginx Proxy Manager<br/>:80 · :443"]
+
+    SITES["4 sites · React + Vite<br/>elausys.com<br/>knx-automation.com<br/>alarme-intrusion.be<br/>knx-shop.com"]
+
+    API["knx-backend<br/>Express · :3000"]
+
+    subgraph SUPA["Self-hosted Supabase"]
+        KONG["Kong · :8000"]
+        SVC["GoTrue · PostgREST<br/>Storage · Realtime"]
+        PG[("PostgreSQL 15<br/>:5432")]
+    end
+
+    subgraph AUTO["Automation"]
+        N8N["n8n · :5678"]
+        N8NDB[("PostgreSQL 16<br/>:5431")]
+    end
+
+    subgraph EXT["External services"]
+        STRIPE["Stripe"]
+        BREVO["Brevo"]
+        AXO["Axonaut"]
+    end
+
+    U --> NPM
+    NPM --> SITES
+    NPM --> API
+    NPM --> KONG
+    KONG --> SVC
+    SVC --> PG
+    SVC -. "e-mail hook" .-> API
+    API --> PG
+    API -->|webhooks| N8N
+    API --> STRIPE & BREVO
+    N8N --> N8NDB
+    N8N --> AXO
+
+    classDef accent stroke-width:2px
+    class API accent

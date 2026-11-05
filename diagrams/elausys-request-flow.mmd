@@ -1,0 +1,26 @@
+flowchart LR
+    accTitle: Request routing
+    accDescr: Nginx Proxy Manager receives every HTTPS request and routes it by hostname: Supabase through Kong, the Express API, n8n, or the static files of the four sites.
+
+    B(["Browser"])
+    NPM["Nginx Proxy Manager<br/>:443"]
+
+    subgraph SUPA["supa.elausys.cloud"]
+        KONG["Kong · :8000"]
+        REST["PostgREST · :3000"]
+        AUTH["GoTrue · :9999"]
+        STORAGE["Storage · :5000"]
+    end
+
+    BE["knx-backend · :3000<br/>backend.elausys.cloud"]
+    N8N["n8n · :5678<br/>n8n.elausys.cloud"]
+    STATIC["Static files<br/>/var/www/websites<br/>*.elausys.com<br/>knx-shop.com"]
+
+    B -->|HTTPS| NPM
+    NPM --> KONG
+    NPM --> BE
+    NPM --> N8N
+    NPM --> STATIC
+    KONG -->|"/rest/v1"| REST
+    KONG -->|"/auth/v1"| AUTH
+    KONG -->|"/storage/v1"| STORAGE

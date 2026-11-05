@@ -51,3 +51,5 @@ public/static
 
 # macOS
 .DS_Store
+
+diagrams/*.svg
