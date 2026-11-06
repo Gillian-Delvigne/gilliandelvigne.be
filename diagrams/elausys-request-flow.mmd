@@ -1,26 +1,25 @@
 flowchart LR
     accTitle: Request routing
-    accDescr: Nginx Proxy Manager receives every HTTPS request and routes it by hostname: Supabase through Kong, the Express API, n8n, or the static files of the four sites.
+    accDescr: Nginx Proxy Manager receives every HTTPS request and routes it by hostname: Supabase through Kong, the Express API, n8n, or the static files of the four sites. Kong then routes Supabase requests by path to PostgREST, GoTrue or Storage.
 
-    B("Browser")
-    NPM["Nginx Proxy Manager<br/>:443"]
+    NPM["Every HTTPS request<br/>Nginx Proxy Manager<br/>:443"]
 
-    subgraph SUPA["supa.elausys.cloud"]
-        KONG["Kong · :8000"]
-        REST["PostgREST · :3000"]
-        AUTH["GoTrue · :9999"]
-        STORAGE["Storage · :5000"]
-    end
-
+    STATIC["Static files<br/>*.elausys.com<br/>knx-shop.com"]
     BE["knx-backend · :3000<br/>backend.elausys.cloud"]
+    KONG["Kong · :8000<br/>supa.elausys.cloud"]
     N8N["n8n · :5678<br/>n8n.elausys.cloud"]
-    STATIC["Static files<br/>/var/www/websites<br/>*.elausys.com<br/>knx-shop.com"]
 
-    B -->|HTTPS| NPM
-    NPM --> KONG
-    NPM --> BE
-    NPM --> N8N
+    REST["PostgREST<br/>:3000"]
+    AUTH["GoTrue<br/>:9999"]
+    STORAGE["Storage<br/>:5000"]
+
     NPM --> STATIC
+    NPM --> BE
+    NPM --> KONG
+    NPM --> N8N
     KONG -->|"/rest/v1"| REST
     KONG -->|"/auth/v1"| AUTH
     KONG -->|"/storage/v1"| STORAGE
+
+    classDef accent stroke:#0a0a08,stroke-width:2px
+    class NPM accent
