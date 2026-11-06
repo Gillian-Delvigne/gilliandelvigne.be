@@ -30,6 +30,8 @@ When I arrived, in October 2025, there were mostly empty shells: a self-hosted S
 
 The request fitted in four lines: a web application for the site and its shop, automations between the site, the CRM and the publishing tools, and two jobs on existing applications. The constraint was not up for discussion: everything had to run on the company's own server, and be live for ISE 2026 (Europe's major trade show for audiovisual and home automation), in February. That left four months.
 
+<Diagram name="elausys-request-flow" caption="The path of a request on the company's server: a single entry point, which sends each address to the right site or service." />
+
 ## The difficulty
 
 On paper, every building block was familiar. The difficulty came from how many there were, and from the fact that none of them controlled the others.
@@ -42,15 +44,15 @@ Then the emails. Supabase sends its own authentication emails (account creation,
 
 The CRM, too. Axonaut manages the customers and invoices of two separate companies, and I had to work around the gaps in its API. A customer ordering on two different sites, a changed address, an invoice to issue on the right account, several accounts for the same company: each case needed a clean synchronisation into the CRM.
 
-Finally, the prices. The amount shown depends on the type of customer (guest, private or professional), any discount, a valid VAT number and the delivery country: 21% for Belgium, 0% for a professional in another EU country or for export. The same product can therefore have four different prices, depending on who is looking at it.
+Finally, the prices. The amount shown depends on the type of customer (guest, private or professional), any discount, a valid VAT number and the delivery country: 21% for Belgium, 0% for export, and 0% for a professional in another EU country too, but only with a valid VAT number and a delivery to their own country. The same product can therefore have four different prices, depending on who is looking at it.
+
+<Diagram name="elausys-pricing" caption="How a price is computed, as it runs in the database: three discounts in a row, then a VAT rate that depends on where the order is delivered." />
 
 ## The work
 
 I was the only developer, with the founder making the decisions. I designed and maintained the whole system: the database, the API, the interfaces and the documentation. I worked in spec-driven development (each feature is described first, then implemented and checked against its description), which made me the project's memory, later anchored in a documentation folder.
 
 Everything rests on a single Express API in TypeScript (147 routes, 27 services) and a single PostgreSQL database of 43 tables, shared by all the sites. Every record carries its site's identifier, and the database itself refuses to let one site read another's data. Around it sit four React applications: the main shop (in 8 languages), the two showcase sites, and the marketplace.
-
-<Diagram name="elausys-request-flow" caption="The path of a request: a single entry point, which sends each address to the right site or service." />
 
 The most important rule lives in the database rather than in the API. Prices, discounts and VAT are calculated in PL/pgSQL (PostgreSQL's function language), alongside 38 other functions and 18 triggers. Calculating prices in the API would have been easier to write; but each site could then have ended up with its own version, and a single cent's difference is enough to get an invoice wrong.
 

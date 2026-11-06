@@ -1,0 +1,24 @@
+flowchart TB
+    accTitle: How Elausys computes a price
+    accDescr: The price before VAT is the product cost plus the manufacturer margin, minus the customer and site discounts added together, minus the product promotion, minus a quantity discount for professionals only. VAT then depends on the delivery: 21% in Belgium, 0% outside the EU for every customer, 0% for a professional with a valid VAT number delivered in their own EU country, and otherwise 21% or the destination country's rate.
+
+    BASE["Cost + manufacturer margin"]
+    D1["− customer + site discount<br/>added together, capped at 100%"]
+    D2["− product promotion"]
+    D3["− quantity discount<br/>professionals only"]
+    WHERE{{"Delivered where?"}}
+    BE["21% VAT"]
+    OUT["0% VAT<br/>export, every customer"]
+    PRO{{"Professional with a valid VAT<br/>number, in their own country?"}}
+    ZERO["0% VAT<br/>reverse charge"]
+    EU["21% VAT, or the<br/>destination's rate"]
+
+    BASE --> D1 --> D2 --> D3 --> WHERE
+    WHERE -->|Belgium| BE
+    WHERE -->|another EU country| PRO
+    WHERE -->|outside the EU| OUT
+    PRO -->|yes| ZERO
+    PRO -->|no| EU
+
+    classDef accent stroke:#0a0a08,stroke-width:2px
+    class PRO accent
