@@ -34,6 +34,8 @@ La demande tenait en quatre lignes : une application web pour le site et sa bout
 
 Sur le papier, chaque brique est connue. La difficulté venait de leur nombre, et de ce que chacune ne contrôlait pas les autres.
 
+<Diagram name="elausys-architecture" caption="Toutes les briques de la plateforme, sur un seul serveur : une porte d'entrée, quatre sites, une API, et les services extérieurs qu'elle doit tenir d'accord." />
+
 Le socle, d'abord. Une même base de données sert quatre sites distincts (une architecture dite multi-tenant, où chaque site est un locataire du même système). Un client qui crée son compte sur l'un se connecte avec les mêmes identifiants sur les autres ; chaque commande, elle, reste rattachée au site où elle a été passée.
 
 Les e-mails, ensuite. Supabase envoie lui-même ceux de l'authentification (création de compte, validation, mot de passe oublié), alors que l'entreprise voulait tout faire passer par Brevo, son outil d'e-mails transactionnels. Il a fallu intercepter les envois de Supabase par un webhook (un appel automatique d'un service vers un autre) et les réécrire, sans casser la connexion des clients.
@@ -47,6 +49,8 @@ Les prix, enfin. Le montant affiché dépend du type de client (invité, particu
 J'étais seul au développement, avec le fondateur pour décider. J'ai conçu et maintenu l'ensemble : la base de données, l'API, les interfaces et la documentation. J'ai travaillé en développement guidé par les spécifications (chaque fonctionnalité est d'abord décrite, puis implémentée et vérifiée contre sa description), ce qui faisait de moi la mémoire du projet, ancrée par la suite dans un dossier de documentation.
 
 L'ensemble repose sur une seule API Express en TypeScript (147 routes, 27 services) et une seule base PostgreSQL de 43 tables, partagée par tous les sites. Chaque donnée porte l'identifiant de son site, et la base elle-même refuse qu'un site lise les données d'un autre. Autour, quatre applications React : la boutique principale (en 8 langues), les deux sites vitrines, et la place de marché.
+
+<Diagram name="elausys-request-flow" caption="Le trajet d'une requête : une seule porte d'entrée, qui envoie chaque adresse vers le bon site ou le bon service." />
 
 La règle la plus importante ne vit pas dans l'API, mais dans la base. Le calcul des prix, des remises et de la TVA est écrit en PL/pgSQL (le langage des fonctions de PostgreSQL), avec 38 autres fonctions et 18 déclencheurs. Calculer les prix dans l'API aurait été plus simple à écrire ; mais chaque site aurait alors pu en avoir sa propre version, et une seule différence de centime suffit à fausser une facture.
 

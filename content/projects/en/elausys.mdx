@@ -34,6 +34,8 @@ The request fitted in four lines: a web application for the site and its shop, a
 
 On paper, every building block was familiar. The difficulty came from how many there were, and from the fact that none of them controlled the others.
 
+<Diagram name="elausys-architecture" caption="Every building block of the platform, on a single server: one entry point, four sites, one API, and the outside services it has to keep in step." />
+
 The foundation, first. A single database serves four separate sites (a multi-tenant architecture, where each site is a tenant of the same system). A customer who creates an account on one site signs in with the same credentials on the others; each order, however, stays attached to the site where it was placed.
 
 Then the emails. Supabase sends its own authentication emails (account creation, confirmation, forgotten password), whereas the company wanted everything to go through Brevo, its transactional email tool. I had to intercept Supabase's emails through a webhook (an automatic call from one service to another) and rewrite them, without breaking customer sign-in.
@@ -47,6 +49,8 @@ Finally, the prices. The amount shown depends on the type of customer (guest, pr
 I was the only developer, with the founder making the decisions. I designed and maintained the whole system: the database, the API, the interfaces and the documentation. I worked in spec-driven development (each feature is described first, then implemented and checked against its description), which made me the project's memory, later anchored in a documentation folder.
 
 Everything rests on a single Express API in TypeScript (147 routes, 27 services) and a single PostgreSQL database of 43 tables, shared by all the sites. Every record carries its site's identifier, and the database itself refuses to let one site read another's data. Around it sit four React applications: the main shop (in 8 languages), the two showcase sites, and the marketplace.
+
+<Diagram name="elausys-request-flow" caption="The path of a request: a single entry point, which sends each address to the right site or service." />
 
 The most important rule lives in the database rather than in the API. Prices, discounts and VAT are calculated in PL/pgSQL (PostgreSQL's function language), alongside 38 other functions and 18 triggers. Calculating prices in the API would have been easier to write; but each site could then have ended up with its own version, and a single cent's difference is enough to get an invoice wrong.
 

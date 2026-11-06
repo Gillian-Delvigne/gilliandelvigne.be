@@ -51,5 +51,6 @@
 		"useGradient": false,
 		"fontFamily": "IBM Plex Mono, monospace",
 		"fontSize": "13px"
-	}
+	},
+	"themeCSS": "p { font-size: inherit; line-height: inherit; letter-spacing: inherit; font-weight: inherit; }"
 }
