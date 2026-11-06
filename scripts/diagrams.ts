@@ -15,6 +15,7 @@ const TOKENS_FILE = "tokens.json";
 interface Tokens {
     colors: Record<string, string>;
     derived: Record<string, string>;
+    named: Record<string, string>;
     fonts: Record<string, string>;
     ignored: string[];
 }
@@ -84,14 +85,14 @@ const swapPlaceholders = (svg: string, pairs: [string, string][]): string => {
     return svg;
 };
 
-// assert there is no remaining raw hexadecimal, rgb(…), rgba(…) and hsl(…) color in svg
+// assert there is no remaining raw hexadecimal, rgb(…), rgba(…), hsl(…) and named (white, black) color in svg
 const assertNoRawColor = (
     name: string,
     svg: string,
     ignored: string[],
 ): void => {
     const regex =
-        /#(?:[0-9a-fA-F]{3,4}){1,2}\b|rgba?\( ?\d{1,3}%? ?, ?\d{1,3}%? ?, ?\d{1,3}%?(?: ?, ?[01]?(?:\.\d+)?)? ?\)|hsla?\( ?\d+(?:\.\d+)?(?:deg|rad|turn)? ?, ?\d+(?:\.\d+)?% ?, ?\d+(?:\.\d+)?%?(?: ?, ?\d+(?:\.\d+)?%?)? ?\)/g;
+        /#(?:[0-9a-fA-F]{3,4}){1,2}\b|rgba?\( ?\d{1,3}%? ?, ?\d{1,3}%? ?, ?\d{1,3}%?(?: ?, ?[01]?(?:\.\d+)?)? ?\)|hsla?\( ?\d+(?:\.\d+)?(?:deg|rad|turn)? ?, ?\d+(?:\.\d+)?% ?, ?\d+(?:\.\d+)?%?(?: ?, ?\d+(?:\.\d+)?%?)? ?\)|(?<=[=:] ?"?)(?:white|black)\b/g;
     const matches = svg.match(regex);
     if (matches) {
         const forbiddenTokens = matches.filter(
@@ -141,6 +142,7 @@ try {
     const tokenToReplace: [string, string][] = Object.entries({
         ...tokens.colors,
         ...tokens.derived,
+        ...tokens.named,
         ...tokens.fonts,
     });
 
