@@ -12,7 +12,8 @@
 		"dev:content": "velite --watch",
 		"build:content": "velite --clean --strict",
 		"content": "velite --clean --strict",
-		"diagrams": "node scripts/diagrams.mjs"
+		"diagrams": "node scripts/diagrams.ts",
+		"prebuild": "node scripts/diagrams.ts --check"
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^5.9.1",
