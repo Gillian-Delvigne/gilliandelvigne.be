@@ -3,7 +3,6 @@ import { argv } from "node:process";
 import { join, basename, extname } from "node:path";
 import { pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
-import { renderMermaid } from "@mermaid-js/mermaid-cli";
 
 const CHECK = "--check";
 const ROOT = join(import.meta.dirname, "..");
@@ -157,6 +156,7 @@ try {
         else {
             if (check) sourcesToCheck.push(name);
             else {
+				const { renderMermaid } = await import("@mermaid-js/mermaid-cli");
                 if (!browser) {
                     const puppeteer = await import("puppeteer");
                     browser = await puppeteer.launch();
