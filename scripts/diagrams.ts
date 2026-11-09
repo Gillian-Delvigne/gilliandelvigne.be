@@ -52,10 +52,7 @@ const hashCommons = async (config: string, tokens: string): Promise<string> => {
     return hash.digest("hex");
 };
 
-const hashSource = async (
-    source: string,
-    commonsHash: string,
-): Promise<string> => {
+const hashSource = (source: string, commonsHash: string): string => {
     const hash = createHash("sha256");
     hash.update(source);
     hash.update(commonsHash);
@@ -150,7 +147,7 @@ try {
             join(SOURCE_DIR, `${name}${MMD_EXT}`),
             "utf8",
         );
-        const hash = await hashSource(content, commonsHash);
+        const hash = hashSource(content, commonsHash);
         if (previousDiagrams[name]?.hash === hash)
             newDiagrams[name] = previousDiagrams[name];
         else {
