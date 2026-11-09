@@ -3,6 +3,8 @@ import { argv } from "node:process";
 import { join, basename, extname } from "node:path";
 import { pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
+import type { Browser } from "puppeteer";
+import type { ParseMDDOptions } from "@mermaid-js/mermaid-cli";
 
 const CHECK = "--check";
 const ROOT = join(import.meta.dirname, "..");
@@ -11,6 +13,9 @@ const TARGET = join(ROOT, "src", "diagrams", "generated.ts");
 const MMD_EXT = ".mmd";
 const THEME_FILE = "theme.json";
 const TOKENS_FILE = "tokens.json";
+
+type MermaidConfig = NonNullable<ParseMDDOptions["mermaidConfig"]>;
+
 interface Tokens {
     colors: Record<string, string>;
     derived: Record<string, string>;
@@ -25,6 +30,17 @@ interface Diagram {
     svg: string;
     hash: string;
 }
+
+interface RenderContext {
+    browser: Browser;
+    mermaidConfig: MermaidConfig;
+    replacements: [string, string][];
+    ignored: string[];
+}
+
+let browser: Browser | undefined;
+
+// Utils
 
 const isCheckMode = (): boolean => {
     const args = argv.slice(2);
@@ -117,9 +133,33 @@ const requireAccessibleText = (
     return { title, desc };
 };
 
-// Script starts here
+const renderOneDiagram = async (
+    name: string,
+    content: string,
+    hash: string,
+    context: RenderContext,
+): Promise<Diagram> => {
+    const { mermaidConfig, replacements, ignored } = context;
+    const { renderMermaid } = await import("@mermaid-js/mermaid-cli");
 
-let browser;
+    const {
+        title: rawTitle,
+        desc: rawDesc,
+        data,
+    } = await renderMermaid(context.browser, content, "svg", {
+        backgroundColor: "transparent",
+        svgId: name,
+        mermaidConfig,
+    });
+    let svg = new TextDecoder().decode(data);
+
+    svg = swapPlaceholders(svg, replacements);
+    assertNoRawColor(name, svg, ignored);
+    const { title, desc } = requireAccessibleText(name, rawTitle, rawDesc);
+    return { title, desc, svg, hash };
+};
+
+// Script starts here
 
 try {
     const check = isCheckMode();
@@ -131,7 +171,6 @@ try {
     const previousDiagrams = await readPrevious();
     const newDiagrams: Record<string, Diagram> = {};
     const staleNames = [];
-
     const names = (await readdir(SOURCE_DIR))
         .filter((file) => extname(file) === MMD_EXT)
         .map((file) => basename(file, MMD_EXT));
@@ -141,6 +180,8 @@ try {
         ...tokens.named,
         ...tokens.fonts,
     });
+    const { ignored } = tokens;
+    const mermaidConfig: MermaidConfig = JSON.parse(config);
 
     for (const name of names) {
         const content = await readFile(
@@ -153,36 +194,16 @@ try {
         else {
             if (check) staleNames.push(name);
             else {
-                const { renderMermaid } =
-                    await import("@mermaid-js/mermaid-cli");
                 if (!browser) {
                     const puppeteer = await import("puppeteer");
                     browser = await puppeteer.launch();
                 }
-                const {
-                    title: rawTitle,
-                    desc: rawDesc,
-                    data,
-                } = await renderMermaid(browser, content, "svg", {
-                    backgroundColor: "transparent",
-                    svgId: name,
-                    mermaidConfig: JSON.parse(config),
-                });
-                let svg = new TextDecoder().decode(data);
-
-                svg = swapPlaceholders(svg, replacements);
-                assertNoRawColor(name, svg, tokens.ignored);
-                const { title, desc } = requireAccessibleText(
+                newDiagrams[name] = await renderOneDiagram(
                     name,
-                    rawTitle,
-                    rawDesc,
-                );
-                newDiagrams[name] = {
-                    title,
-                    desc,
-                    svg,
+                    content,
                     hash,
-                };
+                    { browser, mermaidConfig, replacements, ignored },
+                );
                 console.info(`${name} --> ok`);
             }
         }
