@@ -59,10 +59,5 @@
 		"padding": 10,
 		"diagramPadding": 8,
 		"wrappingWidth": 320
-	},
-	"er": {
-		"nodeSpacing": 40,
-		"rankSpacing": 88,
-		"diagramPadding": 8
 	}
 }
