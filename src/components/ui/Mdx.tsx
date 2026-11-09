@@ -1,5 +1,5 @@
 import * as runtime from "react/jsx-runtime";
-import Diagram from "./Diagram";
+import Diagram from "@/components/ui/Diagram";
 
 const COMPONENTS = { Diagram };
 
