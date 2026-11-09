@@ -178,8 +178,8 @@ try {
                     rawDesc,
                 );
                 newDiagrams[name] = {
-                    title: title,
-                    desc: desc,
+                    title,
+                    desc,
                     svg,
                     hash,
                 };
