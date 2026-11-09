@@ -12,8 +12,11 @@ const Diagram = ({ name, caption }: { name: DiagramName; caption: string }) => {
                 lang="en"
                 role="img"
                 aria-label={title}
-                aria-labelledby={desc ?? undefined}
+                aria-describedby={`${name}-desc`}
             />
+            <p id={`${name}-desc`} lang="en" hidden>
+                {desc}
+            </p>
             <figcaption className="text-dim">{caption}</figcaption>
         </figure>
     );
