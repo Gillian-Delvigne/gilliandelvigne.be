@@ -133,12 +133,12 @@ try {
     const commonsHash = await hashCommons(config, JSON.stringify(tokens));
     const previousDiagrams = await readPrevious();
     const newDiagrams: Record<string, Diagram> = {};
-    const sourcesToCheck = [];
+    const staleNames = [];
 
     const names = (await readdir(SOURCE_DIR))
         .filter((file) => extname(file) === MMD_EXT)
         .map((file) => basename(file, MMD_EXT));
-    const tokenToReplace: [string, string][] = Object.entries({
+    const replacements: [string, string][] = Object.entries({
         ...tokens.colors,
         ...tokens.derived,
         ...tokens.named,
@@ -154,31 +154,35 @@ try {
         if (previousDiagrams[name]?.hash === hash)
             newDiagrams[name] = previousDiagrams[name];
         else {
-            if (check) sourcesToCheck.push(name);
+            if (check) staleNames.push(name);
             else {
-				const { renderMermaid } = await import("@mermaid-js/mermaid-cli");
+                const { renderMermaid } =
+                    await import("@mermaid-js/mermaid-cli");
                 if (!browser) {
                     const puppeteer = await import("puppeteer");
                     browser = await puppeteer.launch();
                 }
-                const { title, desc, data } = await renderMermaid(
-                    browser,
-                    content,
-                    "svg",
-                    {
-                        backgroundColor: "transparent",
-                        svgId: name,
-                        mermaidConfig: JSON.parse(config),
-                    },
-                );
+                const {
+                    title: rawTitle,
+                    desc: rawDesc,
+                    data,
+                } = await renderMermaid(browser, content, "svg", {
+                    backgroundColor: "transparent",
+                    svgId: name,
+                    mermaidConfig: JSON.parse(config),
+                });
                 let svg = new TextDecoder().decode(data);
 
-                svg = swapPlaceholders(svg, tokenToReplace);
+                svg = swapPlaceholders(svg, replacements);
                 assertNoRawColor(name, svg, tokens.ignored);
-                const valid = requireAccessibleText(name, title, desc);
+                const { title, desc } = requireAccessibleText(
+                    name,
+                    rawTitle,
+                    rawDesc,
+                );
                 newDiagrams[name] = {
-                    title: valid.title,
-                    desc: valid.desc,
+                    title: title,
+                    desc: desc,
                     svg,
                     hash,
                 };
@@ -188,14 +192,12 @@ try {
     }
 
     const previousNames = Object.keys(previousDiagrams);
-    sourcesToCheck.push(
-        ...previousNames.filter((name) => !names.includes(name)),
-    );
+    staleNames.push(...previousNames.filter((name) => !names.includes(name)));
 
     if (check) {
-        if (sourcesToCheck.length)
+        if (staleNames.length)
             throw new Error(
-                `The following diagrams need to be rerendered ${sourcesToCheck.join(", ")}. Run npm run diagrams`,
+                `The following diagrams need to be rerendered ${staleNames.join(", ")}. Run npm run diagrams`,
             );
         else console.info("No changes since the last time");
     } else {
