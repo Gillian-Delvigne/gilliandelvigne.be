@@ -9,6 +9,7 @@ import type { ParseMDDOptions } from "@mermaid-js/mermaid-cli";
 const CHECK = "--check";
 const ROOT = join(import.meta.dirname, "..");
 const SOURCE_DIR = join(ROOT, "diagrams");
+const CONFIG_DIR = "config";
 const TARGET = join(ROOT, "src", "diagrams", "generated.ts");
 const MMD_EXT = ".mmd";
 const THEME_FILE = "theme.json";
@@ -163,9 +164,12 @@ const renderOneDiagram = async (
 
 try {
     const check = isCheckMode();
-    const config = await readFile(join(SOURCE_DIR, THEME_FILE), "utf8");
+    const config = await readFile(
+        join(SOURCE_DIR, CONFIG_DIR, THEME_FILE),
+        "utf8",
+    );
     const tokens: Tokens = JSON.parse(
-        await readFile(join(SOURCE_DIR, TOKENS_FILE), "utf8"),
+        await readFile(join(SOURCE_DIR, CONFIG_DIR, TOKENS_FILE), "utf8"),
     );
     const commonsHash = await hashCommons(config, JSON.stringify(tokens));
     const previousDiagrams = await readPrevious();
