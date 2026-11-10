@@ -52,7 +52,7 @@
 		"fontFamily": "IBM Plex Mono, monospace",
 		"fontSize": "13px"
 	},
-	"themeCSS": "p { font-size: inherit; line-height: inherit; letter-spacing: inherit; font-weight: inherit; hyphens: manual; } .edgeLabel p { background-color: inherit; }",
+	"themeCSS": "p { font-size: inherit; line-height: inherit; letter-spacing: inherit; font-weight: inherit; hyphens: manual; } .edgeLabel p { background-color: inherit; } .accent rect, .accent polygon { stroke: #0a0a08; stroke-width: 2px; }",
 	"flowchart": {
 		"nodeSpacing": 28,
 		"rankSpacing": 36,
