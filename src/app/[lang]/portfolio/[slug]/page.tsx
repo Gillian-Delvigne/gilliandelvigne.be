@@ -8,16 +8,12 @@ import {
     getAllProjectSlugs,
 } from "@/content";
 import getCrumbs from "@/data/crumbs";
-import PageFrame from "@/components/layout/PageFrame";
+import { Breadcrumb } from "@/components/layout/Breadcrumb";
+import PageHeading from "@/components/layout/PageHeading";
 import Mdx from "@/components/ui/Mdx";
 import Prose from "@/components/ui/Prose";
-import ProjectIdentity from "@/components/ui/ProjectIdentity";
-import { getTranslations } from "next-intl/server";
-import { getProfile } from "@/content/difficulty";
-import DifficultyTable from "@/components/ui/DifficultyTable";
-import DifficultyLegend from "@/components/ui/DifficultyLegend";
-import DifficultyFigure from "@/components/ui/DifficultyFigure";
 import ProjectNext from "@/components/layout/ProjectNext";
+import ProjectRail from "@/components/ui/ProjectRail";
 
 export async function generateStaticParams() {
     return LOCALES.flatMap((lang) =>
@@ -29,7 +25,6 @@ export default async function Page({
     params,
 }: PageProps<"/[lang]/portfolio/[slug]">) {
     const { lang, slug } = await params;
-    const t = await getTranslations("Difficulty");
 
     if (!isLocale(lang)) return notFound();
     const project = getProject(lang, slug);
@@ -53,43 +48,29 @@ export default async function Page({
         },
     });
 
-    const profile = getProfile(project.translationKey);
-
     return (
-        <PageFrame title={project.title} dek={project.dek} breadcrumb={crumbs}>
-            <ProjectIdentity project={project} />
-            {profile && (
-                <section
-                    aria-labelledby="difficulty-profile"
-                    className="bg-surface shadow-card rounded-card border border-(--line) p-6"
-                >
-                    <h2
-                        id="difficulty-profile"
-                        className="mb-4 text-lg leading-title font-semibold tracking-title"
-                    >
-                        {t("title")}
-                    </h2>
-                    <div className="grid grid-cols-1 items-start gap-10 notation:grid-cols-[minmax(0,1fr)_var(--spacing-hex-page)]">
-                        <DifficultyTable
-                            profile={profile}
-                            evidence={project.evidence}
-                        />
-                        <div>
-                            <DifficultyFigure profile={profile} />
-                            <DifficultyLegend />
-                        </div>
-                    </div>
-                </section>
-            )}
+        <div className="shell pt-10 pb-24 md:pb-32">
+            <Breadcrumb crumbs={crumbs} />
 
-            <Prose>
-                <Mdx code={project.description} />
-            </Prose>
-            <ProjectNext
-                locale={lang}
-                slug={project.slug}
-                title={project.title}
-            />
-        </PageFrame>
+            <div className="grid gap-y-16 lg:grid-cols-12 lg:gap-x-8">
+                <div className="lg:col-span-7 lg:row-start-1">
+                    <PageHeading title={project.title} dek={project.dek} />
+                </div>
+                <ProjectRail project={project} />
+
+                <div className="lg:col-span-7 lg:row-start-2">
+                    <Prose>
+                        <Mdx code={project.description} />
+                    </Prose>
+                </div>
+                <div className="lg:col-span-12 py-16">
+                    <ProjectNext
+                        locale={lang}
+                        slug={project.slug}
+                        title={project.title}
+                    />
+                </div>
+            </div>
+        </div>
     );
 }

@@ -50,22 +50,28 @@ const styles: Record<Project["status"], Tone> = {
 
 export default async function StatusBadge({
     status,
-	className
+    className,
 }: {
     status: Project["status"];
-	className?: string;
+    className?: string;
 }) {
     const t = await getTranslations("Status");
     const style: Tone = styles[status];
     return (
         <span
-            className={cn(`inline-flex items-center gap-1.5 rounded-badge border px-2.25 py-0.5 font-mono text-2xs font-medium whitespace-nowrap ${style.bg} ${style.text} ${style.border} ${style.shadow}`, className)}
+            className={cn(
+                `inline-flex items-center gap-1.5 rounded-badge border px-2.25 py-0.5 font-mono text-2xs font-medium whitespace-nowrap ${style.bg} ${style.text} ${style.border} ${style.shadow}`,
+                className,
+            )}
         >
-            <span
-                aria-hidden="true"
-                className={`size-1.5 rounded-full ${style.solid}`}
-            />
-            {t(status)}
+            <span className="sr-only">{t("label")}</span>
+            <span>
+                <span
+                    aria-hidden="true"
+                    className={`size-1.5 rounded-full ${style.solid}`}
+                />
+                {t(status)}
+            </span>
         </span>
     );
 }

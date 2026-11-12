@@ -1,8 +1,6 @@
 import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 import type { Project } from "@/content";
-import StatusBadge from "./StatusBadge";
-import { Tag } from "./Tag";
 import { IconExternal } from "@/components/icons/icons";
 
 const readable = (href: string) => {
@@ -70,36 +68,21 @@ export default async function ProjectIdentity({
 
     return (
         <div>
-            <p className="sr-only">{t("identity.status")}</p>
-            <StatusBadge status={project.status} />
 
             {rows.length > 0 && (
-                <dl className="mt-3 flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-sm text-dim">
+                <dl className="mt-5 border-t border-(--line-soft)">
                     {rows.map(({ label, value }) => (
                         <div
                             key={label}
-                            className="flex items-center gap-x-3.5
-                                       not-last:after:size-0.75 not-last:after:rounded-full
-                                       not-last:after:bg-(--line) not-last:after:content-['']"
+                            className="grid grid-cols-[var(--spacing-fact-label)_minmax(0,1fr)] items-baseline gap-x-3 border-b border-(--line-soft) py-2.5"
                         >
-                            <dt className="sr-only">{label}</dt>
-                            <dd className="font-inter text-sm text-dim">{value}</dd>
+                            <dt className="font-mono text-2xs font-medium tracking-label text-dim uppercase">
+                                {label}
+                            </dt>
+                            <dd className="min-w-0 text-sm text-ink">{value}</dd>
                         </div>
                     ))}
                 </dl>
-            )}
-
-            {project.stack.length > 0 && (
-                <ul
-                    aria-label={t("identity.stack")}
-                    className="mt-3.5 flex flex-wrap gap-1.5"
-                >
-                    {project.stack.map((elem) => (
-                        <li key={elem}>
-                            <Tag>{elem}</Tag>
-                        </li>
-                    ))}
-                </ul>
             )}
         </div>
     );

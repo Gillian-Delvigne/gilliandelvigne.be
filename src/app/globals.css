@@ -89,10 +89,13 @@
     --spacing-hex-legend: 15rem;
     --spacing-icon-sm: 1rem;
     --spacing-icon-md: 1.25rem;
+    --spacing-fact-label: 6.5rem;
     --spacing-brand: 1.3875rem;
 
     --breakpoint-notation: 53.75rem;
     --breakpoint-xs: 30rem;
+	
+	--height-tall: 56rem;
 
     --shadow-card: var(--lit), var(--shadow);
     --radius-seal: 9999px;
@@ -225,6 +228,8 @@
 
     --nav-compact: 0.6875rem;
     --brand-compact: 1.125rem;
+
+
 }
 
 @media (min-width: 48rem) {
@@ -290,6 +295,12 @@ body {
     width: 100%;
     max-width: var(--width-content);
     padding-inline: var(--gutter);
+}
+
+@custom-variant tall {
+    @media (min-height: --theme(--height-tall)) {
+		@slot;
+	}
 }
 
 /* Scrollbars: visible, discreet (anti-pattern, spec 02) */

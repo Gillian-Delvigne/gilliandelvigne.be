@@ -122,7 +122,6 @@
 	},
 	"Projects": {
 		"identity": {
-			"status": "Statut",
 			"category": "Catégorie",
 			"date": "Année",
 			"link": "Lien",
@@ -205,6 +204,7 @@
 		}
 	},
 	"Status": {
+		"label": "Statut",
 		"live": "en ligne",
 		"partial": "en ligne, partiellement privé",
 		"wip": "en cours",

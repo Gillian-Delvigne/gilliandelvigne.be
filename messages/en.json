@@ -122,7 +122,6 @@
 	},
 	"Projects": {
 		"identity": {
-			"status": "Status",
 			"category": "Category",
 			"date": "Year",
 			"link": "Link",
@@ -205,6 +204,7 @@
 		}
 	},
 	"Status": {
+		"label": "Status",
 		"live": "live",
 		"partial": "live, partly private",
 		"wip": "in progress",
