@@ -18,6 +18,7 @@ const DifficultyFigure = async ({ profile }: { profile: Profile }) => {
                     profile={profile}
                     labels={labels}
                     animated
+					highlight="scope"
                     className="h-auto w-full"
                 />
             </RevealOnView>

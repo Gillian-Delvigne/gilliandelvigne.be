@@ -1,6 +1,6 @@
 import { useId } from "react";
 import { cn } from "@/lib/cn";
-import type { AxisLabels, Profile } from "@/types/difficulty";
+import type { AxisLabels, Axis, Profile } from "@/types/difficulty";
 import {
     profileVertices,
     toPointsAttribute,
@@ -21,6 +21,7 @@ interface HexProps {
     profile: Profile;
     labels?: AxisLabels;
     animated?: boolean;
+    highlight?: Axis;
     className?: string;
 }
 
@@ -47,6 +48,7 @@ export default function DifficultyHex({
     profile,
     labels,
     animated,
+    highlight,
     className,
 }: HexProps) {
     const vertices = profileVertices(profile);
@@ -65,6 +67,8 @@ export default function DifficultyHex({
     } else {
         viewbox = `0 0 ${2 * CENTER} ${2 * CENTER}`;
     }
+
+    const isHighlighted = (axisIndex: number) => AXES[axisIndex] === highlight;
 
     return (
         <svg viewBox={viewbox} aria-hidden="true" className={cn(className)}>
@@ -125,7 +129,10 @@ export default function DifficultyHex({
                 points={toPointsAttribute(zeroRing)}
                 fill="none"
                 strokeDasharray={ZERO_RING_DASH}
-                className={cn("stroke-(--zero)", animated && ANIMATION.outerWeb)}
+                className={cn(
+                    "stroke-(--zero)",
+                    animated && ANIMATION.outerWeb,
+                )}
             />
             <polygon
                 points={toPointsAttribute(vertices)}
@@ -153,12 +160,13 @@ export default function DifficultyHex({
                     className={cn(
                         "fill-(--brand-solid) stroke-(--dot-ring)",
                         animated && ANIMATION.dots,
+                        isHighlighted(index) && "fill-warm",
                     )}
                     strokeWidth={VERTEX_RING_WIDTH}
                 />
             ))}
             {labelsData &&
-                labelsData.map((data) => {
+                labelsData.map((data, index) => {
                     const { anchorPoint, textAnchor, lines, offset, label } =
                         data;
                     const [x, y] = anchorPoint;
@@ -169,7 +177,10 @@ export default function DifficultyHex({
                             textAnchor={textAnchor}
                             dominantBaseline="middle"
                             fontSize={LABEL_FONT_SIZE}
-                            className="fill-dim"
+                            className={cn(
+                                "fill-dim",
+                                isHighlighted(index) && "fill-warm font-bold",
+                            )}
                         >
                             {lines.map((line, k) => (
                                 <tspan
