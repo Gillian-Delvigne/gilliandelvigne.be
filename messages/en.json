@@ -153,6 +153,7 @@
 	"Difficulty": {
 		"axis": "Criterion",
 		"title": "Difficulty profile",
+		"pickHint": "Pick a criterion to see its evidence.",
 		"evidence": "In practice",
 		"value": "Value",
 		"outOf": "out of",

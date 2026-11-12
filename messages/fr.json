@@ -153,6 +153,7 @@
 	"Difficulty": {
 		"axis": "Critère",
 		"title": "Le profil de difficulté",
+		"pickHint": "Choisissez un critère pour voir sa preuve.",
 		"evidence": "Concrètement",
 		"value": "Valeur",
 		"outOf": "sur",

@@ -60,7 +60,7 @@ export default async function StatusBadge({
     return (
         <span
             className={cn(
-                `inline-flex items-center gap-1.5 rounded-badge border px-2.25 py-0.5 font-mono text-2xs font-medium whitespace-nowrap ${style.bg} ${style.text} ${style.border} ${style.shadow}`,
+                `w-fit inline-flex items-center gap-1.5 rounded-badge border px-2.25 py-0.5 font-mono text-2xs font-medium whitespace-nowrap ${style.bg} ${style.text} ${style.border} ${style.shadow}`,
                 className,
             )}
         >

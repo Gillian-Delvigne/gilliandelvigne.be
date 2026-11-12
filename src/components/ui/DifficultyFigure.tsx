@@ -1,12 +1,17 @@
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 import { AXES } from "@/content/difficulty";
-import type { AxisLabels, Profile } from "@/types/difficulty";
+import type { AxisLabels, Axis, Profile } from "@/types/difficulty";
 import { RevealOnView } from "@/components/ui/RevealOnView";
 import DifficultyHex from "@/components/ui/DifficultyHex";
 import DifficultyLegendTrigger from "@/components/ui/DifficultyLegendTrigger";
 
-const DifficultyFigure = async ({ profile }: { profile: Profile }) => {
-    const t = await getTranslations("Difficulty");
+interface DifficultyFigureProps {
+    profile: Profile;
+    highlight?: Axis;
+}
+
+const DifficultyFigure = ({ profile, highlight }: DifficultyFigureProps) => {
+    const t = useTranslations("Difficulty");
     const labels = Object.fromEntries(
         AXES.map((axis) => [axis, t(`axes.${axis}`)]),
     ) as AxisLabels;
@@ -18,8 +23,8 @@ const DifficultyFigure = async ({ profile }: { profile: Profile }) => {
                     profile={profile}
                     labels={labels}
                     animated
-					highlight="scope"
                     className="h-auto w-full"
+                    highlight={highlight}
                 />
             </RevealOnView>
             <DifficultyLegendTrigger label={t("legend.trigger")} />
