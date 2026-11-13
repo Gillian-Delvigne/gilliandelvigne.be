@@ -87,6 +87,8 @@
     --spacing-hex-card: 6.5rem;
     --spacing-hex-page: 18.75rem;
     --spacing-hex-legend: 15rem;
+    --spacing-icon-sm: 1rem;
+    --spacing-icon-md: 1.25rem;
     --spacing-brand: 1.3875rem;
 
     --breakpoint-notation: 53.75rem;
@@ -134,6 +136,7 @@
     --width-content: 75rem;
     --width-canvas: 85rem;
     --gutter: 1.5rem;
+    --icon-stroke: 1.5px;
 
     /* ---- Alpha borders: they sit on any surface ---- */
     --line: rgb(255 255 255 / 0.14);
@@ -233,6 +236,30 @@
     :root {
         --gutter: 4rem;
     }
+}
+
+@layer components {
+    .icon {
+        flex: none;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: var(--icon-stroke);
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .icon path {
+        vector-effect: non-scaling-stroke;
+    }
+
+    .icon-node {
+        fill: var(--icon-node, var(--brand-solid));
+        stroke: none;
+    }
+}
+
+@utility node-ink {
+    --icon-node: var(--color-ink);
 }
 
 /* Base */
