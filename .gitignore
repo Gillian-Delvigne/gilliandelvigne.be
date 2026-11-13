@@ -47,7 +47,7 @@ specs/
 
 # velite
 .velite/
-public/static
+public/static/
 
 # macOS
 .DS_Store

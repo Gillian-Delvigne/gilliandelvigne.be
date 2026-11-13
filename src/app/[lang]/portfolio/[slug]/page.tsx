@@ -13,7 +13,7 @@ import PageHeading from "@/components/layout/PageHeading";
 import Mdx from "@/components/ui/Mdx";
 import Prose from "@/components/ui/Prose";
 import ProjectNext from "@/components/layout/ProjectNext";
-import ProjectRail from "@/components/ui/ProjectRail";
+import { ProjectRail } from "@/components/ui/ProjectRail";
 
 export async function generateStaticParams() {
     return LOCALES.flatMap((lang) =>

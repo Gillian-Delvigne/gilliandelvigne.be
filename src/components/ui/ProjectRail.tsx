@@ -5,8 +5,9 @@ import StatusBadge from "./StatusBadge";
 import ProjectStack from "./ProjectStack";
 import DifficultyProfile from "./DifficultyProfile";
 import DifficultyLegend from "./DifficultyLegend";
+import { ProjectMedia } from "./ProjectMedia";
 
-const ProjectRail = async ({ project }: { project: Project }) => {
+export const ProjectRail = async ({ project }: { project: Project }) => {
     const profile = getProfile(project.translationKey);
 
     return (
@@ -14,6 +15,7 @@ const ProjectRail = async ({ project }: { project: Project }) => {
             <div className="lg:tall:sticky lg:top-24 flex flex-col gap-4">
                 <StatusBadge status={project.status} />
                 <ProjectIdentity project={project} />
+                <ProjectMedia media={project.media} />
                 <ProjectStack stack={project.stack} />
                 <DifficultyProfile
                     profile={profile}
@@ -25,4 +27,3 @@ const ProjectRail = async ({ project }: { project: Project }) => {
     );
 };
 
-export default ProjectRail;

@@ -127,7 +127,9 @@
 			"link": "Lien",
 			"repository": "Dépôt",
 			"stack": "Stack",
-			"newTab": "(s'ouvre dans un nouvel onglet)"
+			"newTab": "(s'ouvre dans un nouvel onglet)",
+			"demo": "Démo",
+			"gallery": "Galerie"
 		},
 		"categories": {
 			"web": "Web",

@@ -127,7 +127,9 @@
 			"link": "Link",
 			"repository": "Repository",
 			"stack": "Stack",
-			"newTab": "(opens in a new tab)"
+			"newTab": "(opens in a new tab)",
+			"demo": "Demo",
+			"gallery": "Gallery"
 		},
 		"categories": {
 			"web": "Web",
