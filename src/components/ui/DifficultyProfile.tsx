@@ -4,8 +4,9 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
 import type { Project } from "@/content";
 import type { Axis, Profile } from "@/types/difficulty";
-import { AXES, LEVELS, MAX_LEVEL } from "@/content/difficulty";
+import { AXES } from "@/content/difficulty";
 import DifficultyFigure from "./DifficultyFigure";
+import DifficultyGauge from "./DifficultyGauge";
 
 const DifficultyProfile = ({
     profile,
@@ -80,43 +81,10 @@ const DifficultyProfile = ({
                                 className="-ml-3 flex cursor-pointer items-center justify-between gap-4 border-b border-l-2 border-b-(--line-soft) border-l-transparent py-2 sm:py-1.5 pr-2 pl-3 text-left text-sm font-medium text-dim hover:text-ink focus-visible:-outline-offset-2 aria-selected:border-l-brand aria-selected:bg-(--sunk) aria-selected:text-ink"
                             >
                                 <span>{t(`axes.${axis}`)}</span>
-                                <span className="flex flex-none flex-col items-end">
-                                    <span
-                                        className={cn(
-                                            "mb-1.5 text-xs",
-                                            profile[axis] === 0 &&
-                                                "font-normal text-dim",
-                                            profile[axis] > 0 &&
-                                                axis === highlighted &&
-                                                "text-warm",
-                                            profile[axis] > 0 &&
-                                                axis !== highlighted &&
-                                                "text-brand",
-                                        )}
-                                    >
-                                        {t(`levels.${profile[axis]}.name`)}
-                                    </span>
-                                    <span className="sr-only">{`, ${profile[axis]} ${t("outOf")} ${MAX_LEVEL}`}</span>
-                                    <span className="flex gap-0.5">
-                                        {LEVELS.slice(1).map((level) => (
-                                            <span
-                                                key={level}
-                                                aria-hidden="true"
-                                                className={cn(
-                                                    "h-0.75 w-3 rounded-xs",
-                                                    profile[axis] < level &&
-                                                        "bg-(--gauge-off)",
-                                                    profile[axis] >= level &&
-                                                        axis === highlighted &&
-                                                        "bg-warm",
-                                                    profile[axis] >= level &&
-                                                        axis !== highlighted &&
-                                                        "bg-(--brand-solid)",
-                                                )}
-                                            />
-                                        ))}
-                                    </span>
-                                </span>
+                                <DifficultyGauge
+                                    level={profile[axis]}
+                                    highlighted={axis === highlighted}
+                                />
                             </button>
                         ))}
                     </div>
