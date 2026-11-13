@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import type { Project } from "@/content";
 import StatusBadge from "./StatusBadge";
 import { Tag } from "./Tag";
+import { IconExternal } from "@/components/icons/icons";
 
 const readable = (href: string) => {
     if (href.includes("github")) return "github";
@@ -17,12 +18,12 @@ const ExternalLink = ({ href, newTab }: { href: string; newTab: string }) => (
         href={href}
         target="_blank"
         rel="noreferrer noopener"
-        className="text-brand underline decoration-(--brand-border) underline-offset-4
+        className="inline-flex items-center gap-1 text-brand underline decoration-(--brand-border) underline-offset-4
                    transition-colors duration-(--dur-micro)
-                   hover:decoration-brand focus-visible:decoration-brand
-                   after:ml-1 after:inline-block after:content-['↗'/'']"
+                   hover:decoration-brand focus-visible:decoration-brand"
     >
         {readable(href)}
+        <IconExternal className="size-icon-sm node-ink" />
         <span className="sr-only"> {newTab}</span>
     </a>
 );

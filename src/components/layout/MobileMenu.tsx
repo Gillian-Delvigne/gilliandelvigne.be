@@ -3,14 +3,13 @@
 import { ReactNode, useId, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
+import { IconClose, IconMenu } from "@/components/icons/icons";
 
 interface MobileMenuProps {
     children: ReactNode;
     footer: ReactNode;
     className: string;
 }
-
-const BAR = "h-0.5 bg-current";
 
 const TARGET =
     "-m-3 flex size-11 cursor-pointer items-center justify-center rounded-md text-ink";
@@ -37,13 +36,7 @@ export default function MobileMenu({
                 aria-label={t("open")}
                 className={cn(TARGET, className)}
             >
-                <span
-                    aria-hidden="true"
-                    className="flex w-5 flex-col items-end gap-1.25"
-                >
-                    <span className={cn(BAR, "w-3")} />
-                    <span className={cn(BAR, "w-5")} />
-                </span>
+                <IconMenu className="size-icon-md" />
             </button>
             <dialog
                 ref={dialogRef}
@@ -75,10 +68,7 @@ export default function MobileMenu({
                                     aria-label={t("close")}
                                     className={TARGET}
                                 >
-                                    <span aria-hidden="true" className="relative size-5">
-                                        <span className={cn(BAR, "absolute inset-x-0 top-1/2 mx-auto w-3.5 -translate-y-1/2 scale-y-75 rotate-45")} />
-                                        <span className={cn(BAR, "absolute inset-x-0 top-1/2 mx-auto w-3.5 -translate-y-1/2 scale-y-75 -rotate-45")} />
-                                    </span>
+                                    <IconClose className="size-icon-md" />
                                 </button>
                             </div>
                         </div>

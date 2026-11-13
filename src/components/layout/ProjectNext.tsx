@@ -3,6 +3,8 @@ import { getProfile } from "@/content/difficulty";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import DifficultyHex from "@/components/ui/DifficultyHex";
+import { IconAll, IconChevronRight } from "@/components/icons/icons";
+import { cn } from "@/lib/cn";
 
 interface ProjectNextProps {
     locale: Locale;
@@ -56,13 +58,13 @@ export default async function ProjectNext({
                                        focus-visible:after:outline-offset-3"
                         >
                             {next.project.title}
-                            <span className="whitespace-nowrap">
+                            <span className="inline-flex items-center whitespace-nowrap">
                                 {"\u00a0"}
                                 <span
                                     aria-hidden="true"
                                     className="inline-block transition-transform duration-(--dur-micro) ease-out group-hover:translate-x-0.75"
                                 >
-                                    →
+                                    <IconChevronRight className="size-icon-sm" />
                                 </span>
                             </span>
                         </Link>
@@ -80,8 +82,11 @@ export default async function ProjectNext({
             </div>
 
             <div className="mt-4.5 flex flex-wrap justify-between gap-x-4 gap-y-2 text-sm">
-                <Link href="/portfolio" className={QUIET_LINK}>
-                    <span aria-hidden="true">← </span>
+                <Link
+                    href="/portfolio"
+                    className={cn(QUIET_LINK, "inline-flex items-center gap-1.5")}
+                >
+                    <IconAll className="size-icon-sm" />
                     {t("all")}
                 </Link>
                 <Link

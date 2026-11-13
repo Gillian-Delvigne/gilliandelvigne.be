@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import { AXES, DIFFICULTY_LEGEND_ID, LEVELS } from "@/content/difficulty";
+import { IconClose } from "@/components/icons/icons";
 
 const HEADING =
     "mt-5.5 mb-2.5 font-mono text-2xs font-semibold tracking-label text-dim uppercase";
@@ -19,9 +20,9 @@ export default async function DifficultyLegend() {
                 popoverTarget={DIFFICULTY_LEGEND_ID}
                 popoverTargetAction="hide"
                 aria-label={t("legend.close")}
-                className="absolute top-3.5 right-3.5 size-8 cursor-pointer rounded-lg border border-(--line) text-dim transition-colors duration-(--dur-micro) hover:border-dim hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                className="absolute top-3.5 right-3.5 grid size-8 cursor-pointer place-items-center rounded-lg border border-(--line) text-dim transition-colors duration-(--dur-micro) hover:border-dim hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
             >
-                <span aria-hidden="true">×</span>
+                <IconClose className="size-icon-md" />
             </button>
 
             <h2
