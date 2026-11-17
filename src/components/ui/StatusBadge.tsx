@@ -65,13 +65,11 @@ export default async function StatusBadge({
             )}
         >
             <span className="sr-only">{t("label")}</span>
-            <span>
-                <span
-                    aria-hidden="true"
-                    className={`size-1.5 rounded-full ${style.solid}`}
-                />
-                {t(status)}
-            </span>
+            <span
+                aria-hidden="true"
+                className={`size-1.5 rounded-full ${style.solid}`}
+            />
+            {t(status)}
         </span>
     );
 }
