@@ -127,9 +127,7 @@
 			"link": "Lien",
 			"repository": "Dépôt",
 			"stack": "Stack",
-			"newTab": "(s'ouvre dans un nouvel onglet)",
-			"demo": "Démo",
-			"gallery": "Galerie"
+			"newTab": "(s'ouvre dans un nouvel onglet)"
 		},
 		"categories": {
 			"web": "Web",
@@ -151,6 +149,20 @@
 			"all": "Tous les projets",
 			"contact": "Une question sur {title} ? Me contacter"
 		}
+	},
+	"Media": {
+		"demo": "Démo",
+		"gallery": "Galerie",
+		"demoTitle": "{project} <dot></dot> Démo",
+		"galleryTitle": "{project} <dot></dot> Galerie",
+		"fullTitle": "{project} <dot></dot> Image {current} / {total} <dot></dot> Plein écran",
+		"close": "Fermer",
+		"previous": "Image précédente",
+		"next": "Image suivante",
+		"counter": "{current} / {total}",
+		"counterLabel": "Image {current} sur {total}",
+		"expand": "Agrandir l'image",
+		"expandedClose": "Fermer la vue agrandie"
 	},
 	"Difficulty": {
 		"axis": "Critère",

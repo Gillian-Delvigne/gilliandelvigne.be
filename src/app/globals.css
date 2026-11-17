@@ -96,6 +96,9 @@
 
     --breakpoint-notation: 53.75rem;
     --breakpoint-xs: 30rem;
+
+	--grid-template-columns-media: 1fr auto;
+
 	
 	--height-tall: 56rem;
 
@@ -140,6 +143,9 @@
     --width-popover: 40rem;
     --width-content: 75rem;
     --width-canvas: 85rem;
+	--width-dialog: 62.5rem;
+	--height-dialog-full: min(46rem, 92vh);
+    --diagram-zoom: 2;
     --gutter: 1.5rem;
     --icon-stroke: 1.5px;
 

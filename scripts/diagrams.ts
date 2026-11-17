@@ -29,6 +29,7 @@ interface Diagram {
     title: string;
     desc: string;
     svg: string;
+    width: number;
     hash: string;
 }
 
@@ -118,6 +119,12 @@ const assertNoRawColor = (
     }
 };
 
+const readWidth = (name: string, svg: string): number => {
+    const match = svg.match(/viewBox="[\d.-]+ [\d.-]+ ([\d.]+) [\d.]+"/);
+    if (!match) throw new Error(`${name}.svg has no viewBox.`);
+    return Math.ceil(Number(match[1]));
+};
+
 const requireAccessibleText = (
     name: string,
     title: string | null,
@@ -157,7 +164,7 @@ const renderOneDiagram = async (
     svg = swapPlaceholders(svg, replacements);
     assertNoRawColor(name, svg, ignored);
     const { title, desc } = requireAccessibleText(name, rawTitle, rawDesc);
-    return { title, desc, svg, hash };
+    return { title, desc, svg, width: readWidth(name, svg), hash };
 };
 
 // Script starts here
