@@ -27,7 +27,7 @@ export default async function DifficultyLegend() {
 
             <h2
                 id={titleId}
-                className="mb-1.5 pr-10 text-body font-semibold tracking-title"
+                className="mb-1.5 pr-10 text-lg font-semibold tracking-title"
             >
                 {t("legend.title")}
             </h2>
