@@ -267,6 +267,23 @@
         transform-box: view-box;
         transform-origin: 0 0;
         transform: var(--closed);
+        transition: transform var(--dur-micro) var(--ease-out);
+    }
+
+    dialog[open] .menu-bar {
+        transform: var(--open);
+    }
+
+    @starting-style {
+        dialog[open] .menu-bar {
+            transform: var(--closed);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .menu-bar {
+            transition: none;
+        }
     }
 }
 
