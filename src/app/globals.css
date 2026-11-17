@@ -846,7 +846,7 @@ body {
 /* ── Inline code, charte §9.5: mono, sunken pill, accent-deep ──────────── */
 :where(.prose) :not(pre) > code {
     font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 0.9em;
+    font-size: 0.875em;
     background: var(--color-parchment-sunken);
     color: var(--color-accent-deep);
     border-radius: var(--radius-sm);
@@ -872,8 +872,6 @@ body {
         color-mix(in srgb, var(--color-gilt) 60%, transparent);
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: var(--text-xs);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
     color: var(--color-gilt); /* §9.5: 5.2:1 on the plate */
     -webkit-hyphens: none;
     hyphens: none;
@@ -887,7 +885,7 @@ body {
     color: var(--color-parchment);
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: var(--text-sm);
-    line-height: 1.6;
+    line-height: var(--leading-body);
     font-variant-ligatures: none;
     font-variant-numeric: tabular-nums;
     -webkit-hyphens: none;
@@ -936,14 +934,11 @@ body {
 }
 :where(.prose) figcaption:not([data-rehype-pretty-code-title]) {
     margin-top: 0.6em;
-    font-family: var(--font-mono), ui-monospace, monospace;
+    max-width: var(--measure-prose);
     font-size: var(--text-xs);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-ui);
     color: var(--color-ink-muted);
-    font-weight: 500;
-    -webkit-hyphens: none;
-    hyphens: none;
+    text-wrap: pretty;
 }
 
 @keyframes hex-fade {
