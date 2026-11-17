@@ -53,24 +53,32 @@
     --color-gilt-leaf: #2a3147;
 
     /* Type scale: geometric, ratio 1.25, base 16px */
-    --text-3xs: 0.52rem;
     --text-2xs: 0.64rem;
     --text-xs: 0.8rem;
     --text-sm: 0.875rem;
     --text-base: 1rem;
-    --text-body: 1.0625rem;
+    --text-body: 1rem;
     --text-lg: 1.25rem;
     --text-xl: 1.5625rem;
     --text-2xl: 1.9531rem;
     --text-3xl: 2.4414rem;
     --text-4xl: 3.0518rem;
-    --text-5xl: clamp(3.25rem, 1.6rem + 6.4vw, 5.9604rem);
 
     /* Line heights */
     --leading-display: 1.04;
     --leading-title: 1.15;
     --leading-body: 1.6;
     --leading-ui: 1.45;
+    --text-2xs--line-height: var(--leading-ui);
+    --text-xs--line-height: var(--leading-ui);
+    --text-sm--line-height: var(--leading-ui);
+    --text-base--line-height: var(--leading-body);
+    --text-body--line-height: var(--leading-body);
+    --text-lg--line-height: var(--leading-title);
+    --text-xl--line-height: var(--leading-title);
+    --text-2xl--line-height: var(--leading-title);
+    --text-3xl--line-height: var(--leading-title);
+    --text-4xl--line-height: var(--leading-display);
 
     /* Tracking */
     --tracking-display: -0.025em;
@@ -127,7 +135,6 @@
 }
 
 @theme inline {
-    --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
     --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
     --font-mono: var(--font-ibm-mono), ui-monospace, monospace;
 }
@@ -740,7 +747,7 @@ body {
 /* ── Headings, charte §4.2. No h1: the page title lives in PageFrame. ──── */
 :where(.prose) h2 {
     font-weight: 600;
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
     line-height: var(--leading-title);
     letter-spacing: var(--tracking-title);
     text-wrap: balance; /* §4.5: short titles */
@@ -751,13 +758,24 @@ body {
 
 :where(.prose) h3 {
     font-weight: 600;
+    font-size: var(--text-lg);
+    line-height: var(--leading-title);
+    letter-spacing: var(--tracking-title);
+    text-wrap: balance;
+    -webkit-hyphens: none;
+    hyphens: none;
+    margin-top: calc(var(--spacing) * 8);
+}
+
+:where(.prose) :is(h4, h5, h6) {
+    font-weight: 600;
     font-size: var(--text-body);
     line-height: var(--leading-title);
     letter-spacing: var(--tracking-title);
     text-wrap: balance;
     -webkit-hyphens: none;
     hyphens: none;
-    margin-top: calc(var(--spacing) * 4);
+    margin-top: calc(var(--spacing) * 6);
 }
 
 :where(.prose) > :first-child {
@@ -824,10 +842,38 @@ body {
     margin: 0;
 }
 
+:where(.prose) table {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    line-height: var(--leading-ui);
+    font-variant-numeric: tabular-nums lining-nums;
+}
+
+:where(.prose) th {
+    padding: 0 1.5em 0.6em 0;
+    border-bottom: 1px solid var(--line);
+    text-align: start;
+    font-family: var(--font-mono), ui-monospace, monospace;
+    font-size: var(--text-2xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-dim);
+}
+
+:where(.prose) td {
+    padding: 0.6em 1.5em 0.6em 0;
+    border-bottom: 1px solid var(--line-soft);
+}
+
 /* ── Inline code, charte §9.5: mono, sunken pill, accent-deep ──────────── */
 :where(.prose) :not(pre) > code {
     font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 0.9em;
+    font-size: 0.875em;
     background: var(--color-parchment-sunken);
     color: var(--color-accent-deep);
     border-radius: var(--radius-sm);
@@ -853,8 +899,6 @@ body {
         color-mix(in srgb, var(--color-gilt) 60%, transparent);
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: var(--text-xs);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
     color: var(--color-gilt); /* §9.5: 5.2:1 on the plate */
     -webkit-hyphens: none;
     hyphens: none;
@@ -868,7 +912,7 @@ body {
     color: var(--color-parchment);
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: var(--text-sm);
-    line-height: 1.6;
+    line-height: var(--leading-body);
     font-variant-ligatures: none;
     font-variant-numeric: tabular-nums;
     -webkit-hyphens: none;
@@ -917,14 +961,11 @@ body {
 }
 :where(.prose) figcaption:not([data-rehype-pretty-code-title]) {
     margin-top: 0.6em;
-    font-family: var(--font-mono), ui-monospace, monospace;
+    max-width: var(--measure-prose);
     font-size: var(--text-xs);
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-label);
+    line-height: var(--leading-ui);
     color: var(--color-ink-muted);
-    font-weight: 500;
-    -webkit-hyphens: none;
-    hyphens: none;
+    text-wrap: pretty;
 }
 
 @keyframes hex-fade {

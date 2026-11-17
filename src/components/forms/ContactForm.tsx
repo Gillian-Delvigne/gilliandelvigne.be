@@ -86,7 +86,7 @@ export default function ContactForm({
                         inert={phase ? true : undefined}
                     >
                         <div className="pb-8">
-                            <p className="uppercase font-mono tracking-label-lg text-ink">
+                            <p className="uppercase font-mono text-2xs tracking-label-lg text-ink">
                                 {t("header-title")}
                             </p>
                             <p className="font-mono text-ink-muted text-xs">

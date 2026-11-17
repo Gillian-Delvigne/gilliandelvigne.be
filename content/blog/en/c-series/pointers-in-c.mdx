@@ -46,49 +46,14 @@ Historically, a byte became the smallest addressable unit of memory. This means 
 
 We’ve seen that memory slots are numbered sequentially (from 0 up to the size of RAM). They’re numbered in pure binary, but we typically display them in hexadecimal for readability:
 
-<div className="w-full md:w-1/2 rounded table overflow-y-auto">
-    {/* Header */}
-    <div className="flex bg-gray-50 border-b">
-        <div className="flex-1 p-4 font-semibold">Binary</div>
-        <div className="w-24 p-4 font-semibold text-center"></div>
-        <div className="flex-1 p-4 font-semibold">Hex</div>
-    </div>
-
-    {/* Body */}
-    <div>
-        <div className="flex">
-            <div className="flex-1 p-4">00000000</div>
-            <div className="w-24 py-4 text-center">→</div>
-            <div className="flex-1 p-4">0x1000</div>
-        </div>
-        <div className="flex">
-            <div className="flex-1 p-4">00000001</div>
-            <div className="w-24 py-4 text-center">→</div>
-            <div className="flex-1 p-4">0x1001</div>
-        </div>
-        <div className="flex">
-            <div className="flex-1 p-4">00000010</div>
-            <div className="w-24 py-4 text-center">→</div>
-            <div className="flex-1 p-4">0x1002</div>
-        </div>
-        <div className="flex">
-            <div className="flex-1 p-4">00000011</div>
-            <div className="w-24 py-4 text-center">→</div>
-            <div className="flex-1 p-4">0x1003</div>
-        </div>
-        <div className="flex">
-            <div className="flex-1 p-4"></div>
-            <div className="w-24 py-4 text-center">[...]</div>
-            <div className="flex-1 p-4"></div>
-        </div>
-        <div className="flex">
-            <div className="flex-1 p-4 text-xs sm:text-sm leading-7">0110110101100101101001110011</div>
-            <div className="w-24 py-4 text-center">→</div>
-            <div className="flex-1 p-4">0x6D65a73</div>
-        </div>
-    </div>
-
-</div>
+| Binary | Hex |
+| --- | --- |
+| 00000000 | 0x1000 |
+| 00000001 | 0x1001 |
+| 00000010 | 0x1002 |
+| 00000011 | 0x1003 |
+| … | … |
+| 0110110101100101101001110011 | 0x6D65a73 |
 
 Below are three contiguous memory locations (bytes) identified by their hexadecimal addresses, each holding an ASCII value ('0', '1', '2). This would correspond to three values assigned to three variables declared in code. For us humans, these memory locations are accessed through the names given to the variables when they are declared—here, x, y, and z.
 

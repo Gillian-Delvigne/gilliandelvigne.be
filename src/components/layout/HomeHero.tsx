@@ -17,7 +17,7 @@ const HomeHero = async () => {
                     ),
                 })}
             </p>
-            <h1 className="relative isolate mb-3.5 w-fit text-4xl leading-display font-bold tracking-display before:pointer-events-none before:absolute before:-inset-x-6 before:-inset-y-10 before:-z-10 before:bg-(image:--glow-gradient) before:content-['']">
+            <h1 className="relative isolate mb-3.5 w-fit text-3xl md:text-4xl leading-display font-semibold tracking-display before:pointer-events-none before:absolute before:-inset-x-6 before:-inset-y-10 before:-z-10 before:bg-(image:--glow-gradient) before:content-['']">
                 {SITE.name}
             </h1>
             <p className="mb-6.5 max-w-(--measure-lead) text-lg leading-body text-dim">

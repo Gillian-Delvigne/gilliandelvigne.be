@@ -74,7 +74,7 @@ export default function Field(props: FieldProps) {
                 {props.required && (
                     <span
                         aria-hidden="true"
-                        className="text-accent-deep text-3xs ml-1 relative -top-1"
+                        className="text-accent-deep text-2xs ml-1 relative -top-1"
                     >
                         *
                     </span>

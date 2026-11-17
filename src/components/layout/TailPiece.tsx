@@ -28,7 +28,7 @@ export function TailPiece({ sentence }: { sentence: string }) {
 
                 <span className="h-px w-21.5 bg-current opacity-50" />
             </div>
-            <span className="font-mono font-bold text-3xs tracking-label-lg uppercase opacity-80">
+            <span className="font-mono font-semibold text-2xs tracking-label-lg uppercase opacity-80">
                 {sentence}
             </span>
         </div>
