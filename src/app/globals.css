@@ -58,19 +58,28 @@
     --text-xs: 0.8rem;
     --text-sm: 0.875rem;
     --text-base: 1rem;
-    --text-body: 1.0625rem;
+    --text-body: 1rem;
     --text-lg: 1.25rem;
     --text-xl: 1.5625rem;
     --text-2xl: 1.9531rem;
     --text-3xl: 2.4414rem;
     --text-4xl: 3.0518rem;
-    --text-5xl: clamp(3.25rem, 1.6rem + 6.4vw, 5.9604rem);
 
     /* Line heights */
     --leading-display: 1.04;
     --leading-title: 1.15;
     --leading-body: 1.6;
     --leading-ui: 1.45;
+    --text-2xs--line-height: var(--leading-ui);
+    --text-xs--line-height: var(--leading-ui);
+    --text-sm--line-height: var(--leading-ui);
+    --text-base--line-height: var(--leading-body);
+    --text-body--line-height: var(--leading-body);
+    --text-lg--line-height: var(--leading-title);
+    --text-xl--line-height: var(--leading-title);
+    --text-2xl--line-height: var(--leading-title);
+    --text-3xl--line-height: var(--leading-title);
+    --text-4xl--line-height: var(--leading-display);
 
     /* Tracking */
     --tracking-display: -0.025em;
@@ -127,7 +136,6 @@
 }
 
 @theme inline {
-    --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
     --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
     --font-mono: var(--font-ibm-mono), ui-monospace, monospace;
 }
