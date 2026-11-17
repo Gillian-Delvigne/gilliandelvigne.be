@@ -748,7 +748,7 @@ body {
 /* ── Headings, charte §4.2. No h1: the page title lives in PageFrame. ──── */
 :where(.prose) h2 {
     font-weight: 600;
-    font-size: var(--text-lg);
+    font-size: var(--text-xl);
     line-height: var(--leading-title);
     letter-spacing: var(--tracking-title);
     text-wrap: balance; /* §4.5: short titles */
@@ -759,13 +759,24 @@ body {
 
 :where(.prose) h3 {
     font-weight: 600;
+    font-size: var(--text-lg);
+    line-height: var(--leading-title);
+    letter-spacing: var(--tracking-title);
+    text-wrap: balance;
+    -webkit-hyphens: none;
+    hyphens: none;
+    margin-top: calc(var(--spacing) * 8);
+}
+
+:where(.prose) :is(h4, h5, h6) {
+    font-weight: 600;
     font-size: var(--text-body);
     line-height: var(--leading-title);
     letter-spacing: var(--tracking-title);
     text-wrap: balance;
     -webkit-hyphens: none;
     hyphens: none;
-    margin-top: calc(var(--spacing) * 4);
+    margin-top: calc(var(--spacing) * 6);
 }
 
 :where(.prose) > :first-child {
