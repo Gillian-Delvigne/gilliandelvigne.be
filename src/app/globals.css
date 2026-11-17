@@ -154,7 +154,6 @@
 	--height-dialog-full: min(46rem, 92vh);
     --diagram-zoom: 2;
     --gutter: 1.5rem;
-    --icon-stroke: 1.5px;
 
     /* ---- Alpha borders: they sit on any surface ---- */
     --line: rgb(255 255 255 / 0.14);
@@ -261,25 +260,14 @@
 @layer components {
     .icon {
         flex: none;
-        fill: none;
-        stroke: currentColor;
-        stroke-width: var(--icon-stroke);
-        stroke-linecap: round;
-        stroke-linejoin: round;
+        fill: currentColor;
     }
 
-    .icon path {
-        vector-effect: non-scaling-stroke;
+    .menu-bar {
+        transform-box: view-box;
+        transform-origin: 0 0;
+        transform: var(--closed);
     }
-
-    .icon-node {
-        fill: var(--icon-node, var(--brand-solid));
-        stroke: none;
-    }
-}
-
-@utility node-ink {
-    --icon-node: var(--color-ink);
 }
 
 /* Base */
