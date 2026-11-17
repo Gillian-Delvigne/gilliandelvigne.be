@@ -11,6 +11,7 @@ interface DialogProps {
     ref: RefObject<HTMLDialogElement | null>;
     dialogLabel: ReactNode;
     closeLabel: string;
+    closeIcon?: ReactNode;
     children: ReactNode;
     onKeyDown?: (event: KeyboardEvent<HTMLDialogElement>) => void;
 }
@@ -57,6 +58,7 @@ export const Dialog = ({
     ref,
     dialogLabel,
     closeLabel,
+    closeIcon = <IconClose className="size-icon-md" />,
     children,
     onKeyDown,
 }: DialogProps) => {
@@ -93,7 +95,7 @@ export const Dialog = ({
                                 aria-label={closeLabel}
                                 className={TARGET}
                             >
-                                <IconClose className="size-icon-md" />
+                                {closeIcon}
                             </button>
                         </div>
                     </div>
