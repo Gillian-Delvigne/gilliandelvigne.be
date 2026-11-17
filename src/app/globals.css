@@ -219,6 +219,7 @@
 
     /* ---- Durations ---- */
     --dur-micro: 200ms;
+    --dur-pivot: 240ms;
     --dur-fold: 420ms;
     --dur-route: 520ms;
     --dur-land: 360ms;
@@ -267,7 +268,7 @@
         transform-box: view-box;
         transform-origin: 0 0;
         transform: var(--closed);
-        transition: transform var(--dur-micro) var(--ease-out);
+        transition: transform var(--dur-pivot) var(--ease-out);
     }
 
     dialog[open] .menu-bar {
