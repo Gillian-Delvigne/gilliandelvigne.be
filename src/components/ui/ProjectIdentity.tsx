@@ -41,7 +41,7 @@ export default async function ProjectIdentity({
         project.date && {
             label: t("identity.date"),
             value: (
-                <span className="font-bold">
+                <span className="font-semibold">
                     {new Date(project.date).getFullYear()}
                 </span>
             ),

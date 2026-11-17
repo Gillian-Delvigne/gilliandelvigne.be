@@ -17,7 +17,7 @@ export default async function Footer() {
     return (
         <>
             <TailPiece sentence={t("colophon")} />
-            <footer data-surface="dark" className="footer-material text-2xs font-bold">
+            <footer data-surface="dark" className="footer-material text-2xs font-semibold">
                 <div className="mx-auto flex max-w-208 flex-col items-center gap-5.5 text-center">
                     <HandSignature name={SITE.author} />
 
@@ -50,8 +50,8 @@ export default async function Footer() {
                         </li>
                     </ul>
                     <p
-                        className="font-mono tracking-label text-3xs text-parchment
-                                  leading-[2.1] uppercase opacity-72"
+                        className="font-mono tracking-label text-2xs text-parchment
+                                  leading-body uppercase opacity-72"
                     >
                         {t("tagline")}
                         <br />

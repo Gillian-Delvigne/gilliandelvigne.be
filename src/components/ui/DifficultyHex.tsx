@@ -179,7 +179,7 @@ export default function DifficultyHex({
                             fontSize={LABEL_FONT_SIZE}
                             className={cn(
                                 "fill-dim",
-                                isHighlighted(index) && "fill-warm font-bold",
+                                isHighlighted(index) && "fill-warm font-semibold",
                             )}
                         >
                             {lines.map((line, k) => (
