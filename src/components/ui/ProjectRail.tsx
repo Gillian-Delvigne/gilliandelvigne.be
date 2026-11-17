@@ -12,7 +12,8 @@ import { DiagramArt, isDiagramName } from "./Diagram";
 const DIAGRAM_ART = {
     scene: {
         suffix: "gallery",
-        className: "absolute inset-0 p-2 md:p-5 [&>svg]:mx-auto [&>svg]:size-full",
+        className:
+            "absolute inset-0 p-2 md:p-5 [&>svg]:mx-auto [&>svg]:size-full",
         zoomed: false,
     },
     fullscreen: {
@@ -42,25 +43,17 @@ export const ProjectRail = async ({ project }: { project: Project }) => {
     const profile = getProfile(project.translationKey);
 
     return (
-        <aside className="lg:col-start-9 lg:col-span-4 lg:row-span-2">
-            <div className="lg:tall:sticky lg:top-24 flex flex-col gap-4">
-                <StatusBadge status={project.status} />
-                <ProjectIdentity project={project} />
-                <ProjectMedia
-                    project={project}
-                    diagrams={renderDiagrams(project.media, "scene")}
-                    fullscreenDiagrams={renderDiagrams(
-                        project.media,
-                        "fullscreen",
-                    )}
-                />
-                <ProjectStack stack={project.stack} />
-                <DifficultyProfile
-                    profile={profile}
-                    evidence={project.evidence}
-                />
-                <DifficultyLegend />
-            </div>
+        <aside className="lg:col-start-9 lg:col-span-4 lg:row-span-2 flex flex-col gap-4">
+            <StatusBadge status={project.status} />
+            <ProjectIdentity project={project} />
+            <ProjectMedia
+                project={project}
+                diagrams={renderDiagrams(project.media, "scene")}
+                fullscreenDiagrams={renderDiagrams(project.media, "fullscreen")}
+            />
+            <ProjectStack stack={project.stack} />
+            <DifficultyProfile profile={profile} evidence={project.evidence} />
+            <DifficultyLegend />
         </aside>
     );
 };

@@ -40,7 +40,7 @@ const DifficultyProfile = ({
     return (
         <section
             aria-labelledby={`${id}-difficulty-profile`}
-            className="mt-9 rounded-card border border-(--line) bg-surface p-5 shadow-card"
+            className="mt-9 rounded-card border border-(--line) bg-surface p-5 shadow-card lg:tall:sticky lg:top-24"
         >
             <h2
                 id={`${id}-difficulty-profile`}
