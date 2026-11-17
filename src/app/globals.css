@@ -154,7 +154,6 @@
 	--height-dialog-full: min(46rem, 92vh);
     --diagram-zoom: 2;
     --gutter: 1.5rem;
-    --icon-stroke: 1.5px;
 
     /* ---- Alpha borders: they sit on any surface ---- */
     --line: rgb(255 255 255 / 0.14);
@@ -220,6 +219,7 @@
 
     /* ---- Durations ---- */
     --dur-micro: 200ms;
+    --dur-pivot: 240ms;
     --dur-fold: 420ms;
     --dur-route: 520ms;
     --dur-land: 360ms;
@@ -261,25 +261,31 @@
 @layer components {
     .icon {
         flex: none;
-        fill: none;
-        stroke: currentColor;
-        stroke-width: var(--icon-stroke);
-        stroke-linecap: round;
-        stroke-linejoin: round;
+        fill: currentColor;
     }
 
-    .icon path {
-        vector-effect: non-scaling-stroke;
+    .menu-bar {
+        transform-box: view-box;
+        transform-origin: 0 0;
+        transform: var(--closed);
+        transition: transform var(--dur-pivot) var(--ease-out);
     }
 
-    .icon-node {
-        fill: var(--icon-node, var(--brand-solid));
-        stroke: none;
+    dialog[open] .menu-bar {
+        transform: var(--open);
     }
-}
 
-@utility node-ink {
-    --icon-node: var(--color-ink);
+    @starting-style {
+        dialog[open] .menu-bar {
+            transform: var(--closed);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .menu-bar {
+            transition: none;
+        }
+    }
 }
 
 /* Base */

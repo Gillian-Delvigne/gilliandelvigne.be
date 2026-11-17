@@ -3,21 +3,19 @@ import { cn } from "@/lib/cn";
 
 export const Icon = ({
     className,
+    viewBox = "0 0 32 32",
     children,
 }: {
     className?: string;
+    viewBox?: string;
     children: ReactNode;
 }) => (
     <svg
-        viewBox="0 0 24 24"
+        viewBox={viewBox}
         aria-hidden="true"
         focusable="false"
         className={cn("icon", className)}
     >
         {children}
     </svg>
-);
-
-export const Node = ({ cx, cy }: { cx: number; cy: number }) => (
-    <circle className="icon-node" cx={cx} cy={cy} r={3} />
 );

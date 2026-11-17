@@ -21,7 +21,7 @@ const ExternalLink = ({ href, newTab }: { href: string; newTab: string }) => (
                    hover:decoration-brand focus-visible:decoration-brand"
     >
         {readable(href)}
-        <IconExternal className="size-icon-sm node-ink" />
+        <IconExternal className="size-icon-sm" />
         <span className="sr-only"> {newTab}</span>
     </a>
 );

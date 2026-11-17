@@ -36,6 +36,7 @@ export default function MobileMenu({
                 ref={menuRef}
                 dialogLabel={t("label")}
                 closeLabel={t("close")}
+                closeIcon={<IconMenu className="size-icon-md" />}
             >
                 {children}
                 <div className="mt-5 border-t border-(--line-soft) pt-5">

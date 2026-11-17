@@ -3,7 +3,7 @@ import { getProfile } from "@/content/difficulty";
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import DifficultyHex from "@/components/ui/DifficultyHex";
-import { IconAll, IconChevronRight } from "@/components/icons/icons";
+import { IconAll, IconArrowRight } from "@/components/icons/icons";
 import { cn } from "@/lib/cn";
 
 interface ProjectNextProps {
@@ -64,7 +64,7 @@ export default async function ProjectNext({
                                     aria-hidden="true"
                                     className="inline-block transition-transform duration-(--dur-micro) ease-out group-hover:translate-x-0.75"
                                 >
-                                    <IconChevronRight className="size-icon-sm" />
+                                    <IconArrowRight className="h-icon-sm w-auto" />
                                 </span>
                             </span>
                         </Link>

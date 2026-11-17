@@ -11,6 +11,7 @@ interface DialogProps {
     ref: RefObject<HTMLDialogElement | null>;
     dialogLabel: ReactNode;
     closeLabel: string;
+    closeIcon?: ReactNode;
     children: ReactNode;
     onKeyDown?: (event: KeyboardEvent<HTMLDialogElement>) => void;
 }
@@ -21,8 +22,14 @@ export const TARGET =
 const LABEL =
     "font-mono text-2xs font-medium tracking-label text-dim uppercase";
 
+const FADE =
+    "opacity-0 transition-[opacity,translate,scale,display,overlay] transition-discrete duration-(--dur-micro) ease-out open:opacity-100 starting:open:opacity-0";
+
+const REVEAL =
+    "transition-[clip-path,display,overlay] transition-discrete duration-(--dur-micro) ease-out [clip-path:inset(0_0_100%_0)] open:[clip-path:inset(0)] starting:open:[clip-path:inset(0_0_100%_0)]";
+
 const BASE =
-    "bg-transparent text-ink opacity-0 transition-[opacity,translate,scale,display,overlay] transition-discrete duration-(--dur-micro) ease-out open:opacity-100 starting:open:opacity-0 backdrop:bg-(--veil) backdrop:opacity-0 backdrop:transition-[opacity,display,overlay] backdrop:transition-discrete backdrop:duration-(--dur-micro) open:backdrop:opacity-100 starting:open:backdrop:opacity-0";
+    "bg-transparent text-ink backdrop:bg-(--veil) backdrop:opacity-0 backdrop:transition-[opacity,display,overlay] backdrop:transition-discrete backdrop:duration-(--dur-micro) open:backdrop:opacity-100 starting:open:backdrop:opacity-0";
 
 const FRAME = "bg-surface";
 
@@ -30,13 +37,15 @@ const HEAD = "flex min-h-5 items-center justify-between";
 
 const DIALOG = {
     sheet: {
-        root: "m-0 max-h-none w-full max-w-none -translate-y-2 open:translate-y-0 starting:open:-translate-y-2",
+        motion: REVEAL,
+        root: "m-0 max-h-none w-full max-w-none",
         frame: "rounded-b-card border-b border-(--line-soft) shadow-card",
         inner: "mx-auto max-w-(--width-content) px-(--gutter) pb-6",
         bar: "site-bar py-5.5",
         head: "site-brand h-brand",
     },
     panel: {
+        motion: FADE,
         root: "m-auto w-[calc(100vw-2*var(--gutter))] max-w-(--width-dialog) scale-98 open:scale-100 starting:open:scale-98",
         frame: "rounded-card border border-(--line) shadow-(--lit)",
         inner: "px-2 md:px-5.5 pt-4.5 pb-5",
@@ -44,6 +53,7 @@ const DIALOG = {
         head: "mb-4",
     },
 	full: {
+    motion: FADE,
     root: "relative m-auto w-[calc(100vw-2*var(--gutter))] h-(--height-dialog-full) scale-98 open:scale-100 starting:open:scale-98",
     frame: "h-full rounded-card border border-(--line) shadow-(--lit)",
     inner: "h-full flex flex-col px-5.5 pt-4.5 pb-5",
@@ -57,6 +67,7 @@ export const Dialog = ({
     ref,
     dialogLabel,
     closeLabel,
+    closeIcon = <IconClose className="size-icon-md" />,
     children,
     onKeyDown,
 }: DialogProps) => {
@@ -74,7 +85,7 @@ export const Dialog = ({
                 )
                     close();
             }}
-            className={cn(BASE, styles.root)}
+            className={cn(BASE, styles.motion, styles.root)}
             onKeyDown={onKeyDown}
         >
             <div className={cn(FRAME, styles.frame)}>
@@ -93,7 +104,7 @@ export const Dialog = ({
                                 aria-label={closeLabel}
                                 className={TARGET}
                             >
-                                <IconClose className="size-icon-md" />
+                                {closeIcon}
                             </button>
                         </div>
                     </div>
