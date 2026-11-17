@@ -9,13 +9,15 @@ import type { Locale } from "./src/content/locales";
 import * as fs from "fs";
 import * as path from "path";
 import messages from "./messages/fr.json";
+import { diagrams } from "./src/diagrams/generated";
 
 type ProjectCategory = keyof typeof messages.Projects.categories;
+
 const PROJECT_CATEGORIES = Object.keys(messages.Projects.categories) as [
     ProjectCategory,
     ...ProjectCategory[],
 ];
-
+const DIAGRAM_NAMES = Object.keys(diagrams);
 const BLOG_SEGMENTS = 4;
 const DEFAULT_SEGMENTS = 3;
 
@@ -113,6 +115,10 @@ const checkTranslationKeysValidity = <
     return errors;
 };
 
+const isSitePath = (path: string) => {
+    return path.length > 1 && path.startsWith("/") && path[1] !== "/";
+};
+
 export default defineConfig({
     root: "content",
     mdx: {
@@ -173,6 +179,73 @@ export default defineConfig({
                             disciplines: s.string().optional(),
                         })
                         .default({}),
+                    media: s
+                        .object({
+                            demo: s
+                                .discriminatedUnion("kind", [
+                                    s.object({
+                                        kind: s.literal("video"),
+                                        src: s
+                                            .string()
+                                            .refine(isSitePath, {
+                                                message:
+                                                    "Video path should be valid",
+                                            })
+                                            .or(
+                                                s
+                                                    .string()
+                                                    .url(
+                                                        "Video url should be valid",
+                                                    ),
+                                            ),
+                                        poster: s.image().optional(),
+                                    }),
+                                    s.object({
+                                        kind: s.literal("live"),
+                                        src: s
+                                            .string()
+                                            .url(
+                                                "Live path should be a valid external url",
+                                            )
+                                            .refine(
+                                                (val) =>
+                                                    val.startsWith("https://"),
+                                                {
+                                                    message:
+                                                        "Plese provide a secure url",
+                                                },
+                                            ),
+                                    }),
+                                ])
+                                .optional(),
+                            gallery: s
+                                .array(
+                                    s.discriminatedUnion("kind", [
+                                        s.object({
+                                            kind: s.literal("diagram"),
+                                            src: s
+                                                .string()
+                                                .refine(
+                                                    (name) =>
+                                                        DIAGRAM_NAMES.includes(
+                                                            name,
+                                                        ),
+                                                    {
+                                                        message: `Diagram name should be part of ${DIAGRAM_NAMES.join(", ")}`,
+                                                    },
+                                                ),
+                                            caption: s.string(),
+                                        }),
+                                        s.object({
+                                            kind: s.literal("capture"),
+                                            src: s.image(),
+                                            caption: s.string(),
+                                        }),
+                                    ]),
+                                )
+                                .optional(),
+                        })
+                        .optional(),
                     order: s.number().default(0),
                     ref: s.string().optional(),
                     path: s.path(),

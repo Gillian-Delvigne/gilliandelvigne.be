@@ -122,7 +122,6 @@
 	},
 	"Projects": {
 		"identity": {
-			"status": "Status",
 			"category": "Category",
 			"date": "Year",
 			"link": "Link",
@@ -151,9 +150,24 @@
 			"contact": "A question about {title}? Get in touch"
 		}
 	},
+	"Media": {
+		"demo": "Demo",
+		"gallery": "Gallery",
+		"demoTitle": "{project} <dot></dot> Demo",
+		"galleryTitle": "{project} <dot></dot> Gallery",
+		"fullTitle": "{project} <dot></dot> Image {current} / {total} <dot></dot> Fullscreen",
+		"close": "Close",
+		"previous": "Previous image",
+		"next": "Next image",
+		"counter": "{current} / {total}",
+		"counterLabel": "Image {current} of {total}",
+		"expand": "Expand the image",
+		"expandedClose": "Close the expanded view"
+	},
 	"Difficulty": {
 		"axis": "Criterion",
 		"title": "Difficulty profile",
+		"pickHint": "Pick a criterion to see its evidence.",
 		"evidence": "In practice",
 		"value": "Value",
 		"outOf": "out of",
@@ -205,6 +219,7 @@
 		}
 	},
 	"Status": {
+		"label": "Status",
 		"live": "live",
 		"partial": "live, partly private",
 		"wip": "in progress",

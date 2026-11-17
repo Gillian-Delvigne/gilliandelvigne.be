@@ -14,7 +14,7 @@ export default async function DifficultyLegend() {
             id={DIFFICULTY_LEGEND_ID}
             popover="auto"
             aria-labelledby={titleId}
-            className="m-auto max-h-[calc(100dvh---spacing(12))] w-(--width-popover) max-w-[calc(100vw---spacing(8))] overflow-auto rounded-card border border-(--line) bg-surface px-7 pt-6.5 pb-6 text-ink shadow-(--lit) backdrop:bg-(--veil)"
+            className="m-auto max-h-[calc(100dvh-(--spacing(12)))] w-(--width-popover) max-w-[calc(100vw-(--spacing(8)))] overflow-auto rounded-card border border-(--line) bg-surface px-7 pt-6.5 pb-6 text-ink shadow-(--lit) backdrop:bg-(--veil)"
         >
             <button
                 popoverTarget={DIFFICULTY_LEGEND_ID}

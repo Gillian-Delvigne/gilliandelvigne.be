@@ -20,6 +20,17 @@ evidence:
   disciplines: "The only developer: database, API, interfaces, deployment and documentation."
 links:
   live: https://elausys.be
+media:
+  gallery:
+    - kind: diagram
+      src: elausys-architecture
+      caption: The whole platform on a single server, and the six services it keeps in step.
+    - kind: diagram
+      src: elausys-request-flow
+      caption: A single entry point, which sends each address to the right site.
+    - kind: diagram
+      src: elausys-pricing
+      caption: Three discounts in a row, then the VAT of the delivery country.
 ---
 
 ## The need
@@ -30,9 +41,13 @@ When I arrived, in October 2025, there were mostly empty shells: a self-hosted S
 
 The request fitted in four lines: a web application for the site and its shop, automations between the site, the CRM and the publishing tools, and two jobs on existing applications. The constraint was not up for discussion: everything had to run on the company's own server, and be live for ISE 2026 (Europe's major trade show for audiovisual and home automation), in February. That left four months.
 
+<Diagram name="elausys-request-flow" caption="The path of a request on the company's server: a single entry point, which sends each address to the right site or service." />
+
 ## The difficulty
 
 On paper, every building block was familiar. The difficulty came from how many there were, and from the fact that none of them controlled the others.
+
+<Diagram name="elausys-architecture" caption="Every building block of the platform, on a single server: one entry point, four sites, one API, and the outside services it has to keep in step." />
 
 The foundation, first. A single database serves four separate sites (a multi-tenant architecture, where each site is a tenant of the same system). A customer who creates an account on one site signs in with the same credentials on the others; each order, however, stays attached to the site where it was placed.
 
@@ -40,7 +55,9 @@ Then the emails. Supabase sends its own authentication emails (account creation,
 
 The CRM, too. Axonaut manages the customers and invoices of two separate companies, and I had to work around the gaps in its API. A customer ordering on two different sites, a changed address, an invoice to issue on the right account, several accounts for the same company: each case needed a clean synchronisation into the CRM.
 
-Finally, the prices. The amount shown depends on the type of customer (guest, private or professional), any discount, a valid VAT number and the delivery country: 21% for Belgium, 0% for a professional in another EU country or for export. The same product can therefore have four different prices, depending on who is looking at it.
+Finally, the prices. The amount shown depends on the type of customer (guest, private or professional), any discount, a valid VAT number and the delivery country: 21% for Belgium, 0% for export, and 0% for a professional in another EU country too, but only with a valid VAT number and a delivery to their own country. The same product can therefore have four different prices, depending on who is looking at it.
+
+<Diagram name="elausys-pricing" caption="How a price is computed, as it runs in the database: three discounts in a row, then a VAT rate that depends on where the order is delivered." />
 
 ## The work
 

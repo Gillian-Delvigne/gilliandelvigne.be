@@ -63,6 +63,8 @@ Les plateformes de build les installent quand même.*
 |---|---|---|---|
 | `velite` | 0.4 | Lit `content/**/*.mdx`, **valide** le frontmatter (schémas `zod`), **compile** le MDX, écrit `.velite/` (données + types). | En `devDependencies` bien qu'il tourne au build : il produit un artefact puis se retire, il ne fait pas partie de l'app qui tourne. Choisi contre Contentlayer car **découplé du bundler** → survit aux montées de version de Next. |
 | `@mdx-js/react` | 3.1 | Fournit les composants React au MDX compilé par Velite (le `MDXProvider`). | — |
+| `@mermaid-js/mermaid-cli` | 11.17.0 | Rend les sources `diagrams/*.mmd` en SVG, une fois, en local (`npm run diagrams`). | Le SVG produit est commité dans `src/diagrams/generated.ts` : Vercel ne rend rien. |
+| `puppeteer` | 25.16.0 | Le navigateur sans fenêtre dans lequel Mermaid dessine et mesure les textes. | Dépendance attendue par `mermaid-cli` ; jamais chargé par `--check` (R2). |
 
 ### Markdown → HTML enrichi
 

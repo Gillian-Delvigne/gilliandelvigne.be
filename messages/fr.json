@@ -122,7 +122,6 @@
 	},
 	"Projects": {
 		"identity": {
-			"status": "Statut",
 			"category": "Catégorie",
 			"date": "Année",
 			"link": "Lien",
@@ -151,9 +150,24 @@
 			"contact": "Une question sur {title} ? Me contacter"
 		}
 	},
+	"Media": {
+		"demo": "Démo",
+		"gallery": "Galerie",
+		"demoTitle": "{project} <dot></dot> Démo",
+		"galleryTitle": "{project} <dot></dot> Galerie",
+		"fullTitle": "{project} <dot></dot> Image {current} / {total} <dot></dot> Plein écran",
+		"close": "Fermer",
+		"previous": "Image précédente",
+		"next": "Image suivante",
+		"counter": "{current} / {total}",
+		"counterLabel": "Image {current} sur {total}",
+		"expand": "Agrandir l'image",
+		"expandedClose": "Fermer la vue agrandie"
+	},
 	"Difficulty": {
 		"axis": "Critère",
 		"title": "Le profil de difficulté",
+		"pickHint": "Choisissez un critère pour voir sa preuve.",
 		"evidence": "Concrètement",
 		"value": "Valeur",
 		"outOf": "sur",
@@ -205,6 +219,7 @@
 		}
 	},
 	"Status": {
+		"label": "Statut",
 		"live": "en ligne",
 		"partial": "en ligne, partiellement privé",
 		"wip": "en cours",

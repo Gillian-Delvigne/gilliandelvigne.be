@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { getNavItem } from "@/data/nav";
 import { SITE } from "@/data/site";
 import Button from "../ui/Button";
+import { Dot } from "../ui/Dot";
 
 const HomeHero = async () => {
     const t = await getTranslations("Home");
@@ -10,12 +11,7 @@ const HomeHero = async () => {
         <div className="pt-14.5">
             <p className="mb-2.5 font-mono text-2xs font-semibold tracking-label text-dim uppercase">
                 {t.rich("kicker", {
-                    dot: () => (
-                        <span
-                            aria-hidden="true"
-                            className="inline-block size-0.75 rounded-full bg-brand align-middle"
-                        />
-                    ),
+                    dot: () => <Dot />,
                     country: (chunks) => (
                         <span className="max-sm:hidden">{chunks}</span>
                     ),

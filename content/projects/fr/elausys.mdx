@@ -20,6 +20,17 @@ evidence:
   disciplines: "Seul au développement : base de données, API, interfaces, déploiement et documentation."
 links:
   live: https://elausys.be
+media:
+  gallery:
+    - kind: diagram
+      src: elausys-architecture
+      caption: Toute la plateforme sur un seul serveur, et les six services qu'elle tient d'accord.
+    - kind: diagram
+      src: elausys-request-flow
+      caption: Une seule porte d'entrée, qui envoie chaque adresse vers le bon site.
+    - kind: diagram
+      src: elausys-pricing
+      caption: Trois remises en cascade, puis la TVA du pays de livraison.
 ---
 
 ## Le besoin
@@ -30,9 +41,13 @@ Elausys est une petite entreprise wallonne de domotique (l'automatisation des b�
 
 La demande tenait en quatre lignes : une application web pour le site et sa boutique, des automatisations entre le site, le CRM et les outils de publication, et deux chantiers sur des applications existantes. La contrainte, elle, ne se discutait pas : tout devait tourner sur le serveur de l'entreprise, et être en ligne pour l'ISE 2026 (le grand salon européen de l'audiovisuel et de la domotique), en février. Il restait quatre mois.
 
+<Diagram name="elausys-request-flow" caption="Le trajet d'une requête sur le serveur de l'entreprise : une seule porte d'entrée, qui envoie chaque adresse vers le bon site ou le bon service." />
+
 ## La difficulté
 
 Sur le papier, chaque brique est connue. La difficulté venait de leur nombre, et de ce que chacune ne contrôlait pas les autres.
+
+<Diagram name="elausys-architecture" caption="Toutes les briques de la plateforme, sur un seul serveur : une porte d'entrée, quatre sites, une API, et les services extérieurs qu'elle doit tenir d'accord." />
 
 Le socle, d'abord. Une même base de données sert quatre sites distincts (une architecture dite multi-tenant, où chaque site est un locataire du même système). Un client qui crée son compte sur l'un se connecte avec les mêmes identifiants sur les autres ; chaque commande, elle, reste rattachée au site où elle a été passée.
 
@@ -40,7 +55,9 @@ Les e-mails, ensuite. Supabase envoie lui-même ceux de l'authentification (cré
 
 Le CRM, aussi. Axonaut gère les clients et les factures de deux sociétés distinctes, et je devais composer avec les lacunes de son API. Un client qui commande sur deux sites différents, une adresse modifiée, une facture à émettre sur le bon compte, plusieurs comptes pour une même société : chaque cas nécessitait une synchronisation sans heurt dans le CRM.
 
-Les prix, enfin. Le montant affiché dépend du type de client (invité, particulier ou professionnel), d'une éventuelle remise, d'un numéro de TVA valide et du pays de livraison : 21 % pour la Belgique, 0 % pour un professionnel d'un autre pays de l'Union ou pour l'export. Le même produit peut donc avoir quatre prix différents selon la personne qui le regarde.
+Les prix, enfin. Le montant affiché dépend du type de client (invité, particulier ou professionnel), d'une éventuelle remise, d'un numéro de TVA valide et du pays de livraison : 21 % pour la Belgique, 0 % pour l'export, 0 % aussi pour un professionnel d'un autre pays de l'Union, mais seulement si son numéro de TVA est valide et qu'il se fait livrer dans son propre pays. Le même produit peut donc avoir quatre prix différents selon la personne qui le regarde.
+
+<Diagram name="elausys-pricing" caption="Le calcul d'un prix, tel qu'il tourne dans la base : trois remises en cascade, puis une TVA qui dépend du lieu de livraison." />
 
 ## La réalisation
 
