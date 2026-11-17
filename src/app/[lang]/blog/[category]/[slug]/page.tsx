@@ -46,7 +46,7 @@ export default async function BlogPost({
         },
     );
     return (
-        <PageFrame title={post.title} breadcrumb={crumbs}>
+        <PageFrame title={post.title} dek={post.dek} breadcrumb={crumbs}>
             <Prose>
                 <Mdx code={post.content} />
             </Prose>
