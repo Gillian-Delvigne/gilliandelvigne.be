@@ -153,6 +153,7 @@
     --height-dialog-full: min(46rem, 92vh);
     --diagram-zoom: 2;
     --gutter: 1.5rem;
+	--gutter-dialog: 0.5rem;
 
     /* ---- Alpha borders: they sit on any surface ---- */
     --line: rgb(255 255 255 / 0.14);
@@ -247,6 +248,7 @@
 @media (min-width: 48rem) {
     :root {
         --gutter: 2.5rem;
+		--gutter-dialog: var(--gutter);
     }
 }
 @media (min-width: 75rem) {
@@ -272,7 +274,7 @@
         --media-primary-color: var(--color-ink);
         --media-icon-color: var(--color-ink);
         --media-control-background: transparent;
-        --media-control-hover-background: var(--line-soft);
+        --media-control-hover-background: var(--brand-surface);
         --media-range-bar-color: var(--color-brand);
         --media-range-track-background: var(--line);
         --media-range-thumb-background: var(--color-ink);
