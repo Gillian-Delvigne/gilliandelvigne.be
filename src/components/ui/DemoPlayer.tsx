@@ -28,7 +28,7 @@ interface DemoPlayerProps {
 const SLOT = "flex";
 const ICON = "size-icon-md";
 const CONTROL = "p-2 rounded-sm";
-const BUTTON = "size-11";
+const BUTTON = "size-11 shrink-0";
 
 export const DemoPlayer = ({ src, poster, lang }: DemoPlayerProps) => (
         <MediaController
