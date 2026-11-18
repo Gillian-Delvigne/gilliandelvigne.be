@@ -6,10 +6,11 @@ import {
     type RefObject,
     ReactNode,
 } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { cn } from "@/lib/cn";
 import type { Project } from "@/content/projects";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Button from "./Button";
 import {
     IconChevronLeft,
@@ -20,6 +21,11 @@ import {
 } from "../icons/icons";
 import { Dialog, TARGET } from "./Dialog";
 import { Dot } from "./Dot";
+
+const DemoPlayer = dynamic(
+    () => import("./DemoPlayer").then((m) => m.DemoPlayer),
+    { ssr: false },
+);
 
 const STAGE =
     "relative overflow-hidden bg-(--sunk) border border-(--line-soft) aspect-video rounded-md col-span-full cursor-pointer";
@@ -36,8 +42,10 @@ export const ProjectMedia = ({
     const demoRef = useRef<HTMLDialogElement>(null);
     const galleryRef = useRef<HTMLDialogElement>(null);
     const fullRef = useRef<HTMLDialogElement>(null);
+    const [demoReady, setDemoReady] = useState(false);
     const [index, setIndex] = useState<number>(0);
     const t = useTranslations("Media");
+    const locale = useLocale();
     if (!project.media) return null;
     const demo = project.media.demo;
     const gallery = project.media.gallery;
@@ -59,6 +67,7 @@ export const ProjectMedia = ({
     };
 
     const openDialog = (ref: RefObject<HTMLDialogElement | null>): void => {
+        if (ref === demoRef) setDemoReady(true);
         ref.current?.showModal();
         setIndex(0);
     };
@@ -99,17 +108,19 @@ export const ProjectMedia = ({
                         project: project.title,
                     })}
                     closeLabel={t("close")}
+                    onClose={(e) =>
+                        e.currentTarget.querySelector("video")?.pause()
+                    }
                 >
-                    {demo.kind === "video" && (
-                        <video
-                            controls
-                            preload="none"
-                            poster={demo.poster?.src}
-                            className="w-full aspect-video"
-                        >
-                            <source src={demo.src} />
-                        </video>
-                    )}
+                    <div className={STAGE}>
+                        {demo.kind === "video" && demoReady && (
+                            <DemoPlayer
+                                src={demo.src}
+                                poster={demo.poster?.src}
+                                lang={locale}
+                            />
+                        )}
+                    </div>
                 </Dialog>
             )}
             {gallery && (
@@ -148,11 +159,14 @@ export const ProjectMedia = ({
                                     variant="quiet"
                                     aria-label={t("expand")}
                                     onClick={openFullscreen}
-									className={TARGET}
+                                    className={TARGET}
                                 >
                                     <IconExpand className="size-icon-md" />
                                 </Button>
-								<span aria-hidden="true" className="w-px h-icon-md bg-(--line) mx-2" />
+                                <span
+                                    aria-hidden="true"
+                                    className="w-px h-icon-md bg-(--line) mx-2"
+                                />
                                 <Button
                                     className={TARGET}
                                     variant="quiet"

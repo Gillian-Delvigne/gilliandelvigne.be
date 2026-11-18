@@ -1,6 +1,6 @@
 "use client";
 
-import { RefObject, ReactNode, useId, KeyboardEvent } from "react";
+import { RefObject, ReactNode, useId, KeyboardEvent, ReactEventHandler } from "react";
 import { IconClose } from "../icons/icons";
 import { cn } from "@/lib/cn";
 
@@ -14,6 +14,7 @@ interface DialogProps {
     closeIcon?: ReactNode;
     children: ReactNode;
     onKeyDown?: (event: KeyboardEvent<HTMLDialogElement>) => void;
+	onClose?: ReactEventHandler<HTMLDialogElement>;
 }
 
 export const TARGET =
@@ -46,7 +47,7 @@ const DIALOG = {
     },
     panel: {
         motion: FADE,
-        root: "m-auto w-[calc(100vw-2*var(--gutter))] max-w-(--width-dialog) scale-98 open:scale-100 starting:open:scale-98",
+        root: "m-auto w-[calc(100vw-2*var(--gutter-dialog))] max-w-(--width-dialog) scale-98 open:scale-100 starting:open:scale-98",
         frame: "rounded-card border border-(--line) shadow-(--lit)",
         inner: "px-2 md:px-5.5 pt-4.5 pb-5",
         bar: "",
@@ -54,7 +55,7 @@ const DIALOG = {
     },
 	full: {
     motion: FADE,
-    root: "relative m-auto w-[calc(100vw-2*var(--gutter))] h-(--height-dialog-full) scale-98 open:scale-100 starting:open:scale-98",
+    root: "relative m-auto w-[calc(100vw-2*var(--gutter-dialog))] h-(--height-dialog-full) scale-98 open:scale-100 starting:open:scale-98",
     frame: "h-full rounded-card border border-(--line) shadow-(--lit)",
     inner: "h-full flex flex-col px-5.5 pt-4.5 pb-5",
     bar: "",
@@ -70,6 +71,7 @@ export const Dialog = ({
     closeIcon = <IconClose className="size-icon-md" />,
     children,
     onKeyDown,
+	onClose
 }: DialogProps) => {
     const labelId = useId();
     const styles = DIALOG[variant];
@@ -87,6 +89,7 @@ export const Dialog = ({
             }}
             className={cn(BASE, styles.motion, styles.root)}
             onKeyDown={onKeyDown}
+			onClose={onClose}
         >
             <div className={cn(FRAME, styles.frame)}>
                 <div className={styles.inner}>
