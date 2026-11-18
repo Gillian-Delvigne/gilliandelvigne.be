@@ -14,7 +14,7 @@
 		},
 		"portfolio": {
 			"label": "Projects",
-			"dek": "{count} projects, from the web to systems, from teaching to code, each measured against six criteria: every branch of its profile shows what it demanded, from 0 to 4."
+			"dek": "{count} projects, from the web to systems, from teaching to code, each measured against six criteria: every branch of its graph shows what it demanded, from 0 to 4."
 		},
 		"blog": {
 			"label": "Blog",
@@ -212,7 +212,7 @@
 		},
 		"legend": {
 			"trigger": "More about the criteria",
-			"title": "The hexagon, criterion by criterion",
+			"title": "The graph, criterion by criterion",
 			"axesHeading": "The criteria",
 			"levelsHeading": "The levels",
 			"close": "Close help"
