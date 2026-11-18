@@ -55,7 +55,7 @@ We’ve seen that memory slots are numbered sequentially (from 0 up to the size 
 | … | … |
 | 0110110101100101101001110011 | 0x6D65a73 |
 
-Below are three contiguous memory locations (bytes) identified by their hexadecimal addresses, each holding an ASCII value ('0', '1', '2). This would correspond to three values assigned to three variables declared in code. For us humans, these memory locations are accessed through the names given to the variables when they are declared—here, x, y, and z.
+Below are three contiguous memory locations (bytes) identified by their hexadecimal addresses, each holding an ASCII value ('0', '1', '2). This would correspond to three values assigned to three variables declared in code. For us humans, these memory locations are accessed through the names given to the variables when they are declared: here, x, y, and z.
 
 ```c showLineNumbers title="example.c"
 char x = '0';
@@ -74,7 +74,7 @@ With all that in mind, let’s get back to our main topic. Technically speaking,
 
 - It occupies space in memory,
 - It has its own address (the address of the slot where it’s stored),
-- It stores a value — specifically, the address of another memory slot, rather than an application-level value you directly assigned as with a regular variable.
+- It stores a value, specifically the address of another memory slot, rather than an application-level value you directly assigned as with a regular variable.
 
 As we said, the space a pointer occupies in memory depends on the system and its architecture, but it spans several bytes: 4 bytes on 32-bit systems and 8 bytes on 64-bit systems.
 
