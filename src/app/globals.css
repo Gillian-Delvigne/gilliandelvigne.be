@@ -18,7 +18,7 @@
 
     /* ---- Brand: a single hue, two steps ---- */
     --color-brand: #52a8ff; /* 210° · 7.29:1 AAA · text, link, stroke */
-    --color-brand-deep: #145cd0; /* 217° · 3.18:1 · solid surface, active state */
+    --color-brand-deep: #145cd0; /* 217° · 3.01:1 · solid surface only, never text */
 
     /* ---- States: text, vivid fill, surface ---- */
     --color-ok: #50f0d8; /* 171° · 12,84:1 AAA */
@@ -463,7 +463,7 @@ body {
 .field-control[aria-invalid="true"] {
     box-shadow:
         var(--puits),
-        inset 0 -2px 0 var(--color-accent-deep);
+        inset 0 -2px 0 var(--err-solid);
 }
 
 .field-hint {
@@ -475,7 +475,7 @@ body {
 .field-error {
     font-family: var(--font-mono);
     font-size: var(--text-sm);
-    color: var(--color-accent-deep);
+    color: var(--color-err);
 }
 
 .btn-seal {
@@ -703,7 +703,7 @@ body {
 }
 
 .message-status [data-kind="failed"] {
-    color: var(--color-accent-deep);
+    color: var(--color-err);
 }
 .message-status span {
     animation: fade-in var(--dur-micro) var(--ease-out) both;
@@ -824,8 +824,7 @@ body {
 }
 :where(.prose) a:hover,
 :where(.prose) a:focus-visible {
-    color: var(--color-accent-deep);
-    text-decoration-color: var(--color-accent-deep);
+    text-decoration-color: var(--color-brand);
 }
 
 :where(.prose) blockquote {
@@ -888,12 +887,12 @@ body {
     border-bottom: 1px solid var(--line-soft);
 }
 
-/* ── Inline code, charte §9.5: mono, sunken pill, accent-deep ──────────── */
+/* ── Inline code, charte §9.5: mono, sunken pill, ink ──────────────────── */
 :where(.prose) :not(pre) > code {
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: 0.875em;
     background: var(--color-parchment-sunken);
-    color: var(--color-accent-deep);
+    color: var(--color-ink);
     border-radius: var(--radius-sm);
     padding: 0.1em 0.32em;
     font-variant-ligatures: none; /* §4.5: off in mono */
