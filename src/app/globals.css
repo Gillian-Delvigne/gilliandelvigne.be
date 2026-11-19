@@ -153,7 +153,7 @@
     --height-dialog-full: min(46rem, 92vh);
     --diagram-zoom: 2;
     --gutter: 1.5rem;
-	--gutter-dialog: 0.5rem;
+    --gutter-dialog: 0.5rem;
 
     /* ---- Alpha borders: they sit on any surface ---- */
     --line: rgb(255 255 255 / 0.14);
@@ -217,6 +217,21 @@
     --private-shadow: 0 0 transparent;
     --archived-shadow: 0 0 transparent;
 
+    /* ---- Code theme (charte §2.8): Shiki reads these through createCssVariablesTheme ---- */
+    --code-foreground: var(--color-ink);
+    --code-background: transparent;
+    --code-token-keyword: var(--color-brand);
+    --code-token-function: #8cc4ff; /* brand lightened */
+    --code-token-string: var(--color-warm);
+    --code-token-string-expression: var(--color-warm);
+    --code-token-constant: var(--color-warm);
+    --code-token-parameter: var(--color-ink);
+    --code-token-punctuation: var(--color-dim);
+    --code-token-comment: #949fb4;
+    --code-token-link: var(--color-brand);
+    --code-line-number: rgb(255 255 255 / 0.5);
+    --code-plate: var(--sunk);
+
     /* ---- Durations ---- */
     --dur-micro: 200ms;
     --dur-pivot: 240ms;
@@ -248,7 +263,7 @@
 @media (min-width: 48rem) {
     :root {
         --gutter: 2.5rem;
-		--gutter-dialog: var(--gutter);
+        --gutter-dialog: var(--gutter);
     }
 }
 @media (min-width: 75rem) {
@@ -902,23 +917,31 @@ body {
 
 /* ── Code plate, charte §9.5 ──────────────────────────────────────────── */
 :where(.prose) figure[data-rehype-pretty-code-figure] {
-    border: 0;
+    border: 1px solid var(--line);
     padding: 0;
     overflow: hidden; /* so the radius clips the plate */
-    background: var(--color-ink-panel);
+    background: var(--code-plate);
     border-radius: var(--radius-card);
+    box-shadow: var(--lit);
 }
 
 :where(.prose) figcaption[data-rehype-pretty-code-title] {
+    display: flex;
+    justify-content: space-between;
     margin: 0;
     padding: 0.5em 1.25em;
-    border-bottom: 1px solid
-        color-mix(in srgb, var(--color-gilt) 60%, transparent);
+    border-bottom: 1px solid var(--line-soft);
+    color: var(--color-ink);
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: var(--text-xs);
-    color: var(--color-gilt); /* §9.5: 5.2:1 on the plate */
     -webkit-hyphens: none;
     hyphens: none;
+}
+
+:where(.prose) figcaption[data-rehype-pretty-code-title]::after {
+    content: attr(data-language);
+    color: var(--color-dim);
+    text-transform: uppercase;
 }
 
 :where(.prose) figure[data-rehype-pretty-code-figure] pre {
@@ -926,7 +949,7 @@ body {
     min-width: 0; /* grid/flex item: let overflow beat the content-based min */
     margin: 0;
     padding: 1em 0;
-    color: var(--color-parchment);
+    color: var(--code-foreground);
     font-family: var(--font-mono), ui-monospace, monospace;
     font-size: var(--text-sm);
     line-height: var(--leading-body);
@@ -935,14 +958,14 @@ body {
     -webkit-hyphens: none;
     hyphens: none;
     /* scrollbar on the dark plate, not the parchment one */
-    scrollbar-color: color-mix(in srgb, var(--color-parchment) 35%, transparent)
-        transparent;
+    scrollbar-color: var(--line), transparent;
 }
 
 /* shiki lays each line out as a grid row; padding goes on the line so the
    highlight band can span the full width later (T-047). */
 :where(.prose) figure[data-rehype-pretty-code-figure] [data-line] {
     padding: 0 1.25em;
+    color: var(--code-line-number);
 }
 
 /* Line numbers, charte §9.5. rehype-pretty-code emits the data attributes;
