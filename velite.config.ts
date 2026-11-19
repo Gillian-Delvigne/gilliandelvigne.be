@@ -10,6 +10,7 @@ import * as fs from "fs";
 import * as path from "path";
 import messages from "./messages/fr.json";
 import { diagrams } from "./src/diagrams/generated";
+import { codeTheme } from "@/lib/code-theme";
 
 type ProjectCategory = keyof typeof messages.Projects.categories;
 
@@ -126,7 +127,7 @@ export default defineConfig({
         rehypePlugins: [
             rehypeSlug,
             rehypeAutolinkHeadings,
-            [rehypePrettyCode, { theme: "night-owl", keepBackground: false }],
+            [rehypePrettyCode, { theme: codeTheme, keepBackground: false }],
         ],
     },
     collections: {
