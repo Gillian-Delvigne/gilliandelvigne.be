@@ -5,6 +5,14 @@ dek: An address is not a value, everything follows from that.
 translationKey: pointers-in-c
 date: 2025-03-06
 tags: [pointers, memory]
+snippet:
+  file: pointers.c
+  lang: c
+  code: |
+    // an address is not a value: everything starts there
+    char  c   = 'a';
+    char *ptr = &c;
+    *ptr = 'b';
 ---
 
 When I began learning C programming, I quickly ran into a core concept of the language that was among the hardest for me to grasp. As you’ve probably guessed from this article’s title, that concept is the pointer.

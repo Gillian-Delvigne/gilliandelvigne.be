@@ -146,6 +146,21 @@ export default defineConfig({
                     path: s.path(),
                     excerpt: s.excerpt(),
                     metadata: s.metadata(),
+                    snippet: s.object({
+                        file: s.string().max(40),
+                        lang: s.string().max(20),
+                        code: s.string().refine((code) => {
+                            const lines = code.split("\n").slice(0, -1);
+                            const openWithComment = /^\s*(\/\/|#|--)/.test(
+                                lines[0],
+                            );
+                            return (
+                                lines.length >= 2 &&
+                                lines.length <= 5 &&
+                                openWithComment
+                            );
+                        }, "snippet: 2 to 5 lines, the first one a comment"),
+                    }),
                     toc: s.toc(),
                     content: s.mdx(),
                 })

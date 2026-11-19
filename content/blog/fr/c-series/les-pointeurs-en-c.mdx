@@ -5,6 +5,14 @@ dek: "Une adresse n'est pas une valeur : tout part de là."
 translationKey: pointers-in-c
 date: 2025-03-06
 tags: [pointeurs, mémoire]
+snippet:
+  file: pointers.c
+  lang: c
+  code: |
+    // une adresse n'est pas une valeur : tout part de là
+    char  c   = 'a';
+    char *ptr = &c;
+    *ptr = 'b';
 ---
 
 ## Une adresse, pas une valeur
