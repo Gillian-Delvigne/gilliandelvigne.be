@@ -5,6 +5,14 @@ dek: An address is not a value, everything follows from that.
 translationKey: pointers-in-c
 date: 2025-03-06
 tags: [pointers, memory]
+snippet:
+  file: pointers.c
+  lang: c
+  code: |
+    // an address is not a value: everything starts there
+    char  c   = 'a';
+    char *ptr = &c;
+    *ptr = 'b';
 ---
 
 When I began learning C programming, I quickly ran into a core concept of the language that was among the hardest for me to grasp. As you’ve probably guessed from this article’s title, that concept is the pointer.
@@ -48,14 +56,14 @@ We’ve seen that memory slots are numbered sequentially (from 0 up to the size 
 
 | Binary | Hex |
 | --- | --- |
-| 00000000 | 0x1000 |
-| 00000001 | 0x1001 |
-| 00000010 | 0x1002 |
-| 00000011 | 0x1003 |
+| 00000000 | 0x00 |
+| 00000001 | 0x01 |
+| 00000010 | 0x02 |
+| 00000011 | 0x03 |
 | … | … |
-| 0110110101100101101001110011 | 0x6D65a73 |
+| 0110110101100101101001110011 | 0x6D65A73 |
 
-Below are three contiguous memory locations (bytes) identified by their hexadecimal addresses, each holding an ASCII value ('0', '1', '2). This would correspond to three values assigned to three variables declared in code. For us humans, these memory locations are accessed through the names given to the variables when they are declared: here, x, y, and z.
+Below are three contiguous memory locations (bytes) identified by their hexadecimal addresses, each holding an ASCII value ('0', '1', '2'). This would correspond to three values assigned to three variables declared in code. For us humans, these memory locations are accessed through the names given to the variables when they are declared: here, x, y, and z.
 
 ```c showLineNumbers title="example.c"
 char x = '0';
@@ -68,7 +76,7 @@ By analogy, you can think of each byte as a set of 8 lights that turn on and off
 
 If characters are stored in a single byte, other data types require more space. In a single byte, for instance, you can only store numbers from 0 to 255. _Integers_, therefore, are typically stored in 4 bytes (32 bits) on most modern systems. For a full list of other C data types and their sizes on your platform, see the [documentation](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Data-Types).
 
-## How a pointer works?
+## How a pointer works
 
 With all that in mind, let’s get back to our main topic. Technically speaking, a pointer is a variable like any other:
 
@@ -102,7 +110,6 @@ To work with pointers in C, remember three key ideas:
 
 ```c showLineNumbers title="main.c"
 #include <stdio.h>
-#include <unistd.h>
 
 int main(void)
 {
@@ -137,11 +144,11 @@ Since a pointer can access the value of the variable it points to, it can, as al
 
 ```c showLineNumbers title="example.c"
 int nb = 42;
-int *ptr = nb;
+int *ptr = &nb;
 
-*ptr + 1  // now nb is incremented by one : 43
-(*ptr)++  // again
-++*ptr    // and again
+*ptr = *ptr + 1;  // nb is now 43
+(*ptr)++;         // then 44
+++*ptr;           // then 45
 ```
 
 ### Notes
@@ -149,7 +156,7 @@ int *ptr = nb;
 - NULL denotes a null pointer (remember to include stddef.h or stdio.h, etc., as appropriate).
 - Type compatibility matters: the pointer type must match the type of the pointed object. That way, you tell the compiler how to interpret the value stored at that address.
 - Never dereference an uninitialized or NULL pointer: this leads to undefined behavior.
-- When working with pointers, it’s sometimes necessary to add parentheses to avoid modifying the pointer itself due to operator precedence and associativity. Example: (\*ptr)++ -> dereference first, then decrement.
+- When working with pointers, it’s sometimes necessary to add parentheses to avoid modifying the pointer itself due to operator precedence and associativity. Example: (\*ptr)++ dereferences first, then increments the pointed value; without parentheses, \*ptr++ would increment the pointer.
 
 ## What are pointers useful for?
 
@@ -226,21 +233,24 @@ Another advantage of pointers is their ability to perform arithmetic on memory a
 Below, the two methods are equivalent.
 
 ```c showLineNumbers title="main.c"
-int main() 
+#include <stdio.h>
+
+int main(void)
 {
-    
-	int a = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    int a[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    size_t n = sizeof a / sizeof a[0];
 
-	for (size_t i = 0; i < n; ++i) {
-		printf("%d ", a[i]);        // a[i] == *(a + i)
-	}
+    for (size_t i = 0; i < n; ++i) {
+        printf("%d ", a[i]);        // a[i] == *(a + i)
+    }
 
-	for (size_t i = 0; i < n; ++i) {
-		printf("%d ", *(a + i));    // equivalent to a[i]
-	}
+    for (size_t i = 0; i < n; ++i) {
+        printf("%d ", *(a + i));    // equivalent to a[i]
+    }
 }
-
 ```
+
+Both forms are strictly equivalent: in C, a[i] is defined as \*(a + i), and the compiler produces the same code for each.
 
 This arithmetic is why it is essential to maintain type consistency between the pointer and the value it points to. The pointer’s type determines the size of the “step” in the arithmetic and how the bytes are interpreted. A type mismatch can lead to incorrect reads and undefined behavior.
 It is also crucial to respect the bounds of the data structures being manipulated during this kind of operation in order to avoid overflows and segmentation faults.

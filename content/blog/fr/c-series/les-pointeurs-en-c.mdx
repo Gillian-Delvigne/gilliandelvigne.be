@@ -5,14 +5,249 @@ dek: "Une adresse n'est pas une valeur : tout part de là."
 translationKey: pointers-in-c
 date: 2025-03-06
 tags: [pointeurs, mémoire]
+snippet:
+  file: pointers.c
+  lang: c
+  code: |
+    // une adresse n'est pas une valeur : tout part de là
+    char  c   = 'a';
+    char *ptr = &c;
+    *ptr = 'b';
 ---
 
-## Une adresse, pas une valeur
+Lorsque j'ai débuté mon apprentissage de la programmation en C, j'ai très vite été confronté à une notion critique du langage qui fut pour moi l'une des plus difficiles à appréhender. Cette notion, vous l'aurez compris au regard du titre de cet article, est celle de _pointeur_.
 
-Un pointeur est une variable comme une autre. Ce qu'elle contient se trouve
-être l'adresse d'une autre case.
+Cette difficulté initiale, partagée par bon nombre d'apprentis développeurs que j'ai rencontrés, s'explique sans doute par le fait que les pointeurs touchent au fonctionnement profond de l'ordinateur (manipulation de sa mémoire) et qu'ils complexifient par conséquent le développement des programmes informatiques. L'existence des pointeurs confère également au développeur une responsabilité quant à la fiabilité et la rigueur du code qu'il produit.
 
-```c
-int  n = 42;
-int *p = &n;
+Ma compréhension du fonctionnement des pointeurs s'est élaborée progressivement, en les manipulant dans des projets toujours plus complexes, mais également en synthétisant de façon plus théorique leur raison d'être, leur intérêt et leur portée en programmation informatique.
+
+C'est de cet effort de synthèse qu'est né cet article, dans l'objectif d'aider les débutants qui, comme moi, éprouvent le besoin d'asseoir leurs connaissances sur une base solide.
+
+## Qu'est-ce qu'un pointeur ?
+
+Concrètement, la définition la plus élémentaire que l'on puisse trouver sur cet objet est la suivante : un pointeur est une variable qui **stocke l'adresse mémoire** d'une autre variable. Il _pointe_ **vers la localisation de la variable dans la mémoire**.
+
+Cette définition paraît simple, mais est-elle vraiment intelligible pour quelqu'un qui n'a qu'une vague idée du fonctionnement profond d'un ordinateur ? Afin de bien comprendre les pointeurs, il est utile de faire un bref détour par ce fonctionnement en vue de mieux percevoir le rôle et l'organisation de la mémoire qui le compose.
+
+## L'architecture de von Neumann
+
+En 1945, John von Neumann a jeté les bases de l'informatique moderne en décrivant une architecture inspirée des travaux d'Alan Turing. Ce modèle, toujours d'actualité, divise un ordinateur en quatre composants essentiels :
+
+1. Unité arithmétique et logique (_Arithmetic Logic Unit_, ALU) – Responsable des calculs et des opérations logiques. Elle fonctionne avec des registres et fait partie du processeur (CPU), qui inclut aussi l'unité de contrôle.
+2. Unité de contrôle (_Control Unit_, CU) – Elle orchestre l'exécution des instructions : elle récupère les données en mémoire, envoie celles destinées aux calculs à l'ALU et gère le flux d'instructions.
+3. Mémoire principale (RAM) – Stocke temporairement les instructions du programme et les données manipulées par le processeur. Chaque emplacement possède **une adresse unique**.
+4. Entrée/Sortie (_Input/Output_, I/O) – Interface avec le monde extérieur, comprenant clavier, souris, écran, disque dur, réseau, etc. Ces échanges passent souvent par des contrôleurs d'E/S.
+
+## La structure de la mémoire (RAM)
+
+Bien sûr, la partie qui nous intéresse ici est la mémoire (RAM). Comme évoqué, la mémoire d'un ordinateur est construite comme une suite de cellules (cases), chacune identifiée par une adresse unique et séquentielle. Ces cellules peuvent être accédées une par une ou par blocs adjacents. Chaque case a la capacité d'un octet. Un octet est, comme son nom l'indique, lui-même composé de huit (sous-)emplacements appelés bits (de l'anglais _binary digits_) ; en effet, chaque bit ne peut comporter qu'une valeur binaire (0 ou 1). Un bit est donc la plus petite unité de mesure d'information numérique, dont le 0 et le 1 miment le fonctionnement électronique sous-jacent (absence ou présence de courant dans le transistor).
+
+### Mais pourquoi un octet comporte-t-il huit bits ?
+
+Un octet est composé de **8 bits**, car 8 est un multiple pratique pour représenter des valeurs en **binaire** (une puissance de 2 : 2^3 = 8). Avec huit emplacements, on peut produire 256 combinaisons différentes de 0 et de 1. Cela suffisait, aux prémices de l'informatique, pour stocker **256 valeurs différentes (de 0 à 255)**, soit l'ensemble **des caractères ASCII** : les lettres de l'alphabet latin, les chiffres, les signes de ponctuation et quelques autres caractères. La table complète est [ici](https://www.ascii-code.com/).
+
+Un **octet** est donc historiquement la plus petite unité adressable de mémoire. Cela signifie que chaque **adresse mémoire** dans un ordinateur fait référence à **un octet entier** et non à un bit individuel.
+
+### La numérotation des cases mémoire
+
+Nous avons vu que les cases mémoire étaient numérotées de manière séquentielle (de 0 à la taille de la RAM). Elles le sont en binaire pur, mais elles nous apparaissent en hexadécimal pour plus de lisibilité :
+
+| Binaire | Hexadécimal |
+| --- | --- |
+| 00000000 | 0x00 |
+| 00000001 | 0x01 |
+| 00000010 | 0x02 |
+| 00000011 | 0x03 |
+| … | … |
+| 0110110101100101101001110011 | 0x6D65A73 |
+
+Ci-dessous, trois emplacements mémoire (octets) contigus, chacun contenant une valeur ASCII ('0', '1', '2'), ce qui correspondrait à trois valeurs assignées à trois variables déclarées dans le code. Pour nous, humains, ces emplacements en mémoire seront accessibles par les noms donnés à ces variables lors de leur déclaration : ici x, y et z.
+
+```c showLineNumbers title="example.c"
+char x = '0';
+char y = '1';
+char z = '2';
 ```
+
+Par métaphore, on peut concevoir chaque octet comme un jeu de 8 lumières, qui s'allument et s'éteignent pour représenter une valeur. Dans la table ASCII, le _caractère_ '0' occupe la position 48 (en décimal), soit 00110000 en binaire. En C, _char_ est un type entier (_integer_) d'un octet, capable de contenir ce code ASCII.
+
+Si les caractères sont stockés dans un seul octet, d'autres types de données nécessitent davantage d'espace. En effet, dans un octet, on ne pourrait stocker que les nombres de 0 à 255, par exemple. Les nombres entiers, de type _int_, sont donc stockés dans 4 octets (32 bits) sur la plupart des systèmes actuels. La liste des autres types du C et de leur taille se trouve dans la [documentation](https://www.gnu.org/software/gnu-c-manual/gnu-c-manual.html#Data-Types).
+
+## Le fonctionnement du pointeur
+
+Tout cela posé, revenons à notre sujet. Techniquement parlant, **le pointeur est une variable comme les autres** :
+
+- il occupe de l'espace en mémoire ;
+- il dispose de sa propre adresse (celle de la case dans laquelle il est stocké) ;
+- il stocke une valeur, celle-ci ayant la particularité d'être l'adresse d'une autre case mémoire, et non une valeur définie dans une variable classique par le développeur.
+
+La place occupée par un pointeur en mémoire dépend du système et de son architecture, mais elle s'étend sur plusieurs octets (plusieurs cellules) : 4 octets sur un système 32 bits et 8 octets sur un système 64 bits.
+
+Ci-dessous, le schéma montre le fonctionnement d'un pointeur sur un système 32 bits, petit-boutiste (_little-endian_). L'adresse du caractère 'a' (0x1000) est stockée dans le pointeur _ptr_ sur 4 octets.
+
+## Comment déclarer un pointeur et accéder à la valeur pointée ?
+
+Pour utiliser des pointeurs en C, retenez trois idées clés :
+
+1. Déclarer (et, si possible, initialiser)
+
+    On déclare un pointeur avec le type suivi d'un astérisque (\*) placé devant le nom de la variable. Bon réflexe : toujours initialiser un pointeur. À défaut d'une adresse valide, utilisez NULL.
+
+2. Obtenir une adresse : l'opérateur & (adresse de)
+
+    Placez & devant le nom d'une variable pour obtenir son adresse mémoire.
+
+3. Accéder à l'objet pointé : l'opérateur \* (déréférencement)
+
+    Cet astérisque, utilisé pour la déclaration, **est aussi un opérateur unaire d'indirection, ou de déréférencement**. Si on applique cet opérateur au pointeur par la suite, on peut accéder à l'objet vers lequel il pointe, c'est-à-dire à la valeur de la variable pointée, et la modifier.
+
+### Exemple complet
+
+```c showLineNumbers title="main.c"
+#include <stdio.h>
+
+int main(void)
+{
+  char *ptr = NULL; // initialise le pointeur avec la valeur de pointeur nul
+  char c = 'a';
+  ptr = &c;         // stocke l'adresse de c dans ptr
+
+  printf("mon caractère : %c\n", c);
+  // affiche -> mon caractère : a
+
+  printf("l'adresse stockée dans le pointeur : %p\n", (void *)ptr);
+  // affiche par exemple -> l'adresse stockée dans le pointeur : 0x16ddbf2b8
+  // (l'adresse exacte varie d'une exécution à l'autre)
+
+  printf("la valeur pointée : %c\n", *ptr);
+  // affiche -> la valeur pointée : a
+
+  *ptr = 'b';       // écrire à travers le pointeur modifie *ptr, donc c
+
+  printf("la valeur pointée : %c\n", *ptr);
+  // affiche -> la valeur pointée : b
+  printf("mon caractère : %c\n", c);
+  // affiche -> mon caractère : b
+
+  return 0;
+}
+```
+
+### Déréférencement et modification de valeur
+
+Puisqu'un pointeur peut accéder à la valeur de la variable vers laquelle il pointe, il peut, comme on l'a déjà esquissé ci-dessus, la modifier. Les opérateurs unaires d'adresse (&) et de déréférencement (\*) ont en effet une priorité plus élevée que les opérateurs arithmétiques.
+
+```c showLineNumbers title="example.c"
+int nb = 42;
+int *ptr = &nb;
+
+*ptr = *ptr + 1;  // nb vaut maintenant 43
+(*ptr)++;         // puis 44
+++*ptr;           // puis 45
+```
+
+### Remarques
+
+- NULL désigne un pointeur nul (pensez à inclure stddef.h ou stdio.h, etc., selon le contexte).
+- La compatibilité des types compte : le type du pointeur doit correspondre au type de l'objet pointé. C'est ainsi que l'on indique au compilateur comment interpréter la valeur stockée à cette adresse.
+- Ne déréférencez jamais un pointeur non initialisé ou NULL : cela entraîne un comportement indéfini.
+- Quand on manipule des pointeurs, il est parfois nécessaire d'ajouter des parenthèses afin d'éviter de modifier le pointeur lui-même, en raison de la priorité des opérateurs et de leur associativité. Exemple : (\*ptr)++ déréférence d'abord, puis incrémente la valeur pointée ; sans parenthèses, \*ptr++ incrémenterait le pointeur.
+
+## Quelle est l'utilité des pointeurs ?
+
+Jusqu'ici, nous avons décrit le comportement assez bas niveau d'un ordinateur pour illustrer le fonctionnement du pointeur, et nous avons décrit sa syntaxe. Cependant, nous n'avons pas encore explicité leur raison d'être et les problèmes qu'ils résolvent. Il est grand temps de remédier à cela.
+
+### Passage par référence _vs_ par valeur
+
+En C, tous les paramètres sont passés par valeur, mais il est possible de simuler un passage par référence avec des pointeurs.
+
+#### 1. Passage par valeur
+
+Lorsqu'une fonction prend un paramètre, elle reçoit une **copie** de sa valeur. Les modifications au sein de la fonction n'ont aucun effet sur l'original, car les variables sont locales à la fonction.
+
+```c showLineNumbers title="example.c"
+void func(int x) {
+    x = 100;  // modifie seulement la copie locale
+}
+
+int main(void) {
+    int a = 5;
+    func(a);
+    // a vaut toujours 5 !
+}
+```
+
+#### 2. Passage « par référence » (avec un pointeur)
+
+Lorsque l'on passe un pointeur en paramètre d'une fonction, on passe l'adresse de la variable (par valeur, elle aussi). La fonction reçoit donc une copie de l'adresse, mais celle-ci donne accès à la valeur initiale par déréférencement.
+
+```c showLineNumbers title="example.c"
+void func(int *x) {
+    *x = 100;  // modifie la valeur à l'adresse x
+}
+
+int main(void) {
+    int a = 5;
+    func(&a);  // passe l'adresse de a
+    // a vaut maintenant 100 !
+}
+```
+
+Lorsqu'on passe un objet (une structure) **par valeur** en C, le compilateur doit en copier tous les octets. Avec un **pointeur**, on transmet seulement une adresse (souvent 8 octets en x86_64), ce qui évite la copie et permet un accès direct aux données d'origine. Les principales raisons de performance :
+
+- pas de copie de blocs potentiellement volumineux (structures, tableaux intégrés, champs alignés) ;
+- moins de pression sur la bande passante mémoire et le cache du processeur (moins d'octets à déplacer) ;
+- des appels de fonction plus légers (on passe une adresse au lieu d'un grand objet) ;
+- un accès en place : la fonction lit et écrit directement dans l'objet initial.
+
+### Stocker une valeur au lieu de la retourner
+
+Quand une fonction doit à la fois produire un « résultat principal » et signaler un état (succès, erreur, fin de flux, nombre d'éléments lus, etc.), on stocke le résultat via un paramètre passé par adresse (un pointeur). Ainsi, la valeur de retour reste disponible pour coder le statut ou des métainformations.
+
+```c showLineNumbers title="example.c"
+#include <stdbool.h>
+#include <limits.h>
+
+// Renvoie true ou false pour le statut ; écrit le résultat via un pointeur.
+bool compute_sum(int a, int b, int *out_sum) {
+    if (!out_sum) return false;      // erreur d'usage
+    long tmp = (long)a + (long)b;    // par exemple, vérification du dépassement
+    if (tmp < INT_MIN || tmp > INT_MAX) return false;
+    *out_sum = (int)tmp;             // résultat « stocké » via le pointeur
+    return true;                     // statut de réussite
+}
+```
+
+Dans cette fonction, la valeur de retour sert au statut ; le résultat attendu est écrit à l'adresse fournie en paramètre.
+
+Un certain nombre de fonctions de la bibliothèque standard du C exploitent ce schéma, comme scanf, read, etc.
+
+### L'arithmétique des pointeurs
+
+Un autre avantage des pointeurs est la possibilité d'effectuer des calculs sur des adresses mémoire, en vue d'itérer sur des structures de données (comme les tableaux, par exemple) et d'accéder à leurs valeurs.
+
+Ci-dessous, les deux méthodes sont équivalentes.
+
+```c showLineNumbers title="main.c"
+#include <stdio.h>
+
+int main(void)
+{
+    int a[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    size_t n = sizeof a / sizeof a[0];
+
+    for (size_t i = 0; i < n; ++i) {
+        printf("%d ", a[i]);        // a[i] == *(a + i)
+    }
+
+    for (size_t i = 0; i < n; ++i) {
+        printf("%d ", *(a + i));    // équivalent à a[i]
+    }
+}
+```
+
+Ces deux écritures sont strictement équivalentes : en C, a[i] est défini comme \*(a + i), et le compilateur produit le même code pour l'une et l'autre.
+
+Cette arithmétique explique pourquoi il est primordial de respecter la concordance de type entre le pointeur et la valeur qu'il pointe. Le type du pointeur détermine la taille du « pas » lors de l'arithmétique, et la façon dont les octets sont interprétés. Une discordance de type peut conduire à des lectures incorrectes et à un comportement indéfini.
+
+Il est également capital de respecter les limites des structures de données manipulées lors de ce type d'opérations, afin d'éviter les débordements et les erreurs de segmentation.
