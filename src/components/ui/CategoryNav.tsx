@@ -15,7 +15,8 @@ interface CategoryNavProps {
 const CHIP =
     "inline-flex min-h-9 items-center gap-2.5 rounded-md border border-(--line) px-3 py-1.5 text-sm text-dim " +
     "transition-colors duration-(--dur-micro) hover:text-ink " +
-    "aria-[current=page]:border-(--brand-border) aria-[current=page]:bg-(--brand-surface) aria-[current=page]:text-brand";
+    "aria-[current=page]:border-(--brand-border) aria-[current=page]:bg-(--brand-surface) aria-[current=page]:text-brand " +
+    "pointer-coarse:min-h-(--size-target)";
 
 export const CategoryNav = async ({ locale, current }: CategoryNavProps) => {
     const t = await getTranslations("Blog");
