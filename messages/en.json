@@ -225,5 +225,13 @@
 		"wip": "in progress",
 		"private": "private",
 		"archived": "archived"
+	},
+	"Post": {
+		"readingTime": "{minutes, plural, one {# minute} other {# minutes}}"
+	},
+	"Blog": {
+		"categories": "Blog categories",
+		"all": "All",
+		"count": "{count, plural, one {# post} other {# posts}}"
 	}
 }
