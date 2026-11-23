@@ -6,7 +6,7 @@
 	"Nav": {
 		"home": {
 			"label": "Home",
-			"dek": "Learning engineer and full-stack developer: {careerYears, plural, one {# year} other {# years}} of experience, more than 10 of them designing and running courses, simulations and serious games, and {devYears} in development. I have been coding since my teens, self-taught, and professionally since 2021."
+			"dek": "Learning engineer and full-stack developer: {careerYears, plural, one {# year} other {# years}} of experience, more than 10 of them designing courses, simulations and serious games, and {devYears} in development."
 		},
 		"about": {
 			"label": "About",
@@ -50,8 +50,8 @@
 			"title": "Learning design",
 			"items": [
 				{
-					"title": "UNamur and Van In/De Boeck",
-					"body": "From 2011, teaching advisor and assistant at UNamur, then editorial assistant and ICT manager at Van In/De Boeck until 2017, where development became part of my job, with digital textbooks and dedicated learning platforms (LMS)."
+					"title": "UNamur, publishing and Van In/De Boeck",
+					"body": "From 2011, teaching advisor and assistant at UNamur, then editorial assistant (Murmure des soirs, Anthémis, a legal publisher). From 2014 to 2017, ICT editorial assistant at Van In/De Boeck, working on both print and digital projects: that is where development became part of my job, with digital textbooks and dedicated learning platforms (LMS). Alongside, digital content for Éditions Érasme as a freelancer."
 				},
 				{
 					"title": "Belgian Red Cross",
