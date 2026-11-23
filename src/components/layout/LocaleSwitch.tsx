@@ -15,7 +15,8 @@ const labels: Record<Locale, string> = {
 const ITEM =
     "flex min-h-7 min-w-9 items-center justify-center rounded-md border border-transparent px-2.5 " +
     "text-dim transition-colors duration-(--dur-micro) " +
-    "aria-[current=true]:border-(--brand-border) aria-[current=true]:bg-(--brand-surface) aria-[current=true]:text-brand";
+    "aria-[current=true]:border-(--brand-border) aria-[current=true]:bg-(--brand-surface) aria-[current=true]:text-brand " +
+    "pointer-coarse:min-h-(--size-target) pointer-coarse:min-w-(--size-target)";
 
 export const LocaleSwitch = ({ className }: { className?: string }) => {
     const params = useParams();

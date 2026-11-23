@@ -36,7 +36,7 @@ interface AsLink
 type BtnProps = AsButton | AsLink;
 
 const BASE =
-    "inline-flex cursor-pointer items-center gap-2 rounded-md border border-transparent px-4 py-2.25 text-sm font-medium transition-colors duration-(--dur-micro) aria-disabled:cursor-default aria-disabled:opacity-55 not-aria-disabled:active:translate-y-px";
+    "inline-flex cursor-pointer items-center gap-2 rounded-md border border-transparent px-4 py-2.25 text-sm font-medium transition-colors duration-(--dur-micro) aria-disabled:cursor-default aria-disabled:opacity-55 not-aria-disabled:active:translate-y-px pointer-coarse:min-h-(--size-target)";
 
 const VARIANTS: Record<Variant, string> = {
     primary: "bg-ink text-bg hover:bg-ink/90",
