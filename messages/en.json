@@ -227,7 +227,7 @@
 		"archived": "archived"
 	},
 	"Post": {
-		"readingTime": "{minutes, plural, one {# minute} other {# minutes}}"
+		"readingTime": "{minutes, plural, one {# minute read} other {# minutes read}}"
 	},
 	"Blog": {
 		"categories": "Blog categories",
