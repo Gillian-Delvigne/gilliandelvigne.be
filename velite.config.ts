@@ -3,7 +3,7 @@ import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
-import type { Post } from "./.velite";
+import type { Post, Project } from "./.velite";
 import { isLocale, LOCALES, DEFAULT_LOCALE } from "./src/content/locales";
 import type { Locale } from "./src/content/locales";
 import * as fs from "fs";
@@ -11,6 +11,7 @@ import * as path from "path";
 import messages from "./messages/fr.json";
 import { diagrams } from "./src/diagrams/generated";
 import { codeTheme } from "@/lib/code-theme";
+import { STAGES, Step } from "@/data/timeline";
 
 type ProjectCategory = keyof typeof messages.Projects.categories;
 
@@ -18,6 +19,7 @@ const PROJECT_CATEGORIES = Object.keys(messages.Projects.categories) as [
     ProjectCategory,
     ...ProjectCategory[],
 ];
+const PROJECT_STAGES = Object.keys(STAGES) as [Step, ...Step[]];
 const DIAGRAM_NAMES = Object.keys(diagrams);
 const BLOG_SEGMENTS = 4;
 const DEFAULT_SEGMENTS = 3;
@@ -110,6 +112,42 @@ const checkTranslationKeysValidity = <
             if (!byLocale[DEFAULT_LOCALE].includes(key))
                 errors.push(
                     `${key} is present in ${locale.toUpperCase()} but its equivalent is missing in ${DEFAULT_LOCALE.toUpperCase()}`,
+                );
+        }
+    }
+    return errors;
+};
+
+const checkStagesValidity = <
+    T extends {
+        stages: Step[];
+        locale: Locale;
+        translationKey: Project["translationKey"];
+    },
+>(
+    items: T[],
+) => {
+    const errors: string[] = [];
+    const projectStages = {} as Record<
+        Project["translationKey"],
+        Record<Locale, Step[]>
+    >;
+
+    for (const item of items) {
+        projectStages[item.translationKey] ??= {} as Record<Locale, Step[]>;
+        projectStages[item.translationKey][item.locale] = item.stages;
+    }
+
+    for (const [key, stagesInLocale] of Object.entries(projectStages)) {
+        const stages = Object.entries(stagesInLocale).map(
+            ([locale, stage]) => ({ locale: locale, sets: new Set(stage) }),
+        );
+        for (let i = 0; i < stages.length - 1; i++) {
+            const { locale, sets } = stages[i];
+            const next = stages[i + 1];
+            if (sets.symmetricDifference(next.sets).size)
+                errors.push(
+                    `${key.toUpperCase()} stages are not corresponding: ${locale} = ${Array.from(sets).join(", ")} | ${next.locale} = ${Array.from(next.sets).join(", ")}`,
                 );
         }
     }
@@ -262,6 +300,7 @@ export default defineConfig({
                                 .optional(),
                         })
                         .optional(),
+                    stages: s.array(s.enum(PROJECT_STAGES)).nonempty(),
                     order: s.number().default(0),
                     ref: s.string().optional(),
                     path: s.path(),
@@ -335,6 +374,8 @@ export default defineConfig({
             checkTranslationKeysValidity(safeProjects);
         if (translationKeysProjectErrors.length)
             errors.push(...translationKeysProjectErrors);
+        const stagesProjectErrors = checkStagesValidity(safeProjects);
+        if (stagesProjectErrors.length) errors.push(...stagesProjectErrors);
         const translationKeysCategoryErrors =
             checkTranslationKeysValidity(safeCategories);
         if (translationKeysCategoryErrors.length)

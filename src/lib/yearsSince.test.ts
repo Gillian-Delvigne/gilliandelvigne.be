@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { CAREER_START, DEV_START } from "@/data/career";
+import { CAREER_START, DEV_START } from "@/data/timeline";
 import { yearsSince } from "./yearsSince";
 
 describe("YearsSince function", () => {

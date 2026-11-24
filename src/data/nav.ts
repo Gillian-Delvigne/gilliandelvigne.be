@@ -2,7 +2,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { getProjects, isLocale } from "@/content";
 import { NAV } from "./site";
 import type { NavKeys, NavItem } from "@/types/navigation";
-import { CAREER_START, DEV_START } from "@/data/career";
+import { CAREER_START, DEV_START } from "@/data/timeline";
 import { yearsSince } from "@/lib/yearsSince";
 
 interface Years {
