@@ -1,3 +1,5 @@
+import type { Field } from "@/content/fields";
+
 export const CAREER_START = new Date("2011-06-30");
 export const DEV_START = new Date("2021-05-30");
 
@@ -13,7 +15,7 @@ export type Step =
     | "technobel";
 
 interface Stage {
-    field: "pedagogy" | "development";
+    field: Field;
     start: Date;
     end: Date | null;
     training?: boolean;
