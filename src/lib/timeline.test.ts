@@ -1,6 +1,13 @@
 import { getProjects } from "@/content";
 import { describe, expect, test } from "vitest";
-import { toTimelinePoints } from "./timeline";
+import { TURNS, type TurnName } from "@/data/timeline";
+import type { Field } from "@/content/fields";
+import {
+    shouldLightUp,
+    toTimelinePoints,
+    type TimelinePoint,
+} from "./timeline";
+import { yearOf } from "./yearOf";
 
 describe("toTimelinePoints", () => {
     const projects = getProjects("fr");
@@ -41,5 +48,59 @@ describe("toTimelinePoints", () => {
         const before = projects.map((project) => project.slug);
         toTimelinePoints(projects);
         expect(projects.map((project) => project.slug)).toEqual(before);
+    });
+});
+
+describe("shouldLightUp", () => {
+    const today = new Date("2026-11-25");
+    const turn = (name: TurnName) => TURNS.find((t) => t.name === name)!;
+    const pointOn = (date: string, field: Field): TimelinePoint => ({
+        position: yearOf(new Date(date)),
+        field,
+        score: 0,
+        title: "",
+        slug: "",
+        stages: ["freelance"],
+    });
+
+    test("a pedagogy point inside the first turn lights up", () => {
+        expect(
+            shouldLightUp(pointOn("2018-11-01", "pedagogy"), turn("code"), today),
+        ).toBe(true);
+    });
+
+    test("a point inside the period but on another field stays off", () => {
+        expect(
+            shouldLightUp(pointOn("2018-11-01", "development"), turn("code"), today),
+        ).toBe(false);
+    });
+
+    test("a point on the right field but outside the period stays off", () => {
+        expect(
+            shouldLightUp(pointOn("2025-06-01", "development"), turn("both"), today),
+        ).toBe(false);
+    });
+
+    test("a turn without an end lasts until today", () => {
+        expect(
+            shouldLightUp(
+                pointOn("2026-06-01", "development"),
+                turn("fulltime"),
+                today,
+            ),
+        ).toBe(true);
+        expect(
+            shouldLightUp(
+                pointOn("2027-06-01", "development"),
+                turn("fulltime"),
+                today,
+            ),
+        ).toBe(false);
+    });
+
+    test("a point on the shared boundary lights up both turns", () => {
+        const boundary = pointOn("2023-07-01", "development");
+        expect(shouldLightUp(boundary, turn("both"), today)).toBe(true);
+        expect(shouldLightUp(boundary, turn("fulltime"), today)).toBe(true);
     });
 });

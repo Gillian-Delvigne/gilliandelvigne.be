@@ -2,6 +2,7 @@ import type { Field } from "@/content/fields";
 
 export const CAREER_START = new Date("2011-06-30");
 export const DEV_START = new Date("2021-05-30");
+export const PEDAGO_END = new Date("2023-07-01");
 
 export type Step =
     | "education"
@@ -19,6 +20,16 @@ interface Stage {
     start: Date;
     end: Date | null;
     training?: boolean;
+}
+
+export type TurnName = "code" | "both" | "fulltime";
+
+export interface Turn {
+    name: TurnName;
+    fields: Field[];
+    start: Date;
+    end: Date | null;
+    background?: boolean;
 }
 
 export const STAGES: Record<Step, Stage> = {
@@ -46,7 +57,7 @@ export const STAGES: Record<Step, Stage> = {
     "ulb-cpfb": {
         field: "pedagogy",
         start: new Date("2021-01-01"),
-        end: new Date("2023-07-01"),
+        end: PEDAGO_END,
     },
     freelance: {
         field: "development",
@@ -71,3 +82,25 @@ export const STAGES: Record<Step, Stage> = {
         training: true,
     },
 };
+
+export const TURNS: Turn[] = [
+    {
+        name: "code",
+        fields: ["pedagogy"],
+        start: STAGES["van-in"].start,
+        end: STAGES["red-cross"].end,
+    },
+    {
+        name: "both",
+        fields: ["pedagogy", "development"],
+        start: DEV_START,
+        end: STAGES["ulb-cpfb"].end,
+        background: true,
+    },
+    {
+        name: "fulltime",
+        fields: ["development"],
+        start: PEDAGO_END,
+        end: null,
+    },
+];

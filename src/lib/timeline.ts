@@ -3,8 +3,9 @@ import type { ProjectKey } from "../../.velite/project-keys";
 import { Field, FIELD_OF } from "@/content/fields";
 import { yearOf } from "./yearOf";
 import { PROFILES } from "@/content/difficulty";
+import { Turn } from "@/data/timeline";
 
-interface TimelinePoint {
+export interface TimelinePoint {
     position: number; // yearOf project date
     field: Field; // Field in fields (by category)
     score: number; // Calculated from PROFILES
@@ -27,4 +28,16 @@ export const toTimelinePoints = (projects: Project[]): TimelinePoint[] => {
         slug: project.slug,
         stages: project.stages,
     }));
+};
+
+export const shouldLightUp = (
+    point: TimelinePoint,
+    turn: Turn,
+    today: Date = new Date(),
+): boolean => {
+    return (
+        turn.fields.includes(point.field) &&
+        yearOf(turn.start) <= point.position &&
+        point.position <= yearOf(turn.end ?? today)
+    );
 };
