@@ -233,5 +233,69 @@
 		"categories": "Blog categories",
 		"all": "All",
 		"count": "{count, plural, one {# post} other {# posts}}"
+	},
+	"About": {
+		"timeline": {
+			"field": {
+				"pedagogy": {
+					"title": "pedagogy",
+					"subtitle": "{start}-{end} <dot></dot> {years, plural, one {# year} other {# years}}"
+				},
+				"development": {
+					"title": "development",
+					"subtitle": "since {start}"
+				}
+			},
+			"period": "{training, select, true {training, } other {}}{shape, select, range {{start}-{end}} since {since {start}} single {{start}} other {}}",
+			"stages": {
+				"education": {
+					"name": "Languages and literature"
+				},
+				"editorial": {
+					"name": "UNamur and publishing"
+				},
+				"van-in": {
+					"name": "Van In/De Boeck"
+				},
+				"red-cross": {
+					"name": "Red Cross"
+				},
+				"ulb-cpfb": {
+					"name": "ULB and CPFB"
+				},
+				"freelance": {
+					"name": "Freelance"
+				},
+				"42-belgium": {
+					"name": "42 Belgium"
+				},
+				"elausys": {
+					"name": "Elausys"
+				},
+				"technobel": {
+					"name": "Technobel"
+				}
+			},
+			"turns": {
+				"heading": "Three turns",
+				"hint": "choosing a turn lights up its period and its projects",
+				"code": {
+					"title": "Code enters the job",
+					"body": "At Van In/De Boeck and Érasme, I work on digital textbooks and learning platforms (LMS). At the Red Cross, I take charge of some development initiatives. I teach myself to code."
+				},
+				"both": {
+					"title": "A job and a side activity",
+					"body": "I build websites as a freelancer alongside my expertise in learning technology."
+				},
+				"fulltime": {
+					"title": "Programming full time",
+					"body": "42 Belgium, Technobel, Elausys: projects delivered, a practice that deepens."
+				}
+			},
+			"list": {
+				"heading": "The career, step by step"
+			},
+			"point": "difficulty {score} / {max}"
+		}
 	}
 }

@@ -233,5 +233,69 @@
 		"categories": "Catégories du blog",
 		"all": "Tous",
 		"count": "{count, plural, one {# article} other {# articles}}"
+	},
+	"About": {
+		"timeline": {
+			"field": {
+				"pedagogy": {
+					"title": "pédagogie",
+					"subtitle": "{start}-{end} <dot></dot> {years, plural, one {# an} other {# ans}}"
+				},
+				"development": {
+					"title": "développement",
+					"subtitle": "depuis {start}"
+				}
+			},
+			"period": "{training, select, true {formation, } other {}}{shape, select, range {{start}-{end}} since {depuis {start}} single {{start}} other {}}",
+			"stages": {
+				"education": {
+					"name": "Langues et lettres"
+				},
+				"editorial": {
+					"name": "UNamur et édition"
+				},
+				"van-in": {
+					"name": "Van In/De Boeck"
+				},
+				"red-cross": {
+					"name": "Croix-Rouge"
+				},
+				"ulb-cpfb": {
+					"name": "ULB et CPFB"
+				},
+				"freelance": {
+					"name": "Freelance"
+				},
+				"42-belgium": {
+					"name": "42 Belgium"
+				},
+				"elausys": {
+					"name": "Elausys"
+				},
+				"technobel": {
+					"name": "Technobel"
+				}
+			},
+			"turns": {
+				"heading": "Trois virages",
+				"hint": "choisir un virage allume sa période et ses projets",
+				"code": {
+					"title": "Le code entre dans le métier",
+					"body": "Chez Van In/De Boeck et Érasme, je travaille sur les manuels numériques et les plateformes d'apprentissage (LMS). À la Croix-Rouge, je prends à ma charge certaines initiatives de développement. Je code en autodidacte."
+				},
+				"both": {
+					"title": "Un métier et une activité complémentaire",
+					"body": "Je réalise des sites en freelance à côté de mon expertise en techno-pédagogie."
+				},
+				"fulltime": {
+					"title": "La programmation à temps plein",
+					"body": "42 Belgium, Technobel, Elausys : des projets livrés, la pratique s'approfondit."
+				}
+			},
+			"list": {
+				"heading": "Le parcours, étape par étape"
+			},
+			"point": "difficulté {score} / {max}"
+		}
 	}
 }
