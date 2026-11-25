@@ -15,7 +15,7 @@ export type Step =
     | "elausys"
     | "technobel";
 
-interface Stage {
+export interface Stage {
     field: Field;
     start: Date;
     end: Date | null;
@@ -81,7 +81,7 @@ export const STAGES: Record<Step, Stage> = {
         end: new Date("2026-10-31"),
         training: true,
     },
-};
+} as const;
 
 export const TURNS: Turn[] = [
     {

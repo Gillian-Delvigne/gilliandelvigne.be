@@ -3,7 +3,7 @@ import type { ProjectKey } from "../../.velite/project-keys";
 import { Field, FIELD_OF } from "@/content/fields";
 import { yearOf } from "./yearOf";
 import { PROFILES } from "@/content/difficulty";
-import { Turn } from "@/data/timeline";
+import { Turn, Stage } from "@/data/timeline";
 
 export interface TimelinePoint {
     position: number; // yearOf project date
@@ -13,6 +13,8 @@ export interface TimelinePoint {
     slug: Project["slug"]; // from project frontmatter
     stages: Project["stages"]; // from project frontmatter
 }
+
+type Shape = "range" | "since" | "single";
 
 export const toTimelinePoints = (projects: Project[]): TimelinePoint[] => {
     const projectByDate = projects.toSorted((a, b) =>
@@ -40,4 +42,11 @@ export const shouldLightUp = (
         yearOf(turn.start) <= point.position &&
         point.position <= yearOf(turn.end ?? today)
     );
+};
+
+export const shapeOf = (stage: Stage): Shape => {
+    if (stage.end === null) return "since";
+    if (stage.start.getUTCFullYear() === stage.end.getUTCFullYear())
+        return "single";
+    return "range";
 };
