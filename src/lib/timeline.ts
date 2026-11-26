@@ -1,6 +1,6 @@
 import type { Project } from "@/content";
 import type { ProjectKey } from "../../.velite/project-keys";
-import { Field, FIELD_OF } from "@/content/fields";
+import { FIELD_OF, type Field } from "@/content/fields";
 import { yearOf } from "./yearOf";
 import { PROFILES } from "@/content/difficulty";
 import { Turn, Stage, Step } from "@/data/timeline";
@@ -59,7 +59,6 @@ export const periodOf = (
     const filteredStages = Object.values(stages).filter(
         (stage) => stage.field === field,
     );
-
     const ascStages = filteredStages.toSorted(
         (a, b) => a.start.getTime() - b.start.getTime(),
     );
