@@ -40,9 +40,6 @@ export const TimelineView = ({
         },
         (_, index) => index + AXIS_START,
     );
-
-    console.log(ticks);
-
     const getPositionOf = (year: number) => {
         return (
             GUT +
