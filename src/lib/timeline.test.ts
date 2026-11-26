@@ -1,8 +1,15 @@
 import { getProjects } from "@/content";
 import { describe, expect, test } from "vitest";
-import { TURNS, STAGES, type TurnName } from "@/data/timeline";
+import {
+    TURNS,
+    STAGES,
+    DEV_START,
+    PEDAGO_END,
+    type TurnName,
+} from "@/data/timeline";
 import type { Field } from "@/content/fields";
 import {
+    periodOf,
     shapeOf,
     shouldLightUp,
     toTimelinePoints,
@@ -127,5 +134,41 @@ describe("shapeOf", () => {
     });
     test("Technobel", () => {
         expect(shapeOf(STAGES["technobel"])).toBe("single");
+    });
+});
+
+describe("periodOf", () => {
+    const today = new Date("2026-11-26");
+
+    test("the pedagogy line runs from the first start to the last end", () => {
+        expect(periodOf("pedagogy", STAGES, today)).toStrictEqual({
+            start: STAGES.education.start,
+            end: PEDAGO_END,
+        });
+    });
+
+    test("the development line runs until today", () => {
+        expect(periodOf("development", STAGES, today)).toStrictEqual({
+            start: DEV_START,
+            end: today,
+        });
+    });
+
+    test("the order of the stages does not matter", () => {
+        const reversed = Object.fromEntries(
+            Object.entries(STAGES).toReversed(),
+        ) as typeof STAGES;
+        expect(periodOf("pedagogy", reversed, today)).toStrictEqual(
+            periodOf("pedagogy", STAGES, today),
+        );
+        expect(periodOf("development", reversed, today)).toStrictEqual(
+            periodOf("development", STAGES, today),
+        );
+    });
+
+    test("the stages given are left untouched", () => {
+        periodOf("development", STAGES, today);
+        expect(STAGES.freelance.end).toBeNull();
+        expect(STAGES["42-belgium"].end).toBeNull();
     });
 });
