@@ -17,10 +17,7 @@ import {
     GUT,
     PAD,
     LANES,
-    AXIS_HEIGHT,
     AXIS_START,
-    TICK_LENGTH,
-    TICK_LABEL_OFFSET,
     STAGE_PAD,
     TRAINING_ROW_OFFSET,
     TRAINING_ROW_GAP,
@@ -37,6 +34,7 @@ import {
 } from "./layout";
 import { TimelineFieldLabels } from "./TimelineFieldLabels";
 import { TimelinePoints } from "./TimelinePoints";
+import { TimelineAxis } from "./TimelineAxis";
 
 export const TimelineView = ({
     points,
@@ -55,13 +53,6 @@ export const TimelineView = ({
         "development",
         STAGES,
         today,
-    );
-    const axisLast = Math.floor(yearOf(today));
-    const ticks = Array.from(
-        {
-            length: axisLast - AXIS_START + 1,
-        },
-        (_, index) => index + AXIS_START,
     );
     const getPositionOf = (year: number) => {
         return (
@@ -254,33 +245,7 @@ export const TimelineView = ({
                     getPositionOf={getPositionOf}
                 />
 
-                {/* Graduate axis */}
-                <line
-                    x1={getPositionOf(AXIS_START)}
-                    y1={AXIS_HEIGHT}
-                    x2={getPositionOf(yearOf(today))}
-                    y2={AXIS_HEIGHT}
-                    className="stroke-(--line)"
-                />
-                {ticks.map((tick) => (
-                    <g key={tick}>
-                        <line
-                            x1={getPositionOf(tick)}
-                            x2={getPositionOf(tick)}
-                            y1={AXIS_HEIGHT}
-                            y2={AXIS_HEIGHT + TICK_LENGTH}
-                            className="stroke-(--line)"
-                        />
-                        <text
-                            className="fill-dim font-mono text-2xs"
-                            x={getPositionOf(tick)}
-                            y={AXIS_HEIGHT + TICK_LABEL_OFFSET}
-                            textAnchor="middle"
-                        >
-                            {tick}
-                        </text>
-                    </g>
-                ))}
+                <TimelineAxis today={today} getPositionOf={getPositionOf} />
             </svg>
             <div>
                 <p className="mt-7 font-mono font-medium text-2xs tracking-label uppercase text-dim">
