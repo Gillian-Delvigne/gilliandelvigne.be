@@ -35,7 +35,7 @@ export const toTimelinePoints = (projects: Project[]): TimelinePoint[] => {
 export const shouldLightUp = (
     point: TimelinePoint,
     turn: Turn,
-    today: Date = new Date(),
+    today: Date,
 ): boolean => {
     return (
         turn.fields.includes(point.field) &&
@@ -54,7 +54,7 @@ export const shapeOf = (period: Period): Shape => {
 export const periodOf = (
     field: Field,
     stages: Record<Step, Stage>,
-    today: Date = new Date(),
+    today: Date,
 ): { start: Date; end: Date } => {
     const filteredStages = Object.values(stages).filter(
         (stage) => stage.field === field,
@@ -73,7 +73,7 @@ export const periodOf = (
 
 export const messageOf = (
     period: Period & { training?: boolean },
-    today: Date = new Date(),
+    today: Date,
 ): { training: "true" | "false"; shape: Shape; start: number; end: number } => {
     return {
         training: period.training ? "true" : "false",
@@ -86,10 +86,10 @@ export const messageOf = (
 export const overlaps = (
     a: Stage,
     b: Stage,
-    today: Date = new Date(),
+    today: Date,
 ): boolean => a.start < (b.end ?? today) && b.start < (a.end ?? today);
 
-export const rowsOf = (stages: Stage[], today: Date = new Date()): number[] => {
+export const rowsOf = (stages: Stage[], today: Date): number[] => {
     const order = stages
         .map((_, index) => index)
         .toSorted(
