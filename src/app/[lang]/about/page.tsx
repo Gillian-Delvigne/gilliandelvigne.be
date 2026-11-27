@@ -3,7 +3,7 @@ import { isLocale } from "@/content";
 import { getNavItem } from "@/data/nav";
 import getCrumbs from "@/data/crumbs";
 import PageFrame from "@/components/layout/PageFrame";
-import { Timeline } from "@/components/ui/Timeline";
+import { Timeline } from "@/components/ui/timeline/Timeline";
 
 export default async function About({ params }: PageProps<"/[lang]/about">) {
     const { lang } = await params;

@@ -10,7 +10,7 @@ export const Timeline = ({ lang }: { lang: Locale }) => {
     return (
         <>
             <TimelineView points={timelinePoints} today={today} />
-			<section>temp accessible list</section>
+            <section>temp accessible list</section>
         </>
     );
 };
