@@ -3,7 +3,7 @@ import type { ProjectKey } from "../../.velite/project-keys";
 import { FIELD_OF, type Field } from "@/content/fields";
 import { yearOf } from "./yearOf";
 import { PROFILES } from "@/content/difficulty";
-import { Turn, Stage, Step } from "@/data/timeline";
+import { Turn, Stage, Step, Period } from "@/data/timeline";
 
 export interface TimelinePoint {
     position: number; // yearOf project date
@@ -44,9 +44,9 @@ export const shouldLightUp = (
     );
 };
 
-export const shapeOf = (stage: Stage): Shape => {
-    if (stage.end === null) return "since";
-    if (stage.start.getUTCFullYear() === stage.end.getUTCFullYear())
+export const shapeOf = (period: Period): Shape => {
+    if (period.end === null) return "since";
+    if (period.start.getUTCFullYear() === period.end.getUTCFullYear())
         return "single";
     return "range";
 };
@@ -72,14 +72,14 @@ export const periodOf = (
 };
 
 export const messageOf = (
-    stage: Stage,
+    period: Period & { training?: boolean },
     today: Date = new Date(),
 ): { training: "true" | "false"; shape: Shape; start: number; end: number } => {
     return {
-        training: stage.training ? "true" : "false",
-        shape: shapeOf(stage),
-        start: stage.start.getUTCFullYear(),
-        end: (stage.end ?? today).getUTCFullYear(),
+        training: period.training ? "true" : "false",
+        shape: shapeOf(period),
+        start: period.start.getUTCFullYear(),
+        end: (period.end ?? today).getUTCFullYear(),
     };
 };
 

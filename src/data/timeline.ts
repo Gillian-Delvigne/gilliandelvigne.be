@@ -15,11 +15,14 @@ export type Step =
     | "elausys"
     | "technobel";
 
-export interface Stage {
-    field: Field;
+export interface Period {
     start: Date;
     end: Date | null;
-    training?: boolean;
+}
+
+export interface Stage extends Period {
+	training?: boolean;
+    field: Field;
 }
 
 export type TurnName = "code" | "both" | "fulltime";
