@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { STAGES, CAREER_START, type Stage, type Step } from "@/data/timeline";
-import { periodOf, messageOf, overlaps, rowsOf } from "@/lib/timeline";
+import { periodOf, messageOf, rowsOf } from "@/lib/timeline";
 import { yearOf } from "@/lib/yearOf";
 import {
     GUT,
@@ -17,6 +17,7 @@ import {
     GUTTER_PAD,
     GUTTER_NAME_OFFSET,
     GUTTER_PERIOD_OFFSET,
+    LABEL_BOX_HEIGHT,
 } from "./layout";
 
 export const TimelineStages = ({
@@ -76,24 +77,15 @@ export const TimelineStages = ({
             {/* Stages (work experience lines, labels)  */}
             {workExperiences.map(([name, exp]) => {
                 const lane = LANES[exp.field];
-                const isOver = workExperiences.some(
-                    ([, other]) =>
-                        other.field === exp.field &&
-                        other.start < exp.start &&
-                        overlaps(exp, other, today),
-                );
-                const labelX = isOver
-                    ? getPositionOf(yearOf(exp.end ?? today)) - STAGE_PAD
-                    : getPositionOf(yearOf(exp.start)) + STAGE_PAD;
-                const labelAnchor = isOver ? "end" : "start";
+                const x1 = getPositionOf(yearOf(exp.start)) + STAGE_PAD;
+                const x2 = getPositionOf(yearOf(exp.end ?? today)) - STAGE_PAD;
+                const foWidth = x2 - x1;
+
                 return (
                     <g key={name}>
                         <line
-                            x1={getPositionOf(yearOf(exp.start)) + STAGE_PAD}
-                            x2={
-                                getPositionOf(yearOf(exp.end ?? today)) -
-                                STAGE_PAD
-                            }
+                            x1={x1}
+                            x2={x2}
                             y1={lane.y}
                             y2={lane.y}
                             className={lane.stroke}
@@ -101,22 +93,22 @@ export const TimelineStages = ({
                             strokeLinecap="round"
                             opacity={0.5}
                         ></line>
-                        <text
-                            x={labelX}
-                            y={lane.y + lane.stageNameOffset}
-                            textAnchor={labelAnchor}
-                            className="fill-ink font-sans font-medium text-xs"
+                        <foreignObject
+                            x={x1}
+                            y={lane.y + lane.boxOffset}
+                            width={foWidth}
+                            height={LABEL_BOX_HEIGHT}
+                            className="overflow-visible"
                         >
-                            {t(`stages.${name}.name`)}
-                        </text>
-                        <text
-                            x={labelX}
-                            y={lane.y + lane.stagePeriodOffset}
-                            textAnchor={labelAnchor}
-                            className="fill-dim font-mono text-2xs"
-                        >
-                            {t(`period`, messageOf(exp, today))}
-                        </text>
+                            <div className="flex flex-col">
+                                <span className="text-ink font-sans font-medium text-xs leading-title text-balance">
+                                    {t(`stages.${name}.name`)}
+                                </span>
+                                <span className="text-dim font-mono text-2xs leading-ui text-nowrap">
+                                    {t(`period`, messageOf(exp, today))}
+                                </span>
+                            </div>
+                        </foreignObject>
                     </g>
                 );
             })}

@@ -6,29 +6,6 @@ export const TIMELINE_WIDTH = 1080;
 export const TIMELINE_HEIGHT = 320;
 export const GUT = 150;
 export const PAD = 20;
-export interface Lane {
-    y: number;
-    fill: string;
-    stroke: string;
-    stageNameOffset: number;
-    stagePeriodOffset: number;
-}
-export const LANES: Record<Field, Lane> = {
-    pedagogy: {
-        y: 70,
-        fill: "fill-ink",
-        stroke: "stroke-ink",
-        stageNameOffset: -30,
-        stagePeriodOffset: -16,
-    },
-    development: {
-        y: 150,
-        fill: "fill-brand",
-        stroke: "stroke-brand",
-        stageNameOffset: 24,
-        stagePeriodOffset: 38,
-    },
-};
 export const AXIS_HEIGHT = 270;
 export const CIRCLE_RADIUS = 5;
 export const AXIS_START = Math.floor(yearOf(CAREER_START));
@@ -37,6 +14,35 @@ export const TICK_LABEL_OFFSET = 20;
 export const LINE_TITLE_OFFSET = 2;
 export const LINE_SUBTITLE_OFFSET = 12;
 export const STAGE_PAD = 4;
+export const LABEL_NAME_SIZE = 12.8;
+export const LABEL_NAME_LEADING = 1.15;
+export const LABEL_NAME_LINES = 2;
+export const LABEL_PERIOD_SIZE = 10.24;
+export const LABEL_PERIOD_LEADING = 1.45;
+export const LABEL_GAP = 8;
+export const LABEL_BOX_HEIGHT =
+    LABEL_NAME_LINES * LABEL_NAME_SIZE * LABEL_NAME_LEADING +
+    LABEL_PERIOD_SIZE * LABEL_PERIOD_LEADING;
+export interface Lane {
+    y: number;
+    fill: string;
+    stroke: string;
+    boxOffset: number;
+}
+export const LANES: Record<Field, Lane> = {
+    pedagogy: {
+        y: 70,
+        fill: "fill-ink",
+        stroke: "stroke-ink",
+        boxOffset: -(LABEL_BOX_HEIGHT + LABEL_GAP),
+    },
+    development: {
+        y: 150,
+        fill: "fill-brand",
+        stroke: "stroke-brand",
+        boxOffset: LABEL_GAP,
+    },
+};
 export const TRAINING_ROW_OFFSET = 64;
 export const TRAINING_ROW_GAP = 18;
 export const TRAINING_LABEL_GAP = 8;
