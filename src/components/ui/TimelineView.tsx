@@ -5,15 +5,12 @@ import { cn } from "@/lib/cn";
 import {
     STAGES,
     CAREER_START,
-    DEV_START,
-    PEDAGO_END,
     type Stage,
     Step,
 } from "@/data/timeline";
 import { FIELDS, type Field } from "@/content/fields";
 import {
     TimelinePoint,
-    shapeOf,
     periodOf,
     messageOf,
     overlaps,
