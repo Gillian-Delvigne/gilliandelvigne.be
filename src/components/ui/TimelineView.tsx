@@ -2,20 +2,53 @@
 
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/cn";
-import { STAGES, CAREER_START, DEV_START, PEDAGO_END } from "@/data/timeline";
+import {
+    STAGES,
+    CAREER_START,
+    DEV_START,
+    PEDAGO_END,
+    type Stage,
+    Step,
+} from "@/data/timeline";
 import { FIELDS, type Field } from "@/content/fields";
-import { TimelinePoint, shapeOf, periodOf } from "@/lib/timeline";
+import {
+    TimelinePoint,
+    shapeOf,
+    periodOf,
+    messageOf,
+    overlaps,
+    rowsOf,
+} from "@/lib/timeline";
 import { positionOf } from "@/lib/positionOf";
 import { yearOf } from "@/lib/yearOf";
+import { yearsSince } from "@/lib/yearsSince";
 
 const TIMELINE_WIDTH = 1080;
 const TIMELINE_HEIGHT = 320;
 const GUT = 150;
 const PAD = 20;
-const HEIGHTS: Record<Field, number> = { pedagogy: 70, development: 150 };
-const COLORS: Record<Field, { fill: string; stroke: string }> = {
-    pedagogy: { fill: "fill-ink", stroke: "stroke-ink" },
-    development: { fill: "fill-brand", stroke: "stroke-brand" },
+interface Lane {
+    y: number;
+    fill: string;
+    stroke: string;
+    stageNameOffset: number;
+    stagePeriodOffset: number;
+}
+const LANES: Record<Field, Lane> = {
+    pedagogy: {
+        y: 70,
+        fill: "fill-ink",
+        stroke: "stroke-ink",
+        stageNameOffset: -30,
+        stagePeriodOffset: -16,
+    },
+    development: {
+        y: 150,
+        fill: "fill-brand",
+        stroke: "stroke-brand",
+        stageNameOffset: 24,
+        stagePeriodOffset: 38,
+    },
 };
 const AXIS_HEIGHT = 270;
 const CIRCLE_RADIUS = 5;
@@ -24,6 +57,18 @@ const TICK_LENGTH = 4;
 const TICK_LABEL_OFFSET = 20;
 const LINE_TITLE_OFFSET = 2;
 const LINE_SUBTITLE_OFFSET = 12;
+const STAGE_PAD = 4;
+const TRAINING_ROW_OFFSET = 64;
+const TRAINING_ROW_GAP = 18;
+const TRAINING_LABEL_GAP = 8;
+const TRAINING_LABEL_BASELINE = 4;
+const TRAINING_PERIOD_GAP = 6;
+const TRAINING_STROKE_WIDTH = 2.5;
+const TRAINING_DASH = "2 5";
+const TRAINING_OPACITY = 0.6;
+const GUTTER_PAD = 2;
+const GUTTER_NAME_OFFSET = 24;
+const GUTTER_PERIOD_OFFSET = 38;
 
 export const TimelineView = ({
     points,
@@ -66,20 +111,34 @@ export const TimelineView = ({
         pedagogy: {
             start: CAREER_START.getUTCFullYear(),
             end: pedaEnd.getUTCFullYear(),
-            years: pedaEnd.getUTCFullYear() - CAREER_START.getUTCFullYear(),
+            years: yearsSince(CAREER_START, pedaEnd),
         },
         development: { start: devStart.getUTCFullYear() },
     };
+    const workExperiences = (Object.entries(STAGES) as [Step, Stage][]).filter(
+        ([, stage]) => !stage.training,
+    );
+    const trainings = (Object.entries(STAGES) as [Step, Stage][]).filter(
+        ([, stage]) => stage.training && stage.start >= CAREER_START,
+    );
+    const studies = (Object.entries(STAGES) as [Step, Stage][]).filter(
+        ([, stage]) => stage.training && stage.start < CAREER_START,
+    );
+    const trainingRows = rowsOf(
+        trainings.map(([, stage]) => stage),
+        today,
+    );
 
     return (
         <svg viewBox={viewbox} xmlns="http://www.w3.org/2000/svg">
+            {/* Fields labels (title and subtitle) */}
             {FIELDS.map((field) => (
                 <g key={field}>
                     <text
                         x={0}
-                        y={HEIGHTS[field] - LINE_TITLE_OFFSET}
+                        y={LANES[field].y - LINE_TITLE_OFFSET}
                         className={cn(
-                            COLORS[field].fill,
+                            LANES[field].fill,
                             "uppercase text-2xs font-medium font-mono tracking-label",
                         )}
                     >
@@ -87,7 +146,7 @@ export const TimelineView = ({
                     </text>
                     <text
                         x={0}
-                        y={HEIGHTS[field] + LINE_SUBTITLE_OFFSET}
+                        y={LANES[field].y + LINE_SUBTITLE_OFFSET}
                         className="fill-dim font-mono text-2xs"
                     >
                         {t.rich(`field.${field}.subtitle`, {
@@ -104,22 +163,165 @@ export const TimelineView = ({
                     </text>
                 </g>
             ))}
+            {/* Pedagogy line */}
             <line
                 x1={getPositionOf(
                     yearOf(pedaStart < CAREER_START ? CAREER_START : pedaStart),
                 )}
-                y1={HEIGHTS.pedagogy}
+                y1={LANES.pedagogy.y}
                 x2={getPositionOf(yearOf(pedaEnd))}
-                y2={HEIGHTS.pedagogy}
-                className={COLORS.pedagogy.stroke}
+                y2={LANES.pedagogy.y}
+                className={LANES.pedagogy.stroke}
             />
+
+            {/* Developement line */}
             <line
                 x1={getPositionOf(yearOf(devStart))}
-                y1={HEIGHTS.development}
+                y1={LANES.development.y}
                 x2={getPositionOf(yearOf(devEnd))}
-                y2={HEIGHTS.development}
-                className={COLORS.development.stroke}
+                y2={LANES.development.y}
+                className={LANES.development.stroke}
             />
+
+            {/* Stages (work experience lines, labels)  */}
+            {workExperiences.map(([name, exp]) => {
+                const lane = LANES[exp.field];
+                const isOver = workExperiences.some(
+                    ([, other]) =>
+                        other.field === exp.field &&
+                        other.start < exp.start &&
+                        overlaps(exp, other, today),
+                );
+                const labelX = isOver
+                    ? getPositionOf(yearOf(exp.end ?? today)) - STAGE_PAD
+                    : getPositionOf(yearOf(exp.start)) + STAGE_PAD;
+                const labelAnchor = isOver ? "end" : "start";
+                return (
+                    <g key={name}>
+                        <line
+                            x1={getPositionOf(yearOf(exp.start)) + STAGE_PAD}
+                            x2={
+                                getPositionOf(yearOf(exp.end ?? today)) -
+                                STAGE_PAD
+                            }
+                            y1={lane.y}
+                            y2={lane.y}
+                            className={lane.stroke}
+                            strokeWidth={3}
+                            strokeLinecap="round"
+                            opacity={0.5}
+                        ></line>
+                        <text
+                            x={labelX}
+                            y={lane.y + lane.stageNameOffset}
+                            textAnchor={labelAnchor}
+                            className="fill-ink font-sans font-medium text-xs"
+                        >
+                            {t(`stages.${name}.name`)}
+                        </text>
+                        <text
+                            x={labelX}
+                            y={lane.y + lane.stagePeriodOffset}
+                            textAnchor={labelAnchor}
+                            className="fill-dim font-mono text-2xs"
+                        >
+                            {t(`period`, messageOf(exp, today))}
+                        </text>
+                    </g>
+                );
+            })}
+
+            {trainings.map(([name, training], index) => {
+                const lane = LANES[training.field];
+                const y =
+                    lane.y +
+                    TRAINING_ROW_OFFSET +
+                    trainingRows[index] * TRAINING_ROW_GAP;
+                return (
+                    <g key={name}>
+                        <line
+                            x1={
+                                getPositionOf(yearOf(training.start)) +
+                                STAGE_PAD
+                            }
+                            x2={
+                                getPositionOf(yearOf(training.end ?? today)) -
+                                STAGE_PAD
+                            }
+                            y1={y}
+                            y2={y}
+                            className={lane.stroke}
+                            strokeWidth={TRAINING_STROKE_WIDTH}
+                            strokeDasharray={TRAINING_DASH}
+                            strokeLinecap="round"
+                            opacity={TRAINING_OPACITY}
+                        />
+                        <text
+                            x={
+                                getPositionOf(yearOf(training.start)) -
+                                TRAINING_LABEL_GAP
+                            }
+                            y={y + TRAINING_LABEL_BASELINE}
+                            textAnchor="end"
+                            className="fill-ink font-sans font-medium text-xs"
+                        >
+                            {t(`stages.${name}.name`)}
+                            <tspan
+                                dx={TRAINING_PERIOD_GAP}
+                                className="fill-dim font-mono text-2xs"
+                            >
+                                {t("period", messageOf(training, today))}
+                            </tspan>
+                        </text>
+                    </g>
+                );
+            })}
+
+            {studies.map(([name, study]) => {
+                const lane = LANES[study.field];
+                return (
+                    <g key={name}>
+                        <line
+                            x1={GUT + GUTTER_PAD}
+                            x2={getPositionOf(yearOf(CAREER_START)) - STAGE_PAD}
+                            y1={lane.y}
+                            y2={lane.y}
+                            className={lane.stroke}
+                            strokeWidth={TRAINING_STROKE_WIDTH}
+                            strokeDasharray={TRAINING_DASH}
+                            strokeLinecap="round"
+                            opacity={TRAINING_OPACITY}
+                        />
+                        <text
+                            x={GUT + GUTTER_PAD}
+                            y={lane.y + GUTTER_NAME_OFFSET}
+                            className="fill-ink font-sans font-medium text-xs"
+                        >
+                            {t(`stages.${name}.name`)}
+                        </text>
+                        <text
+                            x={GUT + GUTTER_PAD}
+                            y={lane.y + GUTTER_PERIOD_OFFSET}
+                            className="fill-dim font-mono text-2xs"
+                        >
+                            {t("period", messageOf(study, today))}
+                        </text>
+                    </g>
+                );
+            })}
+
+            {/* Project points */}
+            {points.map((p) => (
+                <circle
+                    key={p.slug}
+                    cx={getPositionOf(p.position)}
+                    cy={LANES[p.field].y}
+                    r={CIRCLE_RADIUS}
+                    className={LANES[p.field].fill}
+                />
+            ))}
+
+            {/* Graduate axis */}
             <line
                 x1={getPositionOf(AXIS_START)}
                 y1={AXIS_HEIGHT}
@@ -127,15 +329,6 @@ export const TimelineView = ({
                 y2={AXIS_HEIGHT}
                 className="stroke-(--line)"
             />
-            {points.map((p) => (
-                <circle
-                    key={p.slug}
-                    cx={getPositionOf(p.position)}
-                    cy={HEIGHTS[p.field]}
-                    r={CIRCLE_RADIUS}
-                    className={COLORS[p.field].fill}
-                />
-            ))}
             {ticks.map((tick) => (
                 <g key={tick}>
                     <line

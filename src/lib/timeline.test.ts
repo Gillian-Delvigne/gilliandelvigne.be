@@ -9,7 +9,9 @@ import {
 } from "@/data/timeline";
 import type { Field } from "@/content/fields";
 import {
+    overlaps,
     periodOf,
+    rowsOf,
     shapeOf,
     shouldLightUp,
     toTimelinePoints,
@@ -170,5 +172,63 @@ describe("periodOf", () => {
         periodOf("development", STAGES, today);
         expect(STAGES.freelance.end).toBeNull();
         expect(STAGES["42-belgium"].end).toBeNull();
+    });
+});
+
+describe("overlaps", () => {
+    const today = new Date("2026-11-27");
+
+    test("Elausys runs inside the freelance years", () => {
+        expect(overlaps(STAGES.elausys, STAGES.freelance, today)).toBe(true);
+        expect(overlaps(STAGES.freelance, STAGES.elausys, today)).toBe(true);
+    });
+
+    test("a stage that starts the day the previous one ends does not overlap", () => {
+        expect(overlaps(STAGES["van-in"], STAGES["red-cross"], today)).toBe(
+            false,
+        );
+    });
+
+    test("an open stage lasts until today", () => {
+        expect(overlaps(STAGES["42-belgium"], STAGES.technobel, today)).toBe(
+            true,
+        );
+    });
+});
+
+describe("rowsOf", () => {
+    const today = new Date("2026-11-27");
+
+    test("two overlapping trainings take two rows", () => {
+        expect(rowsOf([STAGES["42-belgium"], STAGES.technobel], today)).toEqual(
+            [0, 1],
+        );
+    });
+
+    test("stages that follow each other share a row", () => {
+        expect(rowsOf([STAGES["van-in"], STAGES["red-cross"]], today)).toEqual([
+            0, 0,
+        ]);
+    });
+
+    test("the order given does not change the rows", () => {
+        expect(rowsOf([STAGES.technobel, STAGES["42-belgium"]], today)).toEqual(
+            [1, 0],
+        );
+    });
+
+    test("a row freed by an ended stage is used again", () => {
+        expect(
+            rowsOf(
+                [STAGES["van-in"], STAGES.editorial, STAGES["red-cross"]],
+                today,
+            ),
+        ).toEqual([0, 0, 0]);
+        expect(
+            rowsOf(
+                [STAGES["ulb-cpfb"], STAGES.freelance, STAGES["42-belgium"]],
+                today,
+            ),
+        ).toEqual([0, 1, 0]);
     });
 });

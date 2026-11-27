@@ -70,3 +70,39 @@ export const periodOf = (
         .toSorted((a, b) => b.end.getTime() - a.end.getTime());
     return { start: ascStages[0].start, end: descStages[0].end };
 };
+
+export const messageOf = (
+    stage: Stage,
+    today: Date = new Date(),
+): { training: "true" | "false"; shape: Shape; start: number; end: number } => {
+    return {
+        training: stage.training ? "true" : "false",
+        shape: shapeOf(stage),
+        start: stage.start.getUTCFullYear(),
+        end: (stage.end ?? today).getUTCFullYear(),
+    };
+};
+
+export const overlaps = (
+    a: Stage,
+    b: Stage,
+    today: Date = new Date(),
+): boolean => a.start < (b.end ?? today) && b.start < (a.end ?? today);
+
+export const rowsOf = (stages: Stage[], today: Date = new Date()): number[] => {
+    const order = stages
+        .map((_, index) => index)
+        .toSorted(
+            (a, b) => stages[a].start.getTime() - stages[b].start.getTime(),
+        );
+    const rowEnds: Date[] = [];
+    const rows: number[] = [];
+    for (const index of order) {
+        const stage = stages[index];
+        const free = rowEnds.findIndex((end) => end <= stage.start);
+        const row = free === -1 ? rowEnds.length : free;
+        rowEnds[row] = stage.end ?? today;
+        rows[index] = row;
+    }
+    return rows;
+};
