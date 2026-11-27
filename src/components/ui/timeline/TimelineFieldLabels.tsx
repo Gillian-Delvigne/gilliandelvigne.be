@@ -50,7 +50,7 @@ export const TimelineFieldLabels = ({ today }: { today: Date }) => {
                         })}
                     </text>
                 </g>
-            ))}{" "}
+            ))}
         </g>
     );
 };
