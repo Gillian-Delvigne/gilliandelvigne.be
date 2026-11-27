@@ -1,5 +1,4 @@
 import { Locale } from "@/content";
-import { STAGES, TURNS } from "@/data/timeline";
 import { toTimelinePoints } from "@/lib/timeline";
 import { getProjects } from "@/content";
 import { TimelineView } from "./TimelineView";
