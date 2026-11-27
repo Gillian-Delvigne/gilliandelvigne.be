@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { STAGES, CAREER_START, TURNS, type Stage, Step } from "@/data/timeline";
+import { STAGES, CAREER_START, type Stage, Step } from "@/data/timeline";
 import {
     TimelinePoint,
     periodOf,
@@ -30,11 +30,11 @@ import {
     GUTTER_PAD,
     GUTTER_NAME_OFFSET,
     GUTTER_PERIOD_OFFSET,
-    TURN_CN,
 } from "./layout";
 import { TimelineFieldLabels } from "./TimelineFieldLabels";
 import { TimelinePoints } from "./TimelinePoints";
 import { TimelineAxis } from "./TimelineAxis";
+import { TimelineTurns } from "./TimelineTurns";
 
 export const TimelineView = ({
     points,
@@ -247,26 +247,7 @@ export const TimelineView = ({
 
                 <TimelineAxis today={today} getPositionOf={getPositionOf} />
             </svg>
-            <div>
-                <p className="mt-7 font-mono font-medium text-2xs tracking-label uppercase text-dim">
-                    {t("turns.heading")}
-                    <span className="normal-case tracking-normal opacity-80">
-                        {t("turns.hint")}
-                    </span>
-                </p>
-                <ol className="mt-3 grid grid-cols-3 gap-7">
-                    {TURNS.map((turn, index) => (
-                        <li key={turn.name}>
-                            <button className={TURN_CN.btn}>
-                                <span className={TURN_CN.nb}>{index + 1}</span>
-                                <span className={TURN_CN.period}>
-                                    {t("period", messageOf(turn, today))}
-                                </span>
-                            </button>
-                        </li>
-                    ))}
-                </ol>
-            </div>
+            <TimelineTurns today={today} />
         </div>
     );
 };
