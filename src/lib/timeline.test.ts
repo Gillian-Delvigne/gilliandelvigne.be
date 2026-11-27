@@ -5,6 +5,7 @@ import {
     STAGES,
     DEV_START,
     PEDAGO_END,
+    type Stage,
     type TurnName,
 } from "@/data/timeline";
 import type { Field } from "@/content/fields";
@@ -198,37 +199,55 @@ describe("overlaps", () => {
 
 describe("rowsOf", () => {
     const today = new Date("2026-11-27");
+    const intervalOf = (stage: Stage) => ({
+        start: stage.start.getTime(),
+        end: (stage.end ?? today).getTime(),
+    });
 
     test("two overlapping trainings take two rows", () => {
-        expect(rowsOf([STAGES["42-belgium"], STAGES.technobel], today)).toEqual(
-            [0, 1],
-        );
+        expect(
+            rowsOf([STAGES["42-belgium"], STAGES.technobel].map(intervalOf)),
+        ).toEqual([0, 1]);
     });
 
     test("stages that follow each other share a row", () => {
-        expect(rowsOf([STAGES["van-in"], STAGES["red-cross"]], today)).toEqual([
-            0, 0,
-        ]);
+        expect(
+            rowsOf([STAGES["van-in"], STAGES["red-cross"]].map(intervalOf)),
+        ).toEqual([0, 0]);
     });
 
     test("the order given does not change the rows", () => {
-        expect(rowsOf([STAGES.technobel, STAGES["42-belgium"]], today)).toEqual(
-            [1, 0],
-        );
+        expect(
+            rowsOf([STAGES.technobel, STAGES["42-belgium"]].map(intervalOf)),
+        ).toEqual([1, 0]);
     });
 
     test("a row freed by an ended stage is used again", () => {
         expect(
             rowsOf(
-                [STAGES["van-in"], STAGES.editorial, STAGES["red-cross"]],
-                today,
+                [STAGES["van-in"], STAGES.editorial, STAGES["red-cross"]].map(
+                    intervalOf,
+                ),
             ),
         ).toEqual([0, 0, 0]);
         expect(
             rowsOf(
-                [STAGES["ulb-cpfb"], STAGES.freelance, STAGES["42-belgium"]],
-                today,
+                [
+                    STAGES["ulb-cpfb"],
+                    STAGES.freelance,
+                    STAGES["42-belgium"],
+                ].map(intervalOf),
             ),
+        ).toEqual([0, 1, 0]);
+    });
+
+    test("plain numbers, as for points on the timeline", () => {
+        expect(
+            rowsOf([
+                { start: 0, end: 10 },
+                { start: 5, end: 15 },
+                { start: 10, end: 20 },
+            ]),
         ).toEqual([0, 1, 0]);
     });
 });

@@ -13,8 +13,8 @@ export interface TimelinePoint {
     slug: Project["slug"]; // from project frontmatter
     stages: Project["stages"]; // from project frontmatter
 }
-
 type Shape = "range" | "since" | "single";
+type Interval = { start: number; end: number };
 
 export const toTimelinePoints = (projects: Project[]): TimelinePoint[] => {
     const projectByDate = projects.toSorted((a, b) =>
@@ -83,25 +83,20 @@ export const messageOf = (
     };
 };
 
-export const overlaps = (
-    a: Stage,
-    b: Stage,
-    today: Date,
-): boolean => a.start < (b.end ?? today) && b.start < (a.end ?? today);
+export const overlaps = (a: Stage, b: Stage, today: Date): boolean =>
+    a.start < (b.end ?? today) && b.start < (a.end ?? today);
 
-export const rowsOf = (stages: Stage[], today: Date): number[] => {
-    const order = stages
+export const rowsOf = (intervals: Interval[]): number[] => {
+    const order = intervals
         .map((_, index) => index)
-        .toSorted(
-            (a, b) => stages[a].start.getTime() - stages[b].start.getTime(),
-        );
-    const rowEnds: Date[] = [];
+        .toSorted((a, b) => intervals[a].start - intervals[b].start);
+    const rowEnds: number[] = [];
     const rows: number[] = [];
     for (const index of order) {
-        const stage = stages[index];
-        const free = rowEnds.findIndex((end) => end <= stage.start);
+        const interval = intervals[index];
+        const free = rowEnds.findIndex((end) => end <= interval.start);
         const row = free === -1 ? rowEnds.length : free;
-        rowEnds[row] = stage.end ?? today;
+        rowEnds[row] = interval.end;
         rows[index] = row;
     }
     return rows;

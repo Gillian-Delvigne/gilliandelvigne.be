@@ -48,8 +48,10 @@ export const TimelineStages = ({
         ([, stage]) => stage.training && stage.start < CAREER_START,
     );
     const trainingRows = rowsOf(
-        trainings.map(([, stage]) => stage),
-        today,
+        trainings.map(([, stage]) => ({
+            start: stage.start.getTime(),
+            end: (stage.end ?? today).getTime(),
+        })),
     );
 
     return (
