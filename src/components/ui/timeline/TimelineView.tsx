@@ -18,7 +18,6 @@ import {
     PAD,
     LANES,
     AXIS_HEIGHT,
-    CIRCLE_RADIUS,
     AXIS_START,
     TICK_LENGTH,
     TICK_LABEL_OFFSET,
@@ -37,6 +36,7 @@ import {
     TURN_CN,
 } from "./layout";
 import { TimelineFieldLabels } from "./TimelineFieldLabels";
+import { TimelinePoints } from "./TimelinePoints";
 
 export const TimelineView = ({
     points,
@@ -249,16 +249,10 @@ export const TimelineView = ({
                     );
                 })}
 
-                {/* Project points */}
-                {points.map((p) => (
-                    <circle
-                        key={p.slug}
-                        cx={getPositionOf(p.position)}
-                        cy={LANES[p.field].y}
-                        r={CIRCLE_RADIUS}
-                        className={LANES[p.field].fill}
-                    />
-                ))}
+                <TimelinePoints
+                    points={points}
+                    getPositionOf={getPositionOf}
+                />
 
                 {/* Graduate axis */}
                 <line
